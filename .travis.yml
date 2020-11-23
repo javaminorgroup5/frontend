@@ -11,4 +11,5 @@ cache:
     - ./node_modules
 
 install:
-  - npm install
+  # travis_wait is for 20 min without output
+  - travis_wait 20 npm install
