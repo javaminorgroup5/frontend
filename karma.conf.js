@@ -30,6 +30,23 @@ module.exports = function (config) {
     autoWatch: true,
     browsers: ['Chrome'],
     singleRun: false,
-    restartOnFileChange: true
+    restartOnFileChange: true,
+
+    // This is the new content for your travis-ci configuration test
+    //  Custom launcher for Travis-CI
+    customLaunchers: {
+      Chrome_travis_ci: {
+        base: 'Chrome',
+        flags: ['--no-sandbox']
+      }
+    },
+
+    // Continuous Integration mode
+    // if true, it capture browsers, run tests and exit
+    singleRun: true
   });
+  
+  if(process.env.TRAVIS){
+    config.browsers = ['Chrome_travis_ci'];
+  }
 };
