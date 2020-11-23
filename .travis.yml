@@ -1,20 +1,11 @@
 dist: trusty
+sudo: false
 
-# Set DISPLAY for Xvfb
-env:
-  - DISPLAY=:99.0
-
-# Use APT Addon to install Chrome
 addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
-
-# Start Xvfb so you can run headless Chrome
-before_install:
-  - sh -e /etc/init.d/xvfb start
+  chrome: stable
+before_script:
+  - "sudo chown root /opt/google/chrome/chrome-sandbox"
+  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
 
 language: node_js
 node_js:
@@ -25,5 +16,4 @@ cache:
     - ./node_modules
 
 install:
-  # travis_wait is for 20 min without output
-  - travis_wait 20 npm install
+  - npm install
