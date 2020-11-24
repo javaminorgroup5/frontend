@@ -8,8 +8,8 @@ before_script:
   - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
 
 language: node_js
-node_js:
-  - '16'
+import:
+  - nodejs/ci-config-travis:lts/gte-10.yml
 
 cache:
   directories:
