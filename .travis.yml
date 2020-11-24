@@ -15,5 +15,5 @@ cache:
   directories:
     - ./node_modules
 
-install:
-  - npm test
+#install:
+#  - npm test
