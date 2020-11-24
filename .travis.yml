@@ -9,7 +9,7 @@ before_script:
 
 language: node_js
 node_js:
-  - '15.3.0'
+  - '14'
 
 cache:
   directories:
