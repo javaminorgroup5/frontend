@@ -1,22 +1,11 @@
-dist: trusty
-sudo: false
-
-addons:
-  chrome: stable
-before_script:
-  - "sudo chown root /opt/google/chrome/chrome-sandbox"
-  - "sudo chmod 4755 /opt/google/chrome/chrome-sandbox"
-
 language: node_js
 node_js:
-  - '10'
+  - "14"
 
+# Cache node_modules
 cache:
   directories:
-    - ./node_modules
-
-before_install:
-  - npm install npm@latest -g
+    - "node_modules"
 
 install:
-  - npm test
+  - npm install
