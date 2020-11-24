@@ -7,8 +7,9 @@ cache:
   directories:
     - "node_modules"
 
-#install:
-#  - npm install
+before_script:
+  - npm install -g @angular/cli
 
 script:
-  - npm test
+  - ng build
+  - ng test
