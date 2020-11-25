@@ -1,0 +1,26 @@
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#register-form-card {
+  box-shadow: 0 3px 8px #000;
+  padding: 1rem;
+  width: 30%;
+}
+
+#register-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacing-bottom {
+  margin-bottom: 1rem;
+}
