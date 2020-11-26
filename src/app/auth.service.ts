@@ -5,9 +5,15 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root",
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  httpClient;
 
-  login(): void {}
+  constructor(private http: HttpClient) {
+    this.httpClient = http;
+  }
+
+  login(): void {
+    this.httpClient.get('http://localhost:8080/users');
+  }
 
   register(): void {}
 }
