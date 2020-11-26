@@ -1,14 +1,36 @@
-body {
+#register {
   display: flex;
   justify-content: center;
   align-items: center;
   height: 100vh;
+  background-color: #1B1464;
 }
 
 #register-form-card {
   box-shadow: 0 3px 8px #000000;
-  padding: 1rem;
-  width: 30%;
+  background-color: #FFFFFF;
+  padding: 2rem;
+  width: 25%;
+  border-radius: .5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  #register-form-card {
+    box-shadow: none;
+    background-color: transparent;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  #register-form-card {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #register-form-card {
+    width: 100%;
+  }
 }
 
 #register-form {
