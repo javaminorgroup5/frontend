@@ -1,6 +1,12 @@
 import { Component, OnInit } from "@angular/core";
 import { FormBuilder } from "@angular/forms";
+import { Router } from "@angular/router";
 import { AuthService } from "../auth.service";
+
+interface FormData {
+  email: string;
+  password: string;
+}
 
 @Component({
   selector: "app-login",
@@ -13,18 +19,28 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: "",
       password: "",
     });
-    this.login = authService.login();
+    this.login = authService.login;
   }
 
   ngOnInit(): void {}
 
-  onSubmit(event: any) {
-    this.authService.login();
+  async onSubmit(formData: FormData) {
+    const result = await this.authService.login(
+      formData.email,
+      formData.password
+    );
+
+    if (result === "OK") {
+      this.router.navigate(["me"]);
+      sessionStorage.setItem('email', formData.email);
+      sessionStorage.setItem('password', formData.password);
+    }
   }
 }

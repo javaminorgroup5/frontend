@@ -5,14 +5,17 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root",
 })
 export class AuthService {
-  httpClient;
+  constructor(private http: HttpClient) {}
 
-  constructor(private http: HttpClient) {
-    this.httpClient = http;
-  }
-
-  login(): void {
-    this.httpClient.get('http://localhost:8080/users');
+  async login(email: string, password: string): Promise<Object> {
+    return await this.http
+      .get("http://localhost:8080/users/login", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Basic " + btoa(`${email}:${password}`),
+        },
+      })
+      .toPromise();
   }
 
   register(): void {}
