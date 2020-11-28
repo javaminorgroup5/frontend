@@ -15,7 +15,6 @@ interface FormData {
 })
 export class LoginComponent implements OnInit {
   loginForm;
-  login;
 
   constructor(
     private authService: AuthService,
@@ -26,7 +25,6 @@ export class LoginComponent implements OnInit {
       email: "",
       password: "",
     });
-    this.login = authService.login;
   }
 
   ngOnInit(): void {}
