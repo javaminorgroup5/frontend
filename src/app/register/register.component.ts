@@ -23,6 +23,6 @@ export class RegisterComponent implements OnInit {
   }
 
   onSubmit(event: any) {
-    console.log(event)
+    console.log(event);
   }
 }
