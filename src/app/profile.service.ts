@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 
 @Injectable({
@@ -12,7 +12,7 @@ export class ProfileService {
     const password = sessionStorage.getItem("password");
 
     return await this.http
-      .get("http://localhost:8080/users/" + id, {
+      .get(`http://localhost:8080/${id}/profile`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Basic " + btoa(`${email}:${password}`),
