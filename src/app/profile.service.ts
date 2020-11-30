@@ -12,7 +12,7 @@ export class ProfileService {
     const password = sessionStorage.getItem("password");
 
     return await this.http
-      .get(`http://localhost:8080/${id}/profile`, {
+      .get(`http://localhost:8080/profiles/${id}`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: "Basic " + btoa(`${email}:${password}`),
