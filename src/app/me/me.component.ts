@@ -12,7 +12,9 @@ export class MeComponent implements OnInit {
   constructor(private profileService: ProfileService) {}
 
   ngOnInit(): void {
-    this.profileService.getUser(1).then((value) => {
+    const userId = sessionStorage.getItem('userId');
+
+    this.profileService.getUser(parseInt(userId || '')).then((value) => {
       this.profile = value;
     });
   }
