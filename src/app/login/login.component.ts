@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(event: any) {
+  set onSubmit(event: any) {
     this.authService.login();
   }
 }

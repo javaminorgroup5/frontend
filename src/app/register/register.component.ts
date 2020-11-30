@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(event: any) {
+  set onSubmit(event: any) {
     console.log(event);
   }
 }
