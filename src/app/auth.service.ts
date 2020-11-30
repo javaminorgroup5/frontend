@@ -9,10 +9,10 @@ export class AuthService {
 
   async login(email: string, password: string): Promise<Object> {
     return await this.http
-      .get("http://localhost:8080/users/login", {
+      .get('http://localhost:8080/users/login', {
         headers: {
-          "Content-Type": "application/json",
-          Authorization: "Basic " + btoa(`${email}:${password}`),
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa(`${email}:${password}`),
         },
       })
       .toPromise();
