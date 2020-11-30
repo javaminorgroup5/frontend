@@ -7,7 +7,7 @@ import { HttpClient } from '@angular/common/http';
 export class AuthService {
   constructor(private http: HttpClient) {}
 
-  async login(email: string, password: string): Promise<Object> {
+  async login(email: string, password: string): Promise<any> {
     return await this.http
       .get('http://localhost:8080/users/login', {
         headers: {

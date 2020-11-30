@@ -1,13 +1,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
+type Profile = {
+  id: string
+  username: string
+  profilePicture: string
+};
+
 @Injectable({
   providedIn: 'root',
 })
 export class ProfileService {
   constructor(private http: HttpClient) {}
 
-  async getUser(id?: number): Promise<Object> {
+  async getUser(id?: number): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
 

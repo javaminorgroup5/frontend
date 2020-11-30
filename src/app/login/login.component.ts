@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  async onSubmit(formData: FormData) {
+  async onSubmit(formData: FormData): Promise<void> {
     const result = await this.authService.login(
       formData.email,
       formData.password
