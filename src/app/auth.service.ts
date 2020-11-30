@@ -18,5 +18,24 @@ export class AuthService {
       .toPromise();
   }
 
-  register(): void {}
+  async register(
+    username: string,
+    password: string,
+    profileName: string,
+    profilePicture: string
+  ): Promise<any> {
+    const body = JSON.stringify({
+      username,
+      password,
+      role: 'USER',
+      profile: { profileName, profilePicture },
+    });
+    return await this.http
+      .post('http://localhost:8080/users/create', body, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+      .toPromise();
+  }
 }
