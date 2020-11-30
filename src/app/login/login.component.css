@@ -1,0 +1,48 @@
+#login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #0652DD;
+}
+
+#login-form-card {
+  box-shadow: 0 3px 8px #000000;
+  background-color: #FFFFFF;
+  padding: 2rem;
+  width: 25%;
+  border-radius: .5rem;
+}
+
+@media only screen and (max-width: 600px) {
+  #login-form-card {
+    box-shadow: none;
+    background-color: transparent;
+  }
+}
+
+@media only screen and (max-width: 1100px) {
+  #login-form-card {
+    width: 50%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  #login-form-card {
+    width: 100%;
+  }
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacing-bottom {
+  margin-bottom: 1rem;
+}
