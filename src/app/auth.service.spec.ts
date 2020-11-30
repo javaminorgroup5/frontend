@@ -17,5 +17,4 @@ describe('AuthService testing', () => {
 
     authService = TestBed.get(AuthService);
   });
-
 });
