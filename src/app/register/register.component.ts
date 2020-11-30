@@ -13,8 +13,8 @@ export class RegisterComponent implements OnInit {
 
   constructor(private authService: AuthService, private formBuilder: FormBuilder) {
     this.registerForm = this.formBuilder.group({
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     });
     this.register = authService.register();
   }
@@ -22,7 +22,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onSubmit(event: any) {
-    console.log(event)
+  set onSubmit(event: any) {
+    console.log(event);
   }
 }
