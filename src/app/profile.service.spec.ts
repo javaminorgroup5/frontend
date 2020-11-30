@@ -1,20 +1,19 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-
-import { AuthService } from './auth.service';
 import { HttpClient } from '@angular/common/http';
 
-describe('AuthService testing', () => {
+import { ProfileService } from './profile.service';
 
-  let authService = AuthService;
+describe('ProfileService testing', () => {
+  let profileService: ProfileService;
 
   beforeAll(() => {
     TestBed.configureTestingModule({
       declarations: [HttpClient],
       imports: [HttpClientTestingModule],
-      providers: [authService]
+      providers: [profileService],
     });
 
-    authService = TestBed.get(AuthService);
+    profileService = TestBed.inject(ProfileService);
   });
 });
