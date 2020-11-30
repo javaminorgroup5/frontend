@@ -1,15 +1,18 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AuthService {
+export class ProfileService {
   constructor(private http: HttpClient) {}
 
-  async login(email: string, password: string): Promise<any> {
+  async getUser(id?: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+
     return await this.http
-      .get('http://localhost:8080/users/login', {
+      .get(`http://localhost:8080/users/${id}/profile`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Basic ' + btoa(`${email}:${password}`),
@@ -17,6 +20,4 @@ export class AuthService {
       })
       .toPromise();
   }
-
-  register(): void {}
 }
