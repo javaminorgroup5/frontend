@@ -11,5 +11,5 @@ before_script:
   - npm install -g @angular/cli
 
 script:
+  - ng lint
   - ng build
-  - ng test
