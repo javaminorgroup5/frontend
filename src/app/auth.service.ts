@@ -18,5 +18,11 @@ export class AuthService {
       .toPromise();
   }
 
-  register(): void {}
+  async register(email: string, password: string): Promise<any> {
+    const endpoint = 'http://localhost:8080/users/create';
+    const headers = { 'Content-Type': 'application/json' };
+    const body = { username: email, password, role: 'COMMUNITY_MANAGER' };
+    return await this.http.post<any>(endpoint, body, { headers })
+        .toPromise();
+  }
 }
