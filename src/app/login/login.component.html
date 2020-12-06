@@ -1,15 +1,20 @@
 <div id="login">
-  <div id="login-form-card">
-  <form id="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm.value)">
-    <div class="input-box spacing-bottom">
-      <label for="email">Email</label>
-      <input id="email" name="email" type="email" formControlName="email" />
+  <div class="card border-primary" style="max-width: 18rem;">
+    <div class="row align-items-center"></div>
+    <div class="col-md-12"></div>
+    <div class="card-header">Meld je aan</div>
+    <div class="card-body text-primary">
+        <form>
+            <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]="email" name="email">
+            </div>
+            <div class="form-group">
+                <input type="password" class="form-control" [(ngModel)]="password" name="password">
+            </div>
+            <!--TODO reove me-->
+            <button type="submit" class="btn btn-primary btn-block" (click)="login()">Aanmelden</button>
+        </form>
+        <!-- <p *ngIf="errorMessage" class="login__error-message">[(ngModel)]="{{errorMessage}}"</p> -->
     </div>
-    <div class="input-box spacing-bottom">
-      <label for="password">Password</label>
-      <input id="password" name="password" type="password" formControlName="password" />
-    </div>
-    <button type="submit">Login</button>
-  </form>
-</div>
+  </div>
 </div>
