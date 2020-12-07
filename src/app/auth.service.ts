@@ -14,7 +14,7 @@ export class AuthService {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
     return await this.http
-      .get( endpoint, { headers })
+      .get<number>( endpoint, { headers })
       .subscribe(response => {
         console.log(response);
       });
