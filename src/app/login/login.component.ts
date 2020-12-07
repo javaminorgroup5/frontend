@@ -31,13 +31,12 @@ export class LoginComponent implements OnInit {
 
   async onSubmit(formData: FormData): Promise<void> {
     try {
-      const result: number = await this.authService.login(
+      const result = await this.authService.login(
         formData.email,
         formData.password
       );
 
       if (result) {
-        console.log(result);
         this.router.navigate(['me']);
         sessionStorage.setItem('userId', result.toString());
         sessionStorage.setItem('email', formData.email);

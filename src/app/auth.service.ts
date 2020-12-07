@@ -11,13 +11,11 @@ export class AuthService {
     const endpoint = 'http://localhost:8080/users/login';
     const headers = {
       'Content-Type': 'application/json',
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+      Authorization: 'Basic ' + btoa(`${email}:${password}`),
     };
     return await this.http
-      .get<number>( endpoint, { headers })
-      .subscribe(response => {
-        console.log(response);
-      });
+      .get<number>(endpoint, { headers })
+      .toPromise();
   }
 
   async register(
