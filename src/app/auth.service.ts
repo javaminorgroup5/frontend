@@ -20,12 +20,24 @@ export class AuthService {
       });
   }
 
-  async register(email: string, password: string): Promise<any> {
-    const endpoint = 'http://localhost:8080/users/create';
-    const headers = { 'Content-Type': 'application/json' };
-    const body = { username: email, password, role: 'COMMUNITY_MANAGER' };
+  async register(
+    username: string,
+    password: string,
+    profileName: string,
+    profilePicture: string
+  ): Promise<any> {
+    const body = JSON.stringify({
+      username,
+      password,
+      role: 'USER',
+      profile: { profileName, profilePicture },
+    });
     return await this.http
-      .post<any>(endpoint, body, { headers })
+      .post('http://localhost:8080/users/create', body, {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
       .toPromise();
   }
 }
