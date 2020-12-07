@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
 import { AuthService } from '../auth.service';
 
 @Component({
@@ -8,21 +7,17 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  registerForm;
-  register;
+  email = '';
+  password = '';
+  errorMessage = '';
+  invalidLogin = false;
 
-  constructor(private authService: AuthService, private formBuilder: FormBuilder) {
-    this.registerForm = this.formBuilder.group({
-      email: '',
-      password: '',
-    });
-    this.register = authService.register();
+  constructor(private authService: AuthService) {}
+
+  ngOnInit(): void {}
+
+  register(): void {
+    this.authService.register(this.email, this.password);
   }
 
-  ngOnInit(): void {
-  }
-
-  set onSubmit(event: any) {
-    console.log(event);
-  }
 }
