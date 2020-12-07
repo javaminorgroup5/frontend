@@ -1,23 +1,27 @@
 <div id="register">
-    <div id="register-form-card">
+  <div class="jumbotron">
+    <h1 class="display-4">Welkom bij Cookclub!</h1>
+    <p class="lead">Maak een account aan om uw recepten te beheren of te delen met anderen.</p>
+    <hr class="my-4">
     <form id="register-form" [formGroup]="registerForm" (ngSubmit)="onSubmit(registerForm.value)">
       <div class="input-box spacing-bottom">
         <label for="email">Email</label>
-        <input id="email" name="email" type="email" formControlName="email" />
+        <input class="form-control" id="email" name="email" type="email" formControlName="email" />
       </div>
       <div class="input-box spacing-bottom">
         <label for="password">Password</label>
-        <input id="password" name="password" type="password" formControlName="password" />
+        <input class="form-control" id="password" name="password" type="password" formControlName="password" />
       </div>
       <div class="input-box spacing-bottom">
         <label for="profileName">Profile name</label>
-        <input id="profileName" name="profileName" type="text" formControlName="profileName" />
+        <input class="form-control" id="profileName" name="profileName" type="text" formControlName="profileName" />
       </div>
       <div class="input-box spacing-bottom">
         <label for="profilePicture">Profile picture url</label>
-        <input id="profilePicture" alt="profilePicture" name="profilePicture" type="text" formControlName="profilePicture" />
+        <input class="form-control" id="profilePicture" alt="profilePicture" name="profilePicture" type="text" formControlName="profilePicture" />
       </div>
-      <button type="submit">Register</button>
+      <button class="btn btn-primary" type="submit">Registreren</button>
+      <button type="button" class="btn btn-link mt-2"><a href="/login">of klik hier om in te loggen</a></button>
     </form>
   </div>
 </div>
