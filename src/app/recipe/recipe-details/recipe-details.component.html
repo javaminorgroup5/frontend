@@ -1,7 +1,7 @@
 <div id="login">
     <div class="jumbotron">
-      <h1 class="display-4">Welkom bij Cookclub!</h1>
-      <p class="lead">Log in om uw recepten te beheren of te delen met anderen.</p>
+      <h1 class="display-4">Voeg een recept toe</h1>
+      <p class="lead">Creer hier uw recept om te delen met anderen.</p>
       <hr class="my-4">
       <form id="login-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm.value)">
         <div class="input-box spacing-bottom">
@@ -17,7 +17,7 @@
             <input class="form-control" id="picture" name="picture" type="text" formControlName="picture" />
           </div>
         <button class="btn btn-primary" type="submit">Opslaan</button>
-        <button type="button" class="btn btn-link mt-2"><a href="/recipe/list">Voeg recept toe</a></button>
+        <button type="button" class="btn btn-link mt-2"><a href="/recipe/list">Recepten</a></button>
       </form>
     </div>
   </div>

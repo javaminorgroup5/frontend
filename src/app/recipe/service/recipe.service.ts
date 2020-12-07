@@ -8,6 +8,7 @@ import { Recipe } from '../model/recipe';
 export class RecipeService {
 
   userId = '';
+  recipes: Recipe[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -24,6 +25,19 @@ export class RecipeService {
       .subscribe(response => {
         console.log(response);
       });
+  }
+
+  async getAllRecipes(): Promise<[]> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+
+    return await this.http
+      .get<[]>(`http://localhost:8080/recipe`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa(`${email}:${password}`),
+        },
+      }).toPromise();
   }
 
 }

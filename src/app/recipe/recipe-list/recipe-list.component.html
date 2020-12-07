@@ -1,1 +1,11 @@
-<p>recipe-list works!</p>
+<ol>
+    <li *ngFor="let recipe of recipes"> 
+        <div class="card" style="width: 18rem;">
+            <img src="https://www.leukerecepten.nl/wp-content/uploads/2017/08/pasta-met-broccoli-en-zalmballetjes.jpg" class="card-img-top" alt="...">   
+            <div class="card-body">
+                <h5 class="card-title">{{ recipe.recipe }} </h5>
+                <p class="card-text">{{ recipe.descripion }} </p>
+            </div>
+        </div>
+    </li>
+ </ol>
