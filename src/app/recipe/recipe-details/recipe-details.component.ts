@@ -90,7 +90,9 @@ async onSubmit(formData: FormData): Promise<void> {
       };
       const uploadImageData = new FormData();
       uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
-      uploadImageData.append('recipe', JSON.stringify(recipe));
+      const recipeObjectString = JSON.stringify(recipe);
+      const recipeBlob = new Blob([recipeObjectString], { type: 'application/json'});
+      uploadImageData.append('recipe', recipeBlob);
       const userId = sessionStorage.getItem('userId');
       if (userId) {
         const result = await this.recipeService.addRecipe(parseInt(userId, 2), uploadImageData);
