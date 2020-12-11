@@ -12,12 +12,11 @@ export class RecipeService {
 
   constructor(private http: HttpClient) {}
 
-  async addRecipe(id: number, recipe: Recipe): Promise<any> {
+  async addRecipe(id: number, recipe: FormData): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
     const endpoint = `http://localhost:8080/recipe/create/${id}`;
     const headers = {
-      'Content-Type': 'application/json',
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
     return await this.http
