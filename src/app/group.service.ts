@@ -21,6 +21,21 @@ export class GroupService {
       .toPromise();
   }
 
+  async joinGroup(groupId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const userId = sessionStorage.getItem('userId') || '';
+    console.log(parseInt(userId), groupId)
+    return await this.http
+      .post(`http://localhost:8080/group/${groupId}/join`, parseInt(userId), {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa(`${email}:${password}`),
+        },
+      })
+      .toPromise();
+  }
+
   async getGroup(id?: number): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
