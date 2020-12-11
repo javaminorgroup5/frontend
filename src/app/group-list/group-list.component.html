@@ -1,0 +1,13 @@
+<div class="list-group container-md">
+  <div class="my-4">
+    <h4>Groepen</h4>
+  </div>
+  <div class="list-group-item list-group-item-action" *ngFor="let group of groups">
+    <div class="d-flex w-100 justify-content-between">
+      <h5 class="mb-1">{{ group.name }}</h5>
+      <button type="button" class="btn btn-primary">Volgen</button>
+    </div>
+    <p class="mb-1">{{ group.description }}</p>
+    <a href="group/{{ group.id }}"><small>Klik om naar de groepspagina te gaan</small></a>
+  </div>
+</div>

@@ -5,11 +5,13 @@ import { LoginComponent } from './login/login.component';
 import { MeComponent } from './me/me.component';
 import { RegisterComponent } from './register/register.component';
 import { GroupComponent } from './group/group.component';
+import { GroupListComponent } from './group-list/group-list.component';
 
 const routes: Routes = [
   {path: 'register', component: RegisterComponent },
   {path: 'login', component: LoginComponent },
   {path: 'me', component: MeComponent },
+  {path: 'group-list', component: GroupListComponent },
   {path: 'group', component: GroupComponent }
 ];
 
