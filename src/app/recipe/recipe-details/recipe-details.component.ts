@@ -44,41 +44,9 @@ export class RecipeDetailsComponent implements OnInit {
         this.selectedFile = event.target.files[0];
   }
 
-  onUpload(): void {
-    console.log(this.selectedFile);
-    const uploadImageData = new FormData();
-    uploadImageData.append('imageFile', this.selectedFile, this.selectedFile.name);
-    // Make a call to the Spring Boot Application to save the image
-    this.httpClient.post('http://localhost:8080/image/upload', uploadImageData, { observe: 'response' })
-      .subscribe((response) => {
-        if (response.status === 200) {
-          this.message = 'Image uploaded successfully';
-        } else {
-          this.message = 'Image not uploaded successfully';
-        }
-      }
-      );
-  }
+  ngOnInit(): void {}
 
-      // Gets called when the user clicks on retieve image button to get the image from back end
-  getImage(): void {
-      // Make a call to Sprinf Boot to get the Image Bytes.
-      this.httpClient.get('http://localhost:8080/image/get/' + this.imageName)
-        .subscribe(
-          res => {
-            this.retrieveResonse = res;
-            this.base64Data = this.retrieveResonse.picByte;
-            this.retrievedImage = 'data:image/jpeg;base64,' + this.base64Data;
-          }
-        );
-    }
-
-
-  //
-ngOnInit(): void {
-  }
-
-async onSubmit(formData: FormData): Promise<void> {
+  async onSubmit(formData: FormData): Promise<void> {
     try {
       console.log(formData.recipe);
       console.log(formData.description);
