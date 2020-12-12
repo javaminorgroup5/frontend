@@ -14,7 +14,12 @@ export class RecipeListComponent implements OnInit {
   constructor(private recipeService: RecipeService) { }
 
   async ngOnInit(): Promise<any> {
-    const result: Recipe[] = await this.recipeService.getAllRecipes();
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) {
+      console.log('user id not found');
+      return;
+    }
+    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId, 2));
     if (result) {
       console.log(result.length);
       for (let i = 0; i < result.length; i++) {
