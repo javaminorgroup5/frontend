@@ -1,7 +1,9 @@
 <ol>
     <li *ngFor="let recipe of recipes"> 
         <div class="card" style="width: 18rem;">
-            <img src="https://www.leukerecepten.nl/wp-content/uploads/2017/08/pasta-met-broccoli-en-zalmballetjes.jpg" class="card-img-top" alt="...">   
+            <div *ngIf="recipe.recipeImage?.picByte !== undefined">
+                <img [src]="recipe.recipeImage?.picByte" class="card-img-top" alt="...">
+            </div>
             <div class="card-body">
                 <h5 class="card-title">{{ recipe.recipe }} </h5>
                 <p class="card-text">{{ recipe.description }} </p>

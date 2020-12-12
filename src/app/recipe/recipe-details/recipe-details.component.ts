@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
 
-1
 import { HttpClient } from '@angular/common/http';
 
 interface FormData {

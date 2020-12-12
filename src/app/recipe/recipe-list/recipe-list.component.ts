@@ -9,14 +9,29 @@ import { Recipe } from '../model/recipe';
 })
 export class RecipeListComponent implements OnInit {
 
-  recipes: Recipe[] = [];
+  recipes: Recipe[] = new Array();
 
   constructor(private recipeService: RecipeService) { }
 
   async ngOnInit(): Promise<any> {
     const result: Recipe[] = await this.recipeService.getAllRecipes();
     if (result) {
-      this.recipes = result;
+      console.log(result.length);
+      for (let i = 0; i < result.length; i++) {
+        console.log(i);
+        const test =
+        {
+          recipe: result[i].recipe, description: result[i].description,
+          recipeImage:
+          {
+            type: result[i].recipeImage?.type,
+            name: result[i].recipeImage?.name,
+            picByte: 'data:image/jpeg;base64,' + result[i].recipeImage?.picByte
+          }
+        };
+        this.recipes.push(test);
+      }
+      console.log(this.recipes);
     }
   }
 
