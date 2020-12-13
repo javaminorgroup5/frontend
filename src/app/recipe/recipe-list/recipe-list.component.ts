@@ -13,7 +13,11 @@ export class RecipeListComponent implements OnInit {
 
   constructor(private recipeService: RecipeService) { }
 
-  async ngOnInit(): Promise<any> {
+  ngOnInit(): void {
+    this.loadRecipes();
+  }
+
+  async loadRecipes(): Promise<any>  {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
@@ -21,23 +25,45 @@ export class RecipeListComponent implements OnInit {
     }
     const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId, 2));
     if (result) {
-      console.log(result.length);
-      for (let i = 0; i < result.length; i++) {
-        console.log(i);
-        const test =
+      for (const r of result) {
+        const recipe =
         {
-          recipe: result[i].recipe, description: result[i].description,
+          id: r.id,
+          recipe: r.recipe,
+          description: r.description,
           recipeImage:
           {
-            type: result[i].recipeImage?.type,
-            name: result[i].recipeImage?.name,
-            picByte: 'data:image/jpeg;base64,' + result[i].recipeImage?.picByte
+            type: r.recipeImage?.type,
+            name: r.recipeImage?.name,
+            picByte: 'data:image/jpeg;base64,' + r.recipeImage?.picByte
           }
         };
-        this.recipes.push(test);
+        this.recipes.push(recipe);
       }
       console.log(this.recipes);
     }
   }
 
+  NumberConverter = (value: any) => {
+    if (value === null || value === undefined || typeof value === 'number') {
+        return value;
+    }
+
+    return parseFloat(value.toString());
+  }
+
+  async deleteRecipe(id: any): Promise<any> {
+    const userId = sessionStorage.getItem('userId');
+    if (!userId) {
+      console.log('user id not found');
+      return;
+    }
+    const result: any = await this.recipeService.deleteRecipe(this.NumberConverter(id), parseInt(userId, 2)).finally();
+    this.loadRecipes();
+    console.log(result);
+  }
+
+  async updateRecipe(id: any): Promise<any> {
+    console.log(id);
+  }
 }

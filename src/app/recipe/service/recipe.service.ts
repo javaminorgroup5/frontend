@@ -26,7 +26,7 @@ export class RecipeService {
       });
   }
 
-  async getAllRecipesByUserId(id: number): Promise<[]> {
+  async getAllRecipesByUserId(id: number): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
 
@@ -39,4 +39,18 @@ export class RecipeService {
       }).toPromise();
   }
 
+  async deleteRecipe(recipeId: number, userId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const endpoint = `http://localhost:8080/recipe/${recipeId}/user/${userId}`
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+    };
+
+    return await this.http
+      .delete<any>(endpoint, {headers})
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
 }

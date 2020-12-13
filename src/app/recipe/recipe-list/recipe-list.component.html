@@ -1,13 +1,16 @@
-<ol>
-    <li *ngFor="let recipe of recipes"> 
-        <div class="card" style="width: 18rem;">
-            <div *ngIf="recipe.recipeImage?.picByte !== undefined">
-                <img [src]="recipe.recipeImage?.picByte" class="card-img-top" alt="...">
-            </div>
-            <div class="card-body">
-                <h5 class="card-title">{{ recipe.recipe }} </h5>
-                <p class="card-text">{{ recipe.description }} </p>
-            </div>
+<div class="table-responsive">
+    <div class="card-group">
+        <div *ngFor="let recipe of recipes" class="card">
+          <img class="card-img-top" [src]="recipe.recipeImage?.picByte" alt="Card image cap">
+          <div class="card-body">
+            <h5 class="card-title">{{ recipe.recipe }}</h5>
+            <p class="card-text">{{ recipe.description }} </p>
+          </div>
+          <div class="card-footer">
+            <small class="text-muted">Last updated 3 mins ago</small>
+          </div>
+          <button type="button" class="btn btn-warning" (click)="updateRecipe(recipe.id)">Update</button>
+            <button type="button" class="btn btn-danger" (click)="deleteRecipe(recipe.id)">Delete</button>
         </div>
-    </li>
- </ol>
+    </div>
+</div>

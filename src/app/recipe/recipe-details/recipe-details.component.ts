@@ -19,20 +19,12 @@ interface FormData {
 export class RecipeDetailsComponent implements OnInit {
 
   selectedFile: any;
-  retrievedImage: any;
-  base64Data: any;
-  retrieveResonse: any;
-  message = '';
-  imageName: any;
-
   recipeForm;
 
   constructor(
     private recipeService: RecipeService,
     private formBuilder: FormBuilder,
     private router: Router,
-    // TODO
-    private httpClient: HttpClient
   ) {
     this.recipeForm = this.formBuilder.group({
       recipe: '',
