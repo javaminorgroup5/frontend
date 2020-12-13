@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
-
-import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 interface FormData {
   recipe: string;
   description: string;
+  title: string;
 }
 
 @Component({
@@ -24,11 +23,12 @@ export class RecipeDetailsComponent implements OnInit {
   constructor(
     private recipeService: RecipeService,
     private formBuilder: FormBuilder,
-    private router: Router,
+    private router: Router
   ) {
     this.recipeForm = this.formBuilder.group({
       recipe: '',
-      description: ''
+      description: '',
+      title: ''
     });
   }
 
@@ -40,13 +40,12 @@ export class RecipeDetailsComponent implements OnInit {
 
   async onSubmit(formData: FormData): Promise<void> {
     try {
-      console.log(formData.recipe);
-      console.log(formData.description);
-      console.log(this.selectedFile.name);
       const recipe: Recipe = {
         recipe: formData.recipe,
         description: formData.description,
+        title: formData.title
       };
+      console.log(recipe);
       const uploadImageData = new FormData();
       uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       const recipeObjectString = JSON.stringify(recipe);
@@ -56,8 +55,7 @@ export class RecipeDetailsComponent implements OnInit {
       if (userId) {
         const result = await this.recipeService.addRecipe(parseInt(userId, 2), uploadImageData);
         if (result) {
-          // TODO
-          // this.router.navigate(['recipe/list']);
+          this.router.navigate(['recipe/list']);
         }
       }
     } catch (error) {

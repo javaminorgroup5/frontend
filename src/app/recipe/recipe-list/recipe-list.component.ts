@@ -31,6 +31,7 @@ export class RecipeListComponent implements OnInit {
           id: r.id,
           recipe: r.recipe,
           description: r.description,
+          title: r.title,
           recipeImage:
           {
             type: r.recipeImage?.type,

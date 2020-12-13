@@ -5,26 +5,28 @@
     <hr class="my-4">
     <form id="login-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm.value)">
       <div class="input-box spacing-bottom">
-        <label for="recipe">Recept</label>
-        <input class="form-control" id="recipe" name="recipe" type="text" formControlName="recipe" />
+        <label for="title">Titel</label>
+        <input class="form-control" id="title" name="title" type="text" formControlName="title" />
       </div>
       <div class="input-box spacing-bottom">
         <label for="description">Omschrijving</label>
         <input class="form-control" id="description" name="description" type="text" formControlName="description" />
       </div>
+      <div class="input-box spacing-bottom">
+        <label for="recipe">Recept</label>
+        <textarea class="form-control" aria-label="With textarea" id="recipe" name="recipe" type="text" formControlName="recipe">
+        </textarea>
+      </div>
+      <div class="custom-file">
+          <div class="container row">
+              <div class="custom-file">
+                  <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML">
+                  <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
+              </div>
+          </div>
+        </div>
       <button class="btn btn-primary" type="submit">Opslaan</button>
-      <button type="button" class="btn btn-link mt-2"><a href="/recipe/list">Recepten</a></button>
+      <button type="button" class="btn btn-link mt-2"><a href="/recipe/list">Toon Recepten</a></button>
     </form>
   </div>
 </div>
-
-<div class="container row">
-      <div class="col-md-12">
-          <h1>Upload Image</h1>
-      </div>
-  </div>
-  <div class="container row">
-      <div class="col-md-6">
-          <input type="file" (change)="onFileChanged($event)">
-      </div>
-  </div>
