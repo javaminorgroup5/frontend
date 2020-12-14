@@ -1,16 +1,14 @@
-<div *ngIf="profile">
-  <h3>{{ profile.profilePicture }}</h3>
-  <h3>{{ profile.profileName }}</h3>
+<body>
+<div *ngIf="profile" class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol-lg-6">
+  <div id="profile-name"> <h3>{{ profile.profileName }}</h3> </div>
+  <div id="profile-picture" class="pl-2"> <img src="{{profile.profilePicture}}" class="avatar"> </div>
 </div>
 
-<div fxFlex="33%" *ngFor="let recipe of recipes">
-  <mat-card class="mat-elevation-z4">
-    <mat-card-header>
-      <mat-card-title>{{ recipe.title }}</mat-card-title>
-    </mat-card-header>
-    <img mat-card-image [src]="recipe.recipeImage?.picByte"/>
-    <mat-card-content>
-      <p>{{ recipe.description }}</p>
-    </mat-card-content>
-  </mat-card>
-</div>
+
+
+<app-update-profile></app-update-profile>
+
+<app-recipe-list></app-recipe-list>
+
+</body>
+

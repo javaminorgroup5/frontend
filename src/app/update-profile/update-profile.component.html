@@ -1,0 +1,19 @@
+<div id="update-profile">
+    <div class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol-lg-6">
+        <h5 class="">Bewerk je profiel!</h5>
+        <hr class="my-4">
+        <form id="update-profile-form" [formGroup]="updateProfileForm" (ngSubmit)="onSubmit(updateProfileForm.value)">
+            <div class="input-box spacing-bottom col-lg-4 ">
+                <label for="profileName">Profielnaam</label>
+                <input class="form-control" id="profileName" name="profileName" type="profileName" formControlName="profileName">
+            </div>
+            <div class="input-box spacing-bottom col-lg-4 mt-4">
+                <label for="profilePicture">Profielfoto</label>
+                <input class="form-control" id="profilePicture" name="profilePicture" type="profilePicture" formControlName="profilePicture">
+            </div>
+            <div class="p-2">
+            <button class="btn btn-primary spacing-bottom ml-1 mt-4" type="submit">Update</button>
+            </div>
+        </form>
+    </div>
+</div>
