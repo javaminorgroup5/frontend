@@ -20,7 +20,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   selectedFile: any;
   recipeForm;
-  recieiId = -1;
+  recipeId = -1;
   recipe: Recipe;
 
   constructor(
@@ -50,8 +50,8 @@ export class RecipeDetailsComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     const userId = sessionStorage.getItem('userId');
     if (id && userId) {
-      this.recieiId = this.commonService.NumberConverter(id);
-      this.loadRecipe(this.recieiId);
+      this.recipeId = this.commonService.NumberConverter(id);
+      this.loadRecipe(this.recipeId);
       console.log(this.recipe);
     }
   }
@@ -98,11 +98,10 @@ export class RecipeDetailsComponent implements OnInit {
       const userId = sessionStorage.getItem('userId');
       if (userId) {
         let result = '';
-        const id = parseInt(userId, 2);
-        if (this.recieiId >= 0) {
-          result = await this.recipeService.updateRecipe(this.recieiId, id, uploadImageData);
+        const id = parseInt(userId, 0);
+        if (this.recipeId >= 0) {
+          result = await this.recipeService.updateRecipe(this.recipeId, id, uploadImageData);
         } else {
-          console.log('test');
           result = await this.recipeService.addRecipe(id, uploadImageData);
         }
         if (result) {
