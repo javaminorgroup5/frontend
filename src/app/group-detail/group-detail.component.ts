@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../group-list/group-list.component';
 import { GroupService } from '../group.service';
 
@@ -14,7 +14,8 @@ export class GroupDetailComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private router: Router
   ) {
     this.userId;
   }
@@ -28,4 +29,10 @@ export class GroupDetailComponent implements OnInit {
     });
   }
 
+  deleteGroup(): void {
+    this.groupService.deleteGroup(this.group?.id).then(() => {
+      alert(`${this.group?.name} verwijderd.`);
+      this.router.navigate(['group-list']);
+    });
+  }
 }
