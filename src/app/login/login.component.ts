@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
 
       if (result) {
         this.router.navigate(['me']);
-        sessionStorage.setItem('userId', result);
+        sessionStorage.setItem('userId', result.toString());
         sessionStorage.setItem('email', formData.email);
         sessionStorage.setItem('password', formData.password);
       }
