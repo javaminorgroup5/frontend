@@ -1,22 +1,3 @@
-/* #recipe {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #0652DD;
-  }
-  
-  #recipe-form {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .input-box {
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .spacing-bottom {
-    margin-bottom: 1rem;
-  }
-   */
+.modal {
+  display: unset;
+}

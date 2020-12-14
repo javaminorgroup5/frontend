@@ -1,13 +1,8 @@
 <div class="recipes">
-  <div class="card mb-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol">
-    <div>
-      <a href="/recipe/details">
-        <button type="button" class="btn btn-primary">
-          Recept toevoegen
-        </button>
-      </a>
-    </div>
-  </div>
+  <button type="button" class="btn btn-primary mb-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol"
+    (click)="handleEditting()">
+    Recept toevoegen
+  </button>
   <div class="card mb-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol">
     <div class="recipe-list">
       <div fxFlex="50%" *ngFor="let recipe of recipes">
@@ -28,3 +23,5 @@
     </div>
   </div>
 </div>
+
+<app-recipe-details *ngIf="openRecipe"></app-recipe-details>

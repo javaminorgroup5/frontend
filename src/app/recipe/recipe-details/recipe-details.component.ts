@@ -56,6 +56,9 @@ export class RecipeDetailsComponent implements OnInit {
     }
   }
 
+  handleClose(): void {
+
+  }
 
   async loadRecipe(recipeiId: number, ): Promise<any>  {
     const userId = sessionStorage.getItem('userId');
@@ -113,5 +116,4 @@ export class RecipeDetailsComponent implements OnInit {
       console.error(error);
     }
   }
-
 }

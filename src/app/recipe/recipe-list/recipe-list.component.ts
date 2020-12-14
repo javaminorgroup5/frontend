@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
 import { Router } from '@angular/router';
@@ -12,6 +12,7 @@ import { CommonService } from 'src/app/common.service';
 export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[] = new Array();
+  openRecipe: boolean = true;
 
   constructor(
     private recipeService: RecipeService,
@@ -21,6 +22,10 @@ export class RecipeListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadRecipes();
+  }
+
+  handleEditting(): void {
+    this.openRecipe = true;
   }
 
   async loadRecipes(): Promise<any>  {
