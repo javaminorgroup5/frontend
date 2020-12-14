@@ -38,17 +38,19 @@ export class GroupService {
   }
 
   async create(
-    groupName: string,
-    groupDescription: string
+    name: string,
+    description: string
   ): Promise<any> {
     const body = JSON.stringify({
-      groupName,
-      groupDescription
+      name,
+      description
     });
 
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
     const userId = sessionStorage.getItem('userId') || '';
+
+    console.log(body);
 
     return await this.http
         .post('http://localhost:8080/group/create/' + parseInt(userId), body, {
