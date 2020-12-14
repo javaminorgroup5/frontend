@@ -17,9 +17,9 @@ export class LoginComponent implements OnInit {
   loginForm;
 
   constructor(
-    private authService: AuthService,
-    private formBuilder: FormBuilder,
-    private router: Router
+      private authService: AuthService,
+      private formBuilder: FormBuilder,
+      private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: '',
@@ -32,13 +32,13 @@ export class LoginComponent implements OnInit {
   async onSubmit(formData: FormData): Promise<void> {
     try {
       const result = await this.authService.login(
-        formData.email,
-        formData.password
+          formData.email,
+          formData.password
       );
 
       if (result) {
         this.router.navigate(['me']);
-        sessionStorage.setItem('userId', result.toString());
+        sessionStorage.setItem('userId', result);
         sessionStorage.setItem('email', formData.email);
         sessionStorage.setItem('password', formData.password);
       }
@@ -46,4 +46,6 @@ export class LoginComponent implements OnInit {
       console.error(error);
     }
   }
+
 }
+
