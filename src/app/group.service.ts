@@ -49,4 +49,29 @@ export class GroupService {
       })
       .toPromise();
   }
+
+  async create(
+    groupName: string,
+    groupDescription: string,
+    groupPicture: string
+  ): Promise<any> {
+    const body = JSON.stringify({
+      groupName,
+      groupDescription,
+      groupPicture,
+    });
+
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const userId = sessionStorage.getItem('userId') || '';
+
+    return await this.http
+        .post('http://localhost:8080/group/create/' + parseInt(userId), body, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${email}:${password}`),
+          },
+        })
+        .toPromise();
+  }
 }

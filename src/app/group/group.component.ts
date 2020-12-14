@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupService} from "../group.service";
+import { FormBuilder } from '@angular/forms';
+import { Router } from '@angular/router';
 
 interface FormData {
-  email: string;
-  password: string;
+  groupName: string,
+  groupDescription: string,
+  groupPicture: string
 }
 
 @Component({
@@ -13,17 +16,42 @@ interface FormData {
 })
 export class GroupComponent implements OnInit {
 
-  group: any;
+  userId: string;
+  groupCreateForm;
 
-  constructor(private groupService: GroupService) {}
+  constructor(
+      private groupService: GroupService,
+      private formBuilder: FormBuilder,
+      private router: Router
+  ) {
+    this.groupCreateForm = this.formBuilder.group({
+      groupName: '',
+      groupPicture: '',
+      groupDescription: ''
+    });
+    this.userId = '';
+  }
 
   ngOnInit(): void {
-    const groupId = "1";
+    this.userId = sessionStorage.getItem('userId') || '';
+  }
 
-    if (groupId) {
-      this.groupService.getGroup(parseInt(groupId, 2)).then((value) => {
-        this.group = value;
-      });
+  async onSubmit(formData: FormData): Promise<void> {
+    console.log(formData);
+    try {
+      const result = await this.groupService.create(
+          formData.groupName,
+          formData.groupDescription,
+          formData.groupPicture
+      );
+
+      if (result) {
+        alert(`You created ${formData.groupName}!`)
+        console.log(result);
+        //this.router.navigate(['group/' + result]);
+      }
+    } catch (error) {
+      console.error(error);
     }
   }
 

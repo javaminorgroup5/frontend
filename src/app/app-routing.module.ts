@@ -12,7 +12,7 @@ const routes: Routes = [
   {path: 'login', component: LoginComponent },
   {path: 'me', component: MeComponent },
   {path: 'group-list', component: GroupListComponent },
-  {path: 'group', component: GroupComponent }
+  {path: 'group/create', component: GroupComponent }
 ];
 
 @NgModule({
