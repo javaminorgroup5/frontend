@@ -39,13 +39,11 @@ export class GroupService {
 
   async create(
     groupName: string,
-    groupDescription: string,
-    groupPicture: string
+    groupDescription: string
   ): Promise<any> {
     const body = JSON.stringify({
       groupName,
-      groupDescription,
-      groupPicture,
+      groupDescription
     });
 
     const email = sessionStorage.getItem('email');
