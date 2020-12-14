@@ -1,20 +1,18 @@
 <div id="group">
   <div class="jumbotron">
-    <h1 class="display-4">Group Create</h1>
+    <h1 class="display-4">Groep aanmaken</h1>
     <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)">
       <div class="input-box spacing-bottom">
-        <label for="groupName">Name</label>
+        <label for="groupName">Naam</label>
         <input class="form-control" id="groupName" name="groupName" type="text" formControlName="groupName" />
       </div>
       <div class="input-box spacing-bottom">
-        <label for="groupDescription">Description</label>
-        <input class="form-control" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription" />
-      </div>
-      <div class="input-box spacing-bottom">
-        <label for="groupPicture">Image</label>
-        <input class="form-control" id="groupPicture" alt="groupPicture" name="groupPicture" type="text" formControlName="groupPicture" />
+        <label for="groupDescription">Beschrijving</label>
+        <textarea class="form-control" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription">
+        </textarea>
       </div>
       <button class="btn btn-primary" type="submit">Creating Group</button>
+      <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht Groepen</a></button>
     </form>
   </div>
 </div>

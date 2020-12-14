@@ -5,8 +5,13 @@ import { Router } from '@angular/router';
 
 interface FormData {
   groupName: string,
-  groupDescription: string,
-  groupPicture: string
+  groupDescription: string
+}
+
+interface GroupImage {
+  type: any;
+  name: any;
+  picByte: any;
 }
 
 @Component({
@@ -26,7 +31,6 @@ export class GroupComponent implements OnInit {
   ) {
     this.groupCreateForm = this.formBuilder.group({
       groupName: '',
-      groupPicture: '',
       groupDescription: ''
     });
     this.userId = '';
@@ -41,8 +45,7 @@ export class GroupComponent implements OnInit {
     try {
       const result = await this.groupService.create(
           formData.groupName,
-          formData.groupDescription,
-          formData.groupPicture
+          formData.groupDescription
       );
 
       if (result) {
