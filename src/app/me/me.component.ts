@@ -9,7 +9,9 @@ import { ProfileService } from '../profile.service';
 export class MeComponent implements OnInit {
   profile: any;
 
-  constructor(private profileService: ProfileService) {}
+  constructor(
+      private profileService: ProfileService,
+  ) {}
 
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');
