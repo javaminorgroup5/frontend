@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { LoginComponent } from './login/login.component';
 import { MeComponent } from './me/me.component';
+import { RecipeDetailsComponent } from './recipe/recipe-details/recipe-details.component';
+import { RecipeListComponent } from './recipe/recipe-list/recipe-list.component';
 import { RegisterComponent } from './register/register.component';
 import { GroupComponent } from './group/group.component';
 import { GroupListComponent } from './group-list/group-list.component';
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'group-list', component: GroupListComponent },
   { path: 'group/create', component: GroupComponent },
   { path: 'group/:groupId', component: GroupDetailComponent },
+  { path: 'recipe/details', component: RecipeDetailsComponent },
+  { path: 'recipe/list', component: RecipeListComponent }
 ];
 
 @NgModule({

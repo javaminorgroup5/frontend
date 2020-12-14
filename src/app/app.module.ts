@@ -12,9 +12,16 @@ import { MeComponent } from './me/me.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GroupListComponent } from './group-list/group-list.component';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
+import { RecipeDetailsComponent } from './recipe/recipe-details/recipe-details.component';
+import { RecipeListComponent } from './recipe/recipe-list/recipe-list.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatCardModule } from '@angular/material/card';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, LoginComponent, MeComponent, GroupComponent, GroupListComponent, GroupDetailComponent],
+  declarations: [AppComponent, RegisterComponent, LoginComponent, MeComponent, RecipeDetailsComponent, RecipeListComponent, GroupComponent, GroupListComponent, GroupDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -22,6 +29,11 @@ import { GroupDetailComponent } from './group-detail/group-detail.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
+    BrowserAnimationsModule,
+    MatCardModule,
+    MatToolbarModule,
+    MatButtonModule,
+    FlexLayoutModule,
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent],

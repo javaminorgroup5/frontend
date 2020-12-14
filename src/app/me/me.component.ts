@@ -13,7 +13,6 @@ export class MeComponent implements OnInit {
 
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');
-
     if (userId) {
       this.profileService.getUser(parseInt(userId, 2)).then((value) => {
         this.profile = value;
