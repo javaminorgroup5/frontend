@@ -42,7 +42,7 @@ export class RecipeService {
   async deleteRecipe(recipeId: number, userId: number): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
-    const endpoint = `http://localhost:8080/recipe/${recipeId}/user/${userId}`
+    const endpoint = `http://localhost:8080/recipe/${recipeId}/user/${userId}`;
     const headers = {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
@@ -53,4 +53,31 @@ export class RecipeService {
         console.log(response);
       });
   }
+
+  async updateRecipe(recipeId: number, userId: number, recipe: FormData): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const endpoint = `http://localhost:8080/recipe/${recipeId}/user/${userId}`;
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+    };
+    return await this.http
+      .put<any>(endpoint, recipe, {headers})
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
+
+  async getRecipe(recipeId: number, userId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const endpoint = `http://localhost:8080/recipe/${recipeId}/user/${userId}`;
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+    };
+    return await this.http
+      .get<Recipe>(endpoint, { headers })
+      .toPromise();
+  }
+
 }

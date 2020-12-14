@@ -6,21 +6,21 @@
     <form id="login-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm.value)">
       <div class="input-box spacing-bottom">
         <label for="title">Titel</label>
-        <input class="form-control" id="title" name="title" type="text" formControlName="title" />
+        <input class="form-control" id="title" name="title" type="text" formControlName="title" value="{{ recipe.title }}" required />
       </div>
       <div class="input-box spacing-bottom">
         <label for="description">Omschrijving</label>
-        <input class="form-control" id="description" name="description" type="text" formControlName="description" />
+        <input class="form-control" id="description" name="description" type="text" formControlName="description" value="{{recipe.description}}" required />
       </div>
       <div class="input-box spacing-bottom">
         <label for="recipe">Recept</label>
-        <textarea class="form-control" aria-label="With textarea" id="recipe" name="recipe" type="text" formControlName="recipe">
+        <textarea class="form-control" aria-label="With textarea" id="recipe" name="recipe" type="text" formControlName="recipe" value="{{recipe.recipe}}" required>
         </textarea>
       </div>
       <div class="custom-file">
           <div class="container row">
               <div class="custom-file">
-                  <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML">
+                  <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>
                   <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
               </div>
           </div>

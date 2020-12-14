@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
+import { Router } from '@angular/router';
+import { CommonService } from 'src/app/common.service';
 
 @Component({
   selector: 'app-recipe-list',
@@ -11,7 +13,11 @@ export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[] = new Array();
 
-  constructor(private recipeService: RecipeService) { }
+  constructor(
+    private recipeService: RecipeService,
+    private router: Router,
+    private commonService: CommonService
+  ) { }
 
   ngOnInit(): void {
     this.loadRecipes();
@@ -45,26 +51,22 @@ export class RecipeListComponent implements OnInit {
     }
   }
 
-  NumberConverter = (value: any) => {
-    if (value === null || value === undefined || typeof value === 'number') {
-        return value;
-    }
-
-    return parseFloat(value.toString());
-  }
-
   async deleteRecipe(id: any): Promise<any> {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
       return;
     }
-    const result: any = await this.recipeService.deleteRecipe(this.NumberConverter(id), parseInt(userId, 2)).finally();
-    this.loadRecipes();
+    const result: any = await this.recipeService.deleteRecipe(this.commonService.NumberConverter(id), parseInt(userId, 2)).finally();
+    this.router.navigate(['recipe/details']);
     console.log(result);
   }
 
   async updateRecipe(id: any): Promise<any> {
-    console.log(id);
+    if (!id) {
+      console.log('user id not found');
+      return;
+    }
+    this.router.navigate(['recipe/details', { id }]);
   }
 }
