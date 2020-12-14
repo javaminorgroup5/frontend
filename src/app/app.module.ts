@@ -11,9 +11,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MeComponent } from './me/me.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { GroupListComponent } from './group-list/group-list.component';
+import { GroupDetailComponent } from './group-detail/group-detail.component';
 
 @NgModule({
-  declarations: [AppComponent, RegisterComponent, LoginComponent, MeComponent, GroupComponent, GroupListComponent],
+  declarations: [AppComponent, RegisterComponent, LoginComponent, MeComponent, GroupComponent, GroupListComponent, GroupDetailComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,

@@ -3,6 +3,7 @@ import { GroupService } from '../group.service';
 
 export type Group = {
   id: number
+  userId: number
   name: string
   description: string
   profiles: any[]
