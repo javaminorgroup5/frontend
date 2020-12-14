@@ -17,6 +17,7 @@ interface FormData {
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+
   registerForm;
 
   constructor(
@@ -47,5 +48,7 @@ export class RegisterComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
+
   }
+
 }

@@ -13,27 +13,13 @@ export class GroupService {
     const password = sessionStorage.getItem('password');
 
     return await this.http
-        .get(`http://localhost:8080/group`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        })
-        .toPromise();
-  }
-
-  async getGroup(groupId: number): Promise<Group> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-
-    return await this.http
-        .get<Group>(`http://localhost:8080/group/${groupId}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        })
-        .toPromise();
+      .get(`http://localhost:8080/group`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa(`${email}:${password}`),
+        },
+      })
+      .toPromise();
   }
 
   async joinGroup(groupId: number): Promise<any> {
@@ -42,7 +28,32 @@ export class GroupService {
     const userId = sessionStorage.getItem('userId') || '';
 
     return await this.http
-        .post(`http://localhost:8080/group/${groupId}/join`, parseInt(userId), {
+      .post(`http://localhost:8080/group/${groupId}/join`, parseInt(userId), {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa(`${email}:${password}`),
+        },
+      })
+      .toPromise();
+  }
+
+  async create(
+    groupName: string,
+    groupDescription: string,
+    groupPicture: string
+  ): Promise<any> {
+    const body = JSON.stringify({
+      groupName,
+      groupDescription,
+      groupPicture,
+    });
+
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const userId = sessionStorage.getItem('userId') || '';
+
+    return await this.http
+        .post('http://localhost:8080/group/create/' + parseInt(userId), body, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: 'Basic ' + btoa(`${email}:${password}`),
@@ -51,17 +62,18 @@ export class GroupService {
         .toPromise();
   }
 
-  // async getGroup(id?: number): Promise<any> {
-  //   const email = sessionStorage.getItem('email');
-  //   const password = sessionStorage.getItem('password');
+    async getGroup(groupId: number): Promise<Group> {
+        const email = sessionStorage.getItem('email');
+        const password = sessionStorage.getItem('password');
 
-  //   return await this.http
-  //     .get(`http://localhost:8080/group/${id}/user/3`, {
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //         Authorization: 'Basic ' + btoa(`${email}:${password}`),
-  //       },
-  //     })
-  //     .toPromise();
-  // }
+        return await this.http
+            .get<Group>(`http://localhost:8080/group/${groupId}`, {
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Basic ' + btoa(`${email}:${password}`),
+                },
+            })
+            .toPromise();
+    }
+
 }
