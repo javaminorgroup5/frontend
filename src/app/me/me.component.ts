@@ -8,6 +8,7 @@ import { ProfileService } from '../profile.service';
 })
 export class MeComponent implements OnInit {
   profile: any;
+  editting: boolean = false;
 
   constructor(
       private profileService: ProfileService,
@@ -16,9 +17,13 @@ export class MeComponent implements OnInit {
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');
     if (userId) {
-      this.profileService.getUser(parseInt(userId, 2)).then((value) => {
+      this.profileService.getUser(parseInt(userId)).then((value) => {
         this.profile = value;
       });
     }
+  }
+
+  enableEditting(): void {
+    this.editting = true;
   }
 }

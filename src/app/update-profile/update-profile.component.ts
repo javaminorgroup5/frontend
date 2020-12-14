@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { Router } from '@angular/router';
 import { ProfileService } from '../profile.service';
 
 interface UpdateProfileFormData {
@@ -17,9 +16,8 @@ export class UpdateProfileComponent implements OnInit {
   updateProfileForm;
 
   constructor(
-      private profileService: ProfileService,
-      private formBuilder: FormBuilder,
-      private router: Router
+    private profileService: ProfileService,
+    private formBuilder: FormBuilder,
   ) {
     this.updateProfileForm = this.formBuilder.group({
       profileName: '',
@@ -32,12 +30,12 @@ export class UpdateProfileComponent implements OnInit {
 
   async onSubmit(updateProfileFormData: UpdateProfileFormData): Promise<void> {
     try {
-   await this.profileService.updateProfile(
-       updateProfileFormData.profileName,
-       updateProfileFormData.profilePicture,
-       );
-    }
-    catch (error) {
+      await this.profileService.updateProfile(
+        updateProfileFormData.profileName,
+        updateProfileFormData.profilePicture,
+      );
+      window.location.reload();
+    } catch (error) {
       console.error(error);
     }
   }

@@ -98,7 +98,7 @@ export class RecipeDetailsComponent implements OnInit {
       const userId = sessionStorage.getItem('userId');
       if (userId) {
         let result = '';
-        const id = parseInt(userId, 2);
+        const id = parseInt(userId);
         if (this.recieiId >= 0) {
           result = await this.recipeService.updateRecipe(this.recieiId, id, uploadImageData);
         } else {

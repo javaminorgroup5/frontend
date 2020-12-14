@@ -1,7 +1,5 @@
 body, html  {
-    height:100vh;
     background-color: #8083c9;
-
 }
 
 #profile-name {display: inline-block; width: 50%}
