@@ -23,6 +23,8 @@ export class GroupComponent implements OnInit {
 
   userId: string;
   groupCreateForm;
+  imageURL = '';
+  selectedFile: any;
 
   constructor(
       private groupService: GroupService,
@@ -57,5 +59,15 @@ export class GroupComponent implements OnInit {
       console.error(error);
     }
   }
+
+  public onFileChanged(event: any): void {
+    this.selectedFile = event.target.files[0];
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+    };
+    reader.readAsDataURL(this.selectedFile);
+}
 
 }

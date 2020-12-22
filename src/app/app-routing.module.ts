@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'group/:groupId', component: GroupDetailComponent },
   { path: 'recipe/details', component: RecipeDetailsComponent },
   { path: 'recipe/list', component: RecipeListComponent },
-  {path: 'update', component: UpdateProfileComponent}
+  { path: 'update', component: UpdateProfileComponent }
 
 ];
 
