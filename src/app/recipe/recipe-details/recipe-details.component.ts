@@ -18,6 +18,7 @@ interface FormData {
 })
 export class RecipeDetailsComponent implements OnInit {
 
+  imageURL = '';
   selectedFile: any;
   recipeForm;
   recieiId = -1;
@@ -43,7 +44,13 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   public onFileChanged(event: any): void {
-        this.selectedFile = event.target.files[0];
+    this.selectedFile = event.target.files[0];
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+    };
+    reader.readAsDataURL(this.selectedFile);
   }
 
   ngOnInit(): void {
@@ -98,7 +105,7 @@ export class RecipeDetailsComponent implements OnInit {
       const userId = sessionStorage.getItem('userId');
       if (userId) {
         let result = '';
-        const id = parseInt(userId);
+        const id = parseInt(userId, 0);
         if (this.recieiId >= 0) {
           result = await this.recipeService.updateRecipe(this.recieiId, id, uploadImageData);
         } else {

@@ -19,6 +19,7 @@ interface FormData {
 export class RegisterComponent implements OnInit {
   selectedFile: any;
   registerForm;
+  imageURL = '';
 
   constructor(
     private authService: AuthService,
@@ -60,7 +61,12 @@ export class RegisterComponent implements OnInit {
 
   public onFileChanged(event: any): void {
       this.selectedFile = event.target.files[0];
-      console.log(this.selectedFile);
+      // File Preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        this.imageURL = reader.result as string;
+      };
+      reader.readAsDataURL(this.selectedFile);
   }
 
 }
