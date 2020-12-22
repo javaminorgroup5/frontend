@@ -51,7 +51,7 @@ export class GroupComponent implements OnInit {
       if (result) {
         alert(`You created ${formData.groupName}!`)
         console.log(result);
-        //this.router.navigate(['group/' + result]);
+        // this.router.navigate(['group/' + result]);
       }
     } catch (error) {
       console.error(error);

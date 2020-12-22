@@ -68,7 +68,7 @@ export class GroupService {
     console.log(body);
 
     return await this.http
-      .post('http://localhost:8080/group/create/' + parseInt(userId), body, {
+      .post('http://localhost:8080/group/create/' + parseInt(userId, 0), body, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Basic ' + btoa(`${email}:${password}`),

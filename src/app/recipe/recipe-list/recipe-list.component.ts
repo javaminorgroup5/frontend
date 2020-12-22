@@ -29,7 +29,7 @@ export class RecipeListComponent implements OnInit {
       console.log('user id not found');
       return;
     }
-    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId));
+    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId, 0));
     if (result) {
       for (const r of result) {
         const recipe =
@@ -56,7 +56,7 @@ export class RecipeListComponent implements OnInit {
       console.log('user id not found');
       return;
     }
-    await this.recipeService.deleteRecipe(this.commonService.NumberConverter(id), parseInt(userId));
+    await this.recipeService.deleteRecipe(this.commonService.NumberConverter(id), parseInt(userId, 0));
     window.location.reload();
   }
 

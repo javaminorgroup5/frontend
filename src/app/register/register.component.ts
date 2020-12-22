@@ -2,13 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
+import { User } from '../recipe/model/user';
 
 
 interface FormData {
   email: string;
   password: string;
   profileName: string;
-  profilePicture: string;
 }
 
 @Component({
@@ -17,6 +17,7 @@ interface FormData {
   styleUrls: ['./register.component.css'],
 })
 export class RegisterComponent implements OnInit {
+  selectedFile: any;
   registerForm;
 
   constructor(
@@ -28,26 +29,38 @@ export class RegisterComponent implements OnInit {
       email: '',
       password: '',
       profileName: '',
-      profilePicture: '',
     });
   }
 
   ngOnInit(): void {}
 
   async onSubmit(formData: FormData): Promise<void> {
-    try {
-      await this.authService.register(
-        formData.email,
-        formData.password,
-        formData.profileName,
-        formData.profilePicture
-      );
 
+    const user: User = {
+      username : formData.email,
+      password : formData.password,
+      role: 'COMMUNITY_MANAGER',
+      profile: {
+        profileName : formData.profileName
+      }
+    };
+
+    const uploadImageData = new FormData();
+    uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
+    const userObjectString = JSON.stringify(user);
+    const userBlob = new Blob([userObjectString], { type: 'application/json'});
+    uploadImageData.append('user', userBlob);
+    try {
+      await this.authService.register(uploadImageData);
       this.router.navigate(['login']);
     } catch (error) {
       console.error(error);
-    }
+      }
+  }
 
+  public onFileChanged(event: any): void {
+      this.selectedFile = event.target.files[0];
+      console.log(this.selectedFile);
   }
 
 }
