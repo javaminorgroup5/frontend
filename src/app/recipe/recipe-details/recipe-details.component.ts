@@ -4,6 +4,7 @@ import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface FormData {
   recipe: string;
@@ -28,7 +29,8 @@ export class RecipeDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private modalService: NgbModal,
   ) {
     this.recipeForm = this.formBuilder.group({
       recipe: '',
@@ -36,14 +38,14 @@ export class RecipeDetailsComponent implements OnInit {
       title: ''
     });
     this.recipe = {
-        recipe: '',
-        description: '',
-        title: ''
-     };
+      recipe: '',
+      description: '',
+      title: ''
+    };
   }
 
   public onFileChanged(event: any): void {
-        this.selectedFile = event.target.files[0];
+    this.selectedFile = event.target.files[0];
   }
 
   ngOnInit(): void {
@@ -55,12 +57,15 @@ export class RecipeDetailsComponent implements OnInit {
       console.log(this.recipe);
     }
   }
-
-  handleClose(): void {
-
+  open(content: any) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
+      // this.closeResult = `Closed with: ${result}`;
+    }, (reason) => {
+      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
+    });
   }
 
-  async loadRecipe(recipeiId: number, ): Promise<any>  {
+  async loadRecipe(recipeiId: number,): Promise<any> {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
@@ -68,22 +73,22 @@ export class RecipeDetailsComponent implements OnInit {
     }
     const result: Recipe = await this.recipeService.getRecipe(recipeiId, this.commonService.NumberConverter(userId));
     if (result) {
-        const recipe =
+      const recipe =
+      {
+        id: result.id,
+        recipe: result.recipe,
+        description: result.description,
+        title: result.title,
+        recipeImage:
         {
-          id: result.id,
-          recipe: result.recipe,
-          description: result.description,
-          title: result.title,
-          recipeImage:
-          {
-            type: result.recipeImage?.type,
-            name: result.recipeImage?.name,
-            picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
-          }
-        };
-        this.recipe = recipe;
-      }
+          type: result.recipeImage?.type,
+          name: result.recipeImage?.name,
+          picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
+        }
+      };
+      this.recipe = recipe;
     }
+  }
 
   async onSubmit(formData: FormData): Promise<void> {
     try {
@@ -96,7 +101,7 @@ export class RecipeDetailsComponent implements OnInit {
       const uploadImageData = new FormData();
       uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       const recipeObjectString = JSON.stringify(recipe);
-      const recipeBlob = new Blob([recipeObjectString], { type: 'application/json'});
+      const recipeBlob = new Blob([recipeObjectString], { type: 'application/json' });
       uploadImageData.append('recipe', recipeBlob);
       const userId = sessionStorage.getItem('userId');
       if (userId) {
