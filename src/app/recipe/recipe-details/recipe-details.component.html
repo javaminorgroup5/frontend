@@ -1,12 +1,12 @@
-<ng-template #content let-modal>
+<div>
   <div class="modal-header">
     <h2 class="modal-title" id="modal-basic-title">Recept toevoegen</h2>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">
-    <form id="login-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm.value)">
+  <form id="login-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm.value)">
+    <div class="modal-body">
       <div class="modal-body">
         <div class="input-box spacing-bottom">
           <label for="title">Titel</label>
@@ -36,11 +36,9 @@
           </div>
         </div>
       </div>
-    </form>
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-outline-dark" (click)="modal.close('Save click')">Save</button>
-  </div>
-</ng-template>
-
-<button class="btn btn-lg btn-outline-primary" (click)="open(content)">Launch demo modal</button>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="btn btn-outline-dark">Save</button>
+    </div>
+  </form>
+</div>

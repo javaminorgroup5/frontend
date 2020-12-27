@@ -4,7 +4,7 @@ import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface FormData {
   recipe: string;
@@ -30,7 +30,7 @@ export class RecipeDetailsComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private commonService: CommonService,
-    private modalService: NgbModal,
+    public activeModal: NgbActiveModal,
   ) {
     this.recipeForm = this.formBuilder.group({
       recipe: '',
@@ -42,6 +42,7 @@ export class RecipeDetailsComponent implements OnInit {
       description: '',
       title: ''
     };
+    this.activeModal = activeModal;
   }
 
   public onFileChanged(event: any): void {
@@ -56,13 +57,6 @@ export class RecipeDetailsComponent implements OnInit {
       this.loadRecipe(this.recieiId);
       console.log(this.recipe);
     }
-  }
-  open(content: any) {
-    this.modalService.open(content, { ariaLabelledBy: 'modal-basic-title' }).result.then((result) => {
-      // this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      // this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
   }
 
   async loadRecipe(recipeiId: number,): Promise<any> {
@@ -97,7 +91,6 @@ export class RecipeDetailsComponent implements OnInit {
         description: formData.description,
         title: formData.title
       };
-      console.log(recipe);
       const uploadImageData = new FormData();
       uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       const recipeObjectString = JSON.stringify(recipe);
@@ -110,11 +103,10 @@ export class RecipeDetailsComponent implements OnInit {
         if (this.recieiId >= 0) {
           result = await this.recipeService.updateRecipe(this.recieiId, id, uploadImageData);
         } else {
-          console.log('test');
           result = await this.recipeService.addRecipe(id, uploadImageData);
         }
         if (result) {
-          this.router.navigate(['recipe/list']);
+          window.location.reload();
         }
       }
     } catch (error) {

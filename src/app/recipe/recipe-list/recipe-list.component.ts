@@ -3,6 +3,9 @@ import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
 import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Subject } from 'rxjs';
+import { RecipeDetailsComponent } from '../recipe-details/recipe-details.component';
 
 @Component({
   selector: 'app-recipe-list',
@@ -12,12 +15,13 @@ import { CommonService } from 'src/app/common.service';
 export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[] = new Array();
-  openRecipe: boolean = true;
+  openRecipe: Subject<boolean> = new Subject();
 
   constructor(
     private recipeService: RecipeService,
     private router: Router,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private modalService: NgbModal,
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +29,8 @@ export class RecipeListComponent implements OnInit {
   }
 
   handleEditting(): void {
-    this.openRecipe = true;
+    const modalRef = this.modalService.open(RecipeDetailsComponent);
+    modalRef.componentInstance.name = 'Recipe details';
   }
 
   async loadRecipes(): Promise<any>  {
