@@ -10,7 +10,7 @@ export class RecipeService {
   userId = '';
   recipes: Recipe[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   async addRecipe(id: number, recipe: FormData): Promise<any> {
     const email = sessionStorage.getItem('email');
@@ -20,7 +20,7 @@ export class RecipeService {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
     return await this.http
-      .post<Recipe>( endpoint, recipe, { headers })
+      .post<Recipe>(endpoint, recipe, { headers })
       .subscribe(response => {
         console.log(response);
       });
@@ -48,7 +48,7 @@ export class RecipeService {
     };
 
     return await this.http
-      .delete<any>(endpoint, {headers})
+      .delete<any>(endpoint, { headers })
       .subscribe(response => {
         console.log(response);
       });
@@ -61,11 +61,10 @@ export class RecipeService {
     const headers = {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
+
     return await this.http
-      .put<any>(endpoint, recipe, {headers})
-      .subscribe(response => {
-        console.log(response);
-      });
+      .put<any>(endpoint, recipe, { headers })
+      .toPromise();
   }
 
   async getRecipe(recipeId: number, userId: number): Promise<any> {

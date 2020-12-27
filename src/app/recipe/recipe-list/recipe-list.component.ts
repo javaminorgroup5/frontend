@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
-import { Router } from '@angular/router';
 import { CommonService } from 'src/app/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -15,11 +14,10 @@ import { RecipeDetailsComponent } from '../recipe-details/recipe-details.compone
 export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[] = new Array();
-  openRecipe: Subject<boolean> = new Subject();
+  recipeId: number = -1;
 
   constructor(
     private recipeService: RecipeService,
-    private router: Router,
     private commonService: CommonService,
     private modalService: NgbModal,
   ) { }
@@ -30,10 +28,10 @@ export class RecipeListComponent implements OnInit {
 
   handleEditting(): void {
     const modalRef = this.modalService.open(RecipeDetailsComponent);
-    modalRef.componentInstance.name = 'Recipe details';
+    modalRef.componentInstance.recipeId = this.recipeId;
   }
 
-  async loadRecipes(): Promise<any>  {
+  async loadRecipes(): Promise<any> {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
@@ -70,11 +68,8 @@ export class RecipeListComponent implements OnInit {
     window.location.reload();
   }
 
-  async updateRecipe(id: any): Promise<any> {
-    if (!id) {
-      console.log('user id not found');
-      return;
-    }
-    this.router.navigate(['recipe/details', { id }]);
+  updateRecipe(id: any): void {
+    this.recipeId = id;
+    this.handleEditting();
   }
 }
