@@ -7,7 +7,7 @@ export type Group = {
   name: string
   description: string
   profiles: any[]
-}
+};
 
 @Component({
   selector: 'app-group-list',
@@ -31,17 +31,17 @@ export class GroupListComponent implements OnInit {
 
   joinGroup(group: Group): void {
     this.groupService.joinGroup(group.id).then(() => {
-      let groups = this.groups
+      const groups = this.groups;
       const indexGroup = groups.findIndex((value) => value.id === group.id);
 
       if (groups[indexGroup].profiles) {
-        groups[indexGroup].profiles.push({ id: this.userId })
+        groups[indexGroup].profiles.push({ id: this.userId });
       } else {
-        groups[indexGroup].profiles = [{ id: this.userId }]
+        groups[indexGroup].profiles = [{ id: this.userId }];
       }
 
-      alert(`You joined ${group.name}!`)
+      alert(`You joined ${group.name}!`);
       this.groups = groups;
-    })
+    });
   }
 }

@@ -12,18 +12,17 @@ export class RecipeService {
 
   constructor(private http: HttpClient) { }
 
-  async addRecipe(id: number, recipe: FormData): Promise<any> {
+  async addRecipe(id: number, recipe: Recipe): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
     const endpoint = `http://localhost:8080/recipe/create/${id}`;
     const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+      Authorization: 'Basic ' + btoa(`${email}:${password}`),
     };
+
     return await this.http
       .post<Recipe>(endpoint, recipe, { headers })
-      .subscribe(response => {
-        console.log(response);
-      });
+      .toPromise();
   }
 
   async getAllRecipesByUserId(id: number): Promise<any> {
@@ -54,7 +53,7 @@ export class RecipeService {
       });
   }
 
-  async updateRecipe(recipeId: number, userId: number, recipe: FormData): Promise<any> {
+  async updateRecipe(recipeId: number, userId: number, recipe: Recipe): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
     const endpoint = `http://localhost:8080/recipe/${recipeId}/user/${userId}`;

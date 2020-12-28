@@ -5,5 +5,5 @@ export interface Recipe {
     title: string;
     recipe: string;
     description: string;
-    recipeImage?: RecipeImage;
+    recipeImage?: string;
 }

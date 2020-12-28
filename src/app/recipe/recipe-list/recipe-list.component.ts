@@ -14,7 +14,7 @@ import { RecipeDetailsComponent } from '../recipe-details/recipe-details.compone
 export class RecipeListComponent implements OnInit {
 
   recipes: Recipe[] = new Array();
-  recipeId: number = -1;
+  recipeId = -1;
 
   constructor(
     private recipeService: RecipeService,
@@ -27,7 +27,7 @@ export class RecipeListComponent implements OnInit {
   }
 
   handleEditting(): void {
-    const modalRef = this.modalService.open(RecipeDetailsComponent);
+    const modalRef = this.modalService.open(RecipeDetailsComponent, { centered: true });
     modalRef.componentInstance.recipeId = this.recipeId;
   }
 
@@ -37,7 +37,8 @@ export class RecipeListComponent implements OnInit {
       console.log('user id not found');
       return;
     }
-    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId));
+    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId, undefined));
+
     if (result) {
       for (const r of result) {
         const recipe =
@@ -46,12 +47,7 @@ export class RecipeListComponent implements OnInit {
           recipe: r.recipe,
           description: r.description,
           title: r.title,
-          recipeImage:
-          {
-            type: r.recipeImage?.type,
-            name: r.recipeImage?.name,
-            picByte: 'data:image/jpeg;base64,' + r.recipeImage?.picByte
-          }
+          recipeImage: r.recipeImage,
         };
         this.recipes.push(recipe);
       }
@@ -64,7 +60,8 @@ export class RecipeListComponent implements OnInit {
       console.log('user id not found');
       return;
     }
-    await this.recipeService.deleteRecipe(this.commonService.NumberConverter(id), parseInt(userId));
+
+    await this.recipeService.deleteRecipe(this.commonService.NumberConverter(id), parseInt(userId, undefined));
     window.location.reload();
   }
 

@@ -5,7 +5,7 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <form id="login-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm.value)">
+  <form id="login-form" [formGroup]="recipeForm" (ngSubmit)="onSubmit(recipeForm.value)" enctype="multipart/form-data">
     <div class="modal-body">
       <div class="modal-body">
         <div class="input-box spacing-bottom">

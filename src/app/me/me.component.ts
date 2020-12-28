@@ -8,16 +8,16 @@ import { ProfileService } from '../profile.service';
 })
 export class MeComponent implements OnInit {
   profile: any;
-  editting: boolean = false;
+  editting = false;
 
   constructor(
-      private profileService: ProfileService,
-  ) {}
+    private profileService: ProfileService,
+  ) { }
 
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');
     if (userId) {
-      this.profileService.getUser(parseInt(userId)).then((value) => {
+      this.profileService.getUser(parseInt(userId, undefined)).then((value) => {
         this.profile = value;
       });
     }

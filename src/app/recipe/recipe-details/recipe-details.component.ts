@@ -18,7 +18,7 @@ interface FormData {
   styleUrls: ['./recipe-details.component.css']
 })
 export class RecipeDetailsComponent implements OnInit {
-  @Input() recipeId: number = -1;
+  @Input() recipeId = -1;
 
   selectedFile: any;
   recipeForm;
@@ -57,7 +57,7 @@ export class RecipeDetailsComponent implements OnInit {
     }
   }
 
-  async loadRecipe(recipeId: number,): Promise<any> {
+  async loadRecipe(recipeId: number): Promise<any> {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
@@ -71,12 +71,7 @@ export class RecipeDetailsComponent implements OnInit {
         recipe: result.recipe,
         description: result.description,
         title: result.title,
-        recipeImage:
-        {
-          type: result.recipeImage?.type,
-          name: result.recipeImage?.name,
-          picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
-        }
+        recipeImage: result.recipeImage,
       };
       this.recipe = recipe;
     }
@@ -84,29 +79,32 @@ export class RecipeDetailsComponent implements OnInit {
 
   async onSubmit(formData: FormData): Promise<void> {
     try {
-      const recipeFormData = new FormData();
+      const recipe: Recipe = { title: formData.title, recipe: formData.recipe, description: formData.description };
       const userId = sessionStorage.getItem('userId');
 
       if (this.selectedFile) {
-        recipeFormData.append('file', this.selectedFile, this.selectedFile.name);
-      }
+        const reader = new FileReader();
 
-      recipeFormData.append('recipe', formData.recipe);
-      recipeFormData.append('description', formData.description);
-      recipeFormData.append('title', formData.title);
+        reader.readAsDataURL(this.selectedFile);
+        reader.onload = async () => {
+          const recipeImage = reader.result as string || '';
 
-      if (userId) {
-        let result = '';
-        const id = parseInt(userId);
+          recipe.recipeImage = recipeImage;
 
-        if (this.recipeId >= 0) {
-          result = await this.recipeService.updateRecipe(this.recipeId, id, recipeFormData);
-        } else {
-          result = await this.recipeService.addRecipe(id, recipeFormData);
-        }
-        if (result) {
-          window.location.reload();
-        }
+          if (userId) {
+            let result = '';
+            const id = parseInt(userId, undefined);
+
+            if (this.recipeId >= 0) {
+              result = await this.recipeService.updateRecipe(this.recipeId, id, recipe);
+            } else {
+              result = await this.recipeService.addRecipe(id, recipe);
+            }
+            if (result) {
+              window.location.reload();
+            }
+          }
+        };
       }
     } catch (error) {
       console.error(error);
