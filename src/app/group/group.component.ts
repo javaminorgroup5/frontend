@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupService} from "../group.service";
+import { GroupService} from '../group.service';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 
 interface FormData {
-  groupName: string,
-  groupDescription: string
+  groupName: string;
+  groupDescription: string;
 }
 
 interface GroupImage {
@@ -51,7 +51,7 @@ export class GroupComponent implements OnInit {
       );
 
       if (result) {
-        alert(`You created ${formData.groupName}!`)
+        alert(`You created ${formData.groupName}!`);
         console.log(result);
         // this.router.navigate(['group/' + result]);
       }

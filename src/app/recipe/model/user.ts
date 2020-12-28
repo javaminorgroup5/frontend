@@ -1,5 +1,3 @@
-import { RecipeImage } from './recipeImage';
-
 export interface User {
     id?: number;
     username: string;

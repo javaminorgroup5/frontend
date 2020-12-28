@@ -16,14 +16,12 @@ export class GroupDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private groupService: GroupService,
     private router: Router
-  ) {
-    this.userId;
-  }
+  ) { }
 
-  ngOnInit() {
-    this.userId = parseInt(sessionStorage.getItem('userId') || '');
+  ngOnInit(): void {
+    this.userId = parseInt(sessionStorage.getItem('userId') || '', undefined);
     this.route.paramMap.subscribe(params => {
-      this.groupService.getGroup(parseInt(params.get('groupId') || '')).then((value) => {
+      this.groupService.getGroup(parseInt(params.get('groupId') || '', undefined)).then((value) => {
         this.group = value;
       });
     });

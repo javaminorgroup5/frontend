@@ -43,7 +43,7 @@ export class GroupService {
     const userId = sessionStorage.getItem('userId') || '';
 
     return await this.http
-      .post(`http://localhost:8080/group/${groupId}/join`, parseInt(userId), {
+      .post(`http://localhost:8080/group/${groupId}/join`, parseInt(userId, undefined), {
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Basic ' + btoa(`${email}:${password}`),
@@ -68,7 +68,7 @@ export class GroupService {
     console.log(body);
 
     return await this.http
-      .post('http://localhost:8080/group/create/' + parseInt(userId, 0), body, {
+      .post('http://localhost:8080/group/create/' + parseInt(userId, undefined), body, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Basic ' + btoa(`${email}:${password}`),
