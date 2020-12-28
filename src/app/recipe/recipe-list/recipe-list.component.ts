@@ -3,7 +3,6 @@ import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
 import { CommonService } from 'src/app/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
 import { RecipeDetailsComponent } from '../recipe-details/recipe-details.component';
 
 @Component({
@@ -23,7 +22,9 @@ export class RecipeListComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadRecipes();
+    this.loadRecipes().then(r => {
+      console.log(r);
+    });
   }
 
   handleEditting(): void {
@@ -31,36 +32,38 @@ export class RecipeListComponent implements OnInit {
     modalRef.componentInstance.recipeId = this.recipeId;
   }
 
-  async loadRecipes(): Promise<any> {
+  async loadRecipes(): Promise<any>  {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
       return;
     }
-    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId, undefined));
-
+    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId, 0));
     if (result) {
       for (const r of result) {
         const recipe =
-        {
-          id: r.id,
-          recipe: r.recipe,
-          description: r.description,
-          title: r.title,
-          recipeImage: r.recipeImage,
-        };
+            {
+              id: r.id,
+              recipe: r.recipe,
+              description: r.description,
+              title: r.title,
+              recipeImage:
+                  {
+                    type: r.recipeImage?.type,
+                    name: r.recipeImage?.name,
+                    picByte: 'data:image/jpeg;base64,' + r.recipeImage?.picByte
+                  }
+            };
         this.recipes.push(recipe);
       }
     }
   }
-
   async deleteRecipe(id: any): Promise<any> {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
       return;
     }
-
     await this.recipeService.deleteRecipe(this.commonService.NumberConverter(id), parseInt(userId, undefined));
     window.location.reload();
   }

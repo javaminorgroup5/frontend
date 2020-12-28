@@ -8,7 +8,7 @@ import { ProfileService } from '../profile.service';
 })
 export class MeComponent implements OnInit {
   profile: any;
-  editting = false;
+  editing = false;
 
   constructor(
     private profileService: ProfileService,
@@ -17,13 +17,15 @@ export class MeComponent implements OnInit {
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');
     if (userId) {
-      this.profileService.getUser(parseInt(userId, undefined)).then((value) => {
+      this.profileService.getProfile(parseInt(userId, 0)).then((value) => {
+        const imageByte = value.profileImage.picByte;
         this.profile = value;
+        this.profile.profileImage.picByte = 'data:image/jpeg;base64,' + imageByte;
       });
     }
   }
 
   enableEditting(): void {
-    this.editting = true;
+    this.editing = true;
   }
 }

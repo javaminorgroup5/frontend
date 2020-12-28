@@ -10,19 +10,20 @@ export class RecipeService {
   userId = '';
   recipes: Recipe[] = [];
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  async addRecipe(id: number, recipe: Recipe): Promise<any> {
+  async addRecipe(id: number, recipe: FormData): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
     const endpoint = `http://localhost:8080/recipe/create/${id}`;
     const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`),
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
-
     return await this.http
-      .post<Recipe>(endpoint, recipe, { headers })
-      .toPromise();
+      .post<Recipe>( endpoint, recipe, { headers })
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 
   async getAllRecipesByUserId(id: number): Promise<any> {
@@ -47,23 +48,24 @@ export class RecipeService {
     };
 
     return await this.http
-      .delete<any>(endpoint, { headers })
+      .delete<any>(endpoint, {headers})
       .subscribe(response => {
         console.log(response);
       });
   }
 
-  async updateRecipe(recipeId: number, userId: number, recipe: Recipe): Promise<any> {
+  async updateRecipe(recipeId: number, userId: number, recipe: FormData): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
     const endpoint = `http://localhost:8080/recipe/${recipeId}/user/${userId}`;
     const headers = {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
-
     return await this.http
-      .put<any>(endpoint, recipe, { headers })
-      .toPromise();
+      .put<any>(endpoint, recipe, {headers})
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 
   async getRecipe(recipeId: number, userId: number): Promise<any> {

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from './recipe/model/user';
 
 @Injectable({
   providedIn: 'root',
@@ -18,24 +19,15 @@ export class AuthService {
       .toPromise();
   }
 
-  async register(
-    username: string,
-    password: string,
-    profileName: string,
-    profilePicture: string
-  ): Promise<any> {
-    const body = JSON.stringify({
-      username,
-      password,
-      role: 'USER',
-      profile: { profileName, profilePicture },
-    });
+  async register(user: FormData): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const endpoint = 'http://localhost:8080/users/create';
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+    };
     return await this.http
-      .post('http://localhost:8080/users/create', body, {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
+      .post<User>(endpoint, user, { headers } )
       .toPromise();
   }
 }
