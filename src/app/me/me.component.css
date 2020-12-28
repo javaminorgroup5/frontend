@@ -1,0 +1,13 @@
+body, html  {
+    background-color: #8083c9;
+}
+
+#profile-name {display: inline-block; width: 50%}
+#profile-picture {display: inline-block; width: 50%}
+
+.avatar {
+    vertical-align: middle;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}

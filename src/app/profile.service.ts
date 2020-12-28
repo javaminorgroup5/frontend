@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class ProfileService {
   constructor(private http: HttpClient) {}
 
-  async getUser(id?: number): Promise<any> {
+  async getProfile(id?: number): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
 
@@ -19,5 +19,24 @@ export class ProfileService {
         },
       })
       .toPromise();
+  }
+
+  async updateProfile(profileName: string, profilePicture: string): Promise<any> {
+    {
+      const email = sessionStorage.getItem('email');
+      const password = sessionStorage.getItem('password');
+      const id = sessionStorage.getItem('userId');
+      const body = JSON.stringify({
+         profileName, profilePicture
+      });
+      return await this.http
+          .put(`http://localhost:8080/users/${id}/profile`, body, {
+            headers: {
+              'Content-Type': 'application/json',
+                Authorization: 'Basic ' + btoa(`${email}:${password}`),
+            },
+          })
+          .toPromise();
+    }
   }
 }

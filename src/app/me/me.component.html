@@ -1,4 +1,12 @@
-<div *ngIf="profile">
-  <h3>{{ profile.profilePicture }}</h3>
-  <h3>{{ profile.profileName }}</h3>
+<body>
+<div *ngIf="profile" class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol-lg-6">
+  <img class="image" mat-card-image [src]="profile.profileImage?.picByte" />
+  <div id="profile-name"> <h3>{{ profile.profileName }}</h3> </div>
 </div>
+
+
+  <app-update-profile *ngIf="editting"></app-update-profile>
+
+  <app-recipe-list></app-recipe-list>
+
+</body>
