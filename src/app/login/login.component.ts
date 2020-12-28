@@ -14,18 +14,36 @@ interface FormData {
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent implements OnInit {
-  email = '';
-  password = '';
-  errorMessage = '';
-  invalidLogin = false;
+  loginForm;
 
-  constructor(private authService: AuthService) {}
-
+  constructor(
+    private authService: AuthService,
+    private formBuilder: FormBuilder,
+    private router: Router
+  ) {
+    this.loginForm = this.formBuilder.group({
+      email: '',
+      password: '',
+    });
+  }
 
   ngOnInit(): void {}
 
-  login(): void {
-    this.authService.login(this.email, this.password);
-  }
+  async onSubmit(formData: FormData): Promise<void> {
+    try {
+      const result = await this.authService.login(
+        formData.email,
+        formData.password
+      );
 
+      if (result) {
+        this.router.navigate(['me']);
+        sessionStorage.setItem('userId', result.toString());
+        sessionStorage.setItem('email', formData.email);
+        sessionStorage.setItem('password', formData.password);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }
 }
