@@ -18,6 +18,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -29,7 +31,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     GroupComponent,
     GroupListComponent,
     GroupDetailComponent,
-    UpdateProfileComponent],
+    UpdateProfileComponent,
+    RecipeViewComponent,
+    HomeComponent],
 
   imports: [
     BrowserModule,

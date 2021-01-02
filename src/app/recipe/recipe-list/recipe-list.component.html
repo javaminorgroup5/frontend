@@ -1,6 +1,6 @@
 <div class="recipes">
   <button type="button" class="btn btn-primary mb-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol"
-    (click)="handleEditting()">
+    (click)="handleEditing()">
     Recept toevoegen
   </button>
   <div class="card mb-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol">
@@ -10,13 +10,14 @@
           <mat-card-header>
             <mat-card-title>{{ recipe.title }}</mat-card-title>
           </mat-card-header>
-          <img class="image" mat-card-image [src]="recipe.recipeImage?.picByte" alt="" />
+          <img class="image" mat-card-image [src]="recipe.recipeImage?.picByte" alt="" (click)="viewRecipe(recipe.id)"/>
           <mat-card-content>
             <p>{{ recipe.description }}</p>
           </mat-card-content>
           <mat-card-actions>
             <button mat-button (click)="updateRecipe(recipe.id)">Aanpasen</button>
             <button mat-button (click)="deleteRecipe(recipe.id)">Verwijderen</button>
+            <button mat-button (click)="viewRecipe(recipe.id)">Bekijken</button>
           </mat-card-actions>
         </mat-card>
       </div>

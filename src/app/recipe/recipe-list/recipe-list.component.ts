@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { RecipeService } from '../service/recipe.service';
 import { Recipe } from '../model/recipe';
 import { CommonService } from 'src/app/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeDetailsComponent } from '../recipe-details/recipe-details.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-recipe-list',
@@ -12,13 +13,14 @@ import { RecipeDetailsComponent } from '../recipe-details/recipe-details.compone
 })
 export class RecipeListComponent implements OnInit {
 
-  recipes: Recipe[] = new Array();
+  recipes: Recipe[] = [];
   recipeId = -1;
 
   constructor(
     private recipeService: RecipeService,
     private commonService: CommonService,
     private modalService: NgbModal,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -27,7 +29,7 @@ export class RecipeListComponent implements OnInit {
     });
   }
 
-  handleEditting(): void {
+  handleEditing(): void {
     const modalRef = this.modalService.open(RecipeDetailsComponent, { centered: true });
     modalRef.componentInstance.recipeId = this.recipeId;
   }
@@ -70,6 +72,11 @@ export class RecipeListComponent implements OnInit {
 
   updateRecipe(id: any): void {
     this.recipeId = id;
-    this.handleEditting();
+    this.handleEditing();
+  }
+
+  viewRecipe(id: any): void {
+    this.recipeId = id;
+    this.router.navigate(['recipe/' + id]);
   }
 }
