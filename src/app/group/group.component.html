@@ -1,14 +1,15 @@
 <div id="group">
-  <div class="jumbotron">
-    <h1 class="display-4">Groep aanmaken</h1>
+  <div class="jumbotron" *ngIf="group && userId">
+    <h1 class="display-4"*ngIf="group.name === ''">Groep aanmaken</h1>
+    <h1 class="display-4"*ngIf="group != ''">Bewerk groep: {{ group.name }}</h1>
     <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)">
       <div class="input-box spacing-bottom">
         <label for="groupName">Naam</label>
-        <input class="form-control" id="groupName" name="groupName" type="text" formControlName="groupName" />
+        <input class="form-control" id="groupName" name="groupName" value="{{ group.name }}" type="text" formControlName="groupName" />
       </div>
       <div class="input-box spacing-bottom">
         <label for="groupDescription">Beschrijving</label>
-        <textarea class="form-control" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription">
+        <textarea class="form-control" value="{{ group.description }}" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription">
         </textarea>
       </div>
       <div class="custom-file">
@@ -19,7 +20,8 @@
             </div>
         </div>
       </div>
-      <button class="btn btn-primary" type="submit">Creating Group</button>
+      <button class="btn btn-primary" type="submit" *ngIf="group.id === 0">Creating Group</button>
+      <button class="btn btn-primary" type="submit" *ngIf="group.id != 0">Bewerk Group</button>
       <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht Groepen</a></button>
       <!-- Image Preview -->
       <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">

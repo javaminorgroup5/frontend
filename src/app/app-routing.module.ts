@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'me', component: MeComponent },
   { path: 'group-list', component: GroupListComponent },
   { path: 'group/create', component: GroupComponent },
+  { path: 'group/:groupId/edit', component: GroupComponent },
   { path: 'group/:groupId', component: GroupDetailComponent },
   { path: 'recipe/details', component: RecipeDetailsComponent },
   { path: 'recipe/list', component: RecipeListComponent },

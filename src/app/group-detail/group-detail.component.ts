@@ -16,7 +16,9 @@ export class GroupDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private groupService: GroupService,
     private router: Router
-  ) { }
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.userId = parseInt(sessionStorage.getItem('userId') || '', undefined);
@@ -32,5 +34,9 @@ export class GroupDetailComponent implements OnInit {
       alert(`${this.group?.name} verwijderd.`);
       this.router.navigate(['group-list']);
     });
+  }
+
+  editGroup(): void {
+    this.router.navigate(['group/' + this.group?.id + '/edit']);
   }
 }
