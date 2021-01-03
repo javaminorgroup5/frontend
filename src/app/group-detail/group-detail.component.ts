@@ -23,8 +23,8 @@ export class GroupDetailComponent implements OnInit {
     private groupService: GroupService,
     private router: Router
   ) { }
-  
-  close() {
+
+  close(): void {
     this.alert = undefined;
   }
 
@@ -35,12 +35,17 @@ export class GroupDetailComponent implements OnInit {
         this.group = value;
         this.route.queryParamMap.subscribe(queryParams => {
           const inviteToken = queryParams.get('inviteToken');
-    
+
           if (inviteToken && this.group) {
             this.groupService.joinGroup(this.group.id, inviteToken)
-            .then((huts) => {
-              console.log(huts);
-            })
+            .then((result) => {
+              if (result) {
+                this.alert = {
+                  type: 'success',
+                  message: 'Je bent nu lid van deze groep!',
+                };
+              }
+            });
           }
         });
       });
