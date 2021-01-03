@@ -99,7 +99,6 @@ export class RecipeDetailsComponent implements OnInit {
         description: formData.description,
         title: formData.title
       };
-      console.log(recipe);
       const uploadImageData = new FormData();
       uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       const recipeObjectString = JSON.stringify(recipe);
@@ -112,7 +111,6 @@ export class RecipeDetailsComponent implements OnInit {
         if (this.recipeId >= 0) {
           result = await this.recipeService.updateRecipe(this.recipeId, id, uploadImageData);
         } else {
-          console.log('test');
           result = await this.recipeService.addRecipe(id, uploadImageData);
         }
         if (result) {

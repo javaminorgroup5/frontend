@@ -19,11 +19,11 @@ export class RecipeService {
     const headers = {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
-    return await this.http
-      .post<Recipe>( endpoint, recipe, { headers })
-      .subscribe(response => {
-        console.log(response);
-      });
+    return this.http
+        .post<Recipe>(endpoint, recipe, {headers})
+        .subscribe(response => {
+          console.log(response);
+        });
   }
 
   async getAllRecipesByUserId(id: number): Promise<any> {
@@ -47,11 +47,11 @@ export class RecipeService {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
 
-    return await this.http
-      .delete<any>(endpoint, {headers})
-      .subscribe(response => {
-        console.log(response);
-      });
+    return this.http
+        .delete<any>(endpoint, {headers})
+        .subscribe(response => {
+          console.log(response);
+        });
   }
 
   async updateRecipe(recipeId: number, userId: number, recipe: FormData): Promise<any> {
@@ -61,11 +61,11 @@ export class RecipeService {
     const headers = {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
-    return await this.http
-      .put<any>(endpoint, recipe, {headers})
-      .subscribe(response => {
-        console.log(response);
-      });
+    return this.http
+        .put<any>(endpoint, recipe, {headers})
+        .subscribe(response => {
+          console.log(response);
+        });
   }
 
   async getRecipe(recipeId: number, userId: number): Promise<any> {
