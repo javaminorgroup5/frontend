@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<title>Kook CLub</title>
+<body>
+
+<div class="content">
+    <!-- Header with image -->
+    <header class="">
+        <div class="align-content-center">
+            <img class="image" mat-card-image [src]="recipe.recipeImage?.picByte" alt="" />
+            <div class="title">
+                <h1>{{ recipe.title }}</h1>
+            </div>
+        </div>
+    </header>
+
+    <!-- Add a background color and large text to the whole page -->
+    <div class="w3-sand w3-grayscale w3-large">
+
+        <!-- About Container -->
+        <div>
+            <div class="description">
+                <p>{{ recipe.description }}</p>
+            </div>
+            <div class="recipe">
+                <p> {{ recipe.recipe }} </p>
+            </div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
