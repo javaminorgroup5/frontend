@@ -6,7 +6,7 @@ import { User } from './recipe/model/user';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   async login(email: string, password: string): Promise<any> {
     const endpoint = 'http://localhost:8080/users/login';
@@ -26,8 +26,13 @@ export class AuthService {
     const headers = {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
-    return await this.http
-      .post<User>(endpoint, user, { headers } )
-      .toPromise();
+
+    try {
+      return await this.http
+        .post<User>(endpoint, user, { headers })
+        .toPromise();
+    } catch (error) {
+      console.error(error);
+    }
   }
 }
