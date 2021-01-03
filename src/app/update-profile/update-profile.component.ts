@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ProfileService } from '../profile.service';
+import {Router} from '@angular/router';
 
 interface UpdateProfileFormData {
   profileName: string;
-  profilePicture: string;
 }
 
 @Component({
@@ -20,10 +20,10 @@ export class UpdateProfileComponent implements OnInit {
   constructor(
     private profileService: ProfileService,
     private formBuilder: FormBuilder,
+    private router: Router
   ) {
     this.updateProfileForm = this.formBuilder.group({
-      profileName: '',
-      profilePicture: ''
+      profileName: ''
     });
   }
 
@@ -31,14 +31,30 @@ export class UpdateProfileComponent implements OnInit {
   }
 
   async onSubmit(updateProfileFormData: UpdateProfileFormData): Promise<void> {
-    try {
-      await this.profileService.updateProfile(
-        updateProfileFormData.profileName,
-        updateProfileFormData.profilePicture,
-      );
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
+
+    let profile = {};
+    if (updateProfileFormData.profileName) {
+      profile = {
+          profileName: updateProfileFormData.profileName
+      };
+    }
+    const uploadImageData = new FormData();
+    if (this.selectedFile) {
+      uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
+    }
+    const profileObjectString = JSON.stringify(profile);
+    console.log(1, profileObjectString);
+    const profileBlob = new Blob([profileObjectString], { type: 'application/json'});
+    uploadImageData.append('profile', profileBlob);
+    const userId = sessionStorage.getItem('userId');
+    if (userId) {
+      const id = parseInt(userId, 0);
+      try {
+        await this.profileService.updateProfile(id, uploadImageData);
+        await this.router.navigate(['me']);
+      } catch (error) {
+        console.error(error);
+      }
     }
   }
 

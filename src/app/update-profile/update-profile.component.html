@@ -5,12 +5,12 @@
         <form id="update-profile-form" [formGroup]="updateProfileForm" (ngSubmit)="onSubmit(updateProfileForm.value)">
             <div class="input-box spacing-bottom col-lg-4 ">
                 <label for="profileName">Profielnaam</label>
-                <input class="form-control" id="profileName" name="profileName" type="profileName" formControlName="profileName">
+                <input class="form-control" id="profileName" name="profileName" type="text" formControlName="profileName">
             </div>
             <div class="custom-file">
                 <div class="container row">
                     <div class="custom-file">
-                        <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>
+                        <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML">
                         <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
                     </div>
                 </div>
