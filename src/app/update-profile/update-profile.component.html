@@ -7,12 +7,18 @@
                 <label for="profileName">Profielnaam</label>
                 <input class="form-control" id="profileName" name="profileName" type="profileName" formControlName="profileName">
             </div>
-            <div class="input-box spacing-bottom col-lg-4 mt-4">
-                <label for="profilePicture">Profielfoto</label>
-                <input class="form-control" id="profilePicture" name="profilePicture" type="profilePicture" formControlName="profilePicture">
+            <div class="custom-file">
+                <div class="container row">
+                    <div class="custom-file">
+                        <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>
+                        <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
+                    </div>
+                </div>
             </div>
-            <div class="p-2">
             <button class="btn btn-primary spacing-bottom ml-1 mt-4" type="submit">Update</button>
+            <!-- Image Preview -->
+            <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                <img [src]="imageURL" [alt]="">
             </div>
         </form>
     </div>

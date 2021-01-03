@@ -14,6 +14,8 @@ interface UpdateProfileFormData {
 })
 export class UpdateProfileComponent implements OnInit {
   updateProfileForm;
+  selectedFile: any;
+  imageURL = '';
 
   constructor(
     private profileService: ProfileService,
@@ -38,5 +40,15 @@ export class UpdateProfileComponent implements OnInit {
     } catch (error) {
       console.error(error);
     }
+  }
+
+  public onFileChanged(event: any): void {
+    this.selectedFile = event.target.files[0];
+    // File Preview
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+    };
+    reader.readAsDataURL(this.selectedFile);
   }
 }
