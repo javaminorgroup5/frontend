@@ -6,7 +6,7 @@ import { User } from './recipe/model/user';
   providedIn: 'root',
 })
 export class AuthService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   async login(email: string, password: string): Promise<any> {
     const endpoint = 'http://localhost:8080/users/login';

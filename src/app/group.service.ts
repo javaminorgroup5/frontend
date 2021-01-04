@@ -37,18 +37,41 @@ export class GroupService {
       .toPromise();
   }
 
-  async joinGroup(groupId: number): Promise<any> {
+  async generateGroupInvite(groupId: number): Promise<string> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+
+    try {
+      return await this.http
+        .get(`http://localhost:8080/group/${groupId}/invite`, {
+          headers: {
+            Authorization: 'Basic ' + btoa(`${email}:${password}`),
+          },
+          responseType: 'text',
+        })
+        .toPromise<string>();
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async joinGroup(groupId: number, inviteToken?: string): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
     const userId = sessionStorage.getItem('userId') || '';
 
     return await this.http
-      .post(`http://localhost:8080/group/${groupId}/join`, parseInt(userId, undefined), {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Basic ' + btoa(`${email}:${password}`),
+      .post(`http://localhost:8080/group/${groupId}/join`,
+        {
+          inviteToken,
+          userId: parseInt(userId, undefined),
         },
-      })
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${email}:${password}`),
+          },
+        })
       .toPromise();
   }
 

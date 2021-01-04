@@ -5,6 +5,11 @@ import { GroupService } from '../group.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GroupComponent } from '../group/group.component';
 
+interface Alert {
+  type: string;
+  message: string;
+}
+
 @Component({
   selector: 'app-group-detail',
   templateUrl: './group-detail.component.html',
@@ -13,6 +18,7 @@ import { GroupComponent } from '../group/group.component';
 export class GroupDetailComponent implements OnInit {
   group?: Group;
   userId?: number;
+  alert?: Alert;
   groupId = -1;
 
   constructor(
@@ -20,7 +26,11 @@ export class GroupDetailComponent implements OnInit {
     private groupService: GroupService,
     private router: Router,
     private modalService: NgbModal,
-  ) {}
+  ) { }
+
+  close(): void {
+    this.alert = undefined;
+  }
 
   ngOnInit(): void {
     this.userId = parseInt(sessionStorage.getItem('userId') || '', undefined);
@@ -38,8 +48,33 @@ export class GroupDetailComponent implements OnInit {
             picByte: 'data:image/jpeg;base64,' + value.groupImage?.picByte
           }
         };
+        this.route.queryParamMap.subscribe(queryParams => {
+          const inviteToken = queryParams.get('inviteToken');
+
+          if (inviteToken && this.group) {
+            this.groupService.joinGroup(this.group.id, inviteToken)
+              .then(() => {
+                this.alert = {
+                  type: 'success',
+                  message: 'Je bent nu lid van deze groep!',
+                };
+              });
+          }
+        });
       });
     });
+  }
+
+  generateGroupInvite(): void {
+    if (this.group) {
+      const groupId = this.group.id;
+      this.groupService.generateGroupInvite(groupId).then((result) => {
+        this.alert = {
+          type: 'success',
+          message: `Uitnodigingslink gegenereerd: http://localhost:4200/group/${groupId}?inviteToken=${result}`,
+        };
+      });
+    }
   }
 
   deleteGroup(): void {
