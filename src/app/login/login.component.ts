@@ -27,7 +27,9 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+
+  }
 
   async onSubmit(formData: FormData): Promise<void> {
     try {

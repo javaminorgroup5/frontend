@@ -20,14 +20,9 @@ export class AuthService {
   }
 
   async register(user: FormData): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
     const endpoint = 'http://localhost:8080/users/create';
-    const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
-    };
     return await this.http
-      .post<User>(endpoint, user, { headers } )
+      .post<User>(endpoint, user )
       .toPromise();
   }
 }
