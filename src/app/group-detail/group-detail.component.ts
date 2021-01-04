@@ -68,10 +68,10 @@ export class GroupDetailComponent implements OnInit {
   generateGroupInvite(): void {
     if (this.group) {
       const groupId = this.group.id;
-      this.groupService.generateGroupInvite(groupId).then((result) => {
+      this.groupService.generateGroupInvite(groupId).then(({ token }) => {
         this.alert = {
           type: 'success',
-          message: `Uitnodigingslink gegenereerd: http://localhost:4200/group/${groupId}?inviteToken=${result}`,
+          message: `Uitnodigingslink gegenereerd: http://localhost:4200/group/${groupId}?inviteToken=${token}`,
         };
       });
     }
