@@ -9,8 +9,8 @@
     <div *ngIf="group.userId === userId">
       <button type="button" class="btn btn-info mr-4" (click)="generateGroupInvite()">Uitnodigingslink
         genereren</button>
-      <button type="button" class="btn btn-danger" (click)="deleteGroup()">Groep verwijderen</button>
-      <button type="button" class="btn btn-primary mt-2" (click)="editGroup(group.id)">Groep aanpassen</button>
+      <button type="button" class="btn btn-danger mr-4" (click)="deleteGroup()">Groep verwijderen</button>
+      <button type="button" class="btn btn-primary" (click)="editGroup(group.id)">Groep aanpassen</button>
     </div>
     <div *ngIf="alert" class="mt-4">
       <ngb-alert [type]="alert.type" (closed)="close()">{{ alert.message }}</ngb-alert>
