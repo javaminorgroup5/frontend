@@ -22,15 +22,30 @@ export class GroupDetailComponent implements OnInit {
     this.userId = parseInt(sessionStorage.getItem('userId') || '', undefined);
     this.route.paramMap.subscribe(params => {
       this.groupService.getGroup(parseInt(params.get('groupId') || '', undefined)).then((value) => {
-        this.group = value;
+        this.group = {
+          id: value.id,
+          userId: value.userId,
+          groupName: value.groupName,
+          description: value.description,
+          profiles: value.profiles,
+          groupImage: {
+            type: value.groupImage.type,
+            name: value.groupImage.name,
+            picByte: 'data:image/jpeg;base64,' + value.groupImage?.picByte
+          }
+        };
       });
     });
   }
 
   deleteGroup(): void {
     this.groupService.deleteGroup(this.group?.id).then(() => {
-      alert(`${this.group?.name} verwijderd.`);
+      alert(`${this.group?.groupName} verwijderd.`);
       this.router.navigate(['group-list']);
     });
+  }
+
+  editGroup(): void {
+
   }
 }

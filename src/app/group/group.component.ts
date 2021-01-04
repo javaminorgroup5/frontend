@@ -8,12 +8,6 @@ interface FormData {
   groupDescription: string;
 }
 
-interface GroupImage {
-  type: any;
-  name: any;
-  picByte: any;
-}
-
 @Component({
   selector: 'app-login',
   templateUrl: './group.component.html',
@@ -43,21 +37,29 @@ export class GroupComponent implements OnInit {
   }
 
   async onSubmit(formData: FormData): Promise<void> {
-    console.log(formData);
-    try {
-      const result = await this.groupService.create(
-          formData.groupName,
-          formData.groupDescription
-      );
-
-      if (result) {
-        alert(`You created ${formData.groupName}!`);
-        console.log(result);
-        // this.router.navigate(['group/' + result]);
+      const group = {
+        name: formData.groupName,
+        description: formData.groupDescription
+      };
+      const uploadGroupData = new FormData();
+      uploadGroupData.append('file', this.selectedFile, this.selectedFile.name);
+      const groupObjectString = JSON.stringify(group);
+      const groupBlob = new Blob([groupObjectString], { type: 'application/json'});
+      uploadGroupData.append('group', groupBlob);
+      const userId = sessionStorage.getItem('userId');
+      if (userId) {
+        const id = parseInt(userId, 0);
+        try {
+          const result = await this.groupService.create(id, uploadGroupData);
+          if (result) {
+            alert(`You created ${formData.groupName}!`);
+            console.log(result);
+            await this.router.navigate(['group/' + result]);
+          }
+        } catch (error) {
+          console.error(error);
+        }
       }
-    } catch (error) {
-      console.error(error);
-    }
   }
 
   public onFileChanged(event: any): void {

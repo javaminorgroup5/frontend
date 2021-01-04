@@ -1,7 +1,7 @@
 <div id="group">
   <div class="jumbotron">
     <h1 class="display-4">Groep aanmaken</h1>
-    <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)">
+    <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)" enctype="multipart/form-data">
       <div class="input-box spacing-bottom">
         <label for="groupName">Naam</label>
         <input class="form-control" id="groupName" name="groupName" type="text" formControlName="groupName" />
@@ -12,6 +12,7 @@
         </textarea>
       </div>
       <div class="custom-file">
+        <p>Afbeelding</p>
         <div class="container row">
             <div class="custom-file">
                 <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>

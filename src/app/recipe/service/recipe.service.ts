@@ -20,7 +20,7 @@ export class RecipeService {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
     return this.http
-        .post<Recipe>(endpoint, recipe, {headers})
+        .post<Recipe>(endpoint, recipe, { headers })
         .subscribe(response => {
           console.log(response);
         });
