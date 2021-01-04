@@ -1,10 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { RecipeDetailsComponent } from './recipe-details.component';
-import {HttpClientTestingModule} from "@angular/common/http/testing";
-import {FormsModule, NgModel, ReactiveFormsModule} from "@angular/forms";
-import {RouterTestingModule} from "@angular/router/testing";
-import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule, NgModel, ReactiveFormsModule} from '@angular/forms';
+import {RouterTestingModule} from '@angular/router/testing';
+import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 
 describe('RecipeDetailsComponent', () => {
