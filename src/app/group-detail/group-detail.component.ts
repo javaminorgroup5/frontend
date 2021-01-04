@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../group-list/group-list.component';
 import { GroupService } from '../group.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GroupComponent } from '../group/group.component';
 
 @Component({
   selector: 'app-group-detail',
@@ -11,12 +13,14 @@ import { GroupService } from '../group.service';
 export class GroupDetailComponent implements OnInit {
   group?: Group;
   userId?: number;
+  groupId = -1;
 
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupService,
-    private router: Router
-  ) { }
+    private router: Router,
+    private modalService: NgbModal,
+  ) {}
 
   ngOnInit(): void {
     this.userId = parseInt(sessionStorage.getItem('userId') || '', undefined);
@@ -45,7 +49,13 @@ export class GroupDetailComponent implements OnInit {
     });
   }
 
-  editGroup(): void {
+  handleEditing(): void {
+    const modalRef = this.modalService.open(GroupComponent, { centered: true });
+    modalRef.componentInstance.groupId = this.groupId;
+  }
 
+  editGroup(id: any): void {
+    this.groupId = id;
+    this.handleEditing();
   }
 }

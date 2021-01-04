@@ -8,7 +8,7 @@
     <hr class="my-4" />
     <div *ngIf="group.userId === userId">
       <button type="button" class="btn btn-danger mt-2" (click)="deleteGroup()">Groep verwijderen</button>
-      <button type="button" class="btn btn-danger mt-2" (click)="editGroup()">Groep aanpassen</button>
+      <button type="button" class="btn btn-primary mt-2" (click)="editGroup(group.id)">Groep aanpassen</button>
     </div>
   </div>
   <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht Groepen</a></button>
