@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {LoginComponent} from "./login/login.component";
+import { LoginComponent } from './login/login.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -17,12 +17,12 @@ export class AppComponent implements OnInit {
   loggedIn = false;
 
   ngOnInit(): void {
-    if(sessionStorage.getItem("userId") && sessionStorage.getItem("userId") != ''){
+    if (sessionStorage.getItem('userId') && sessionStorage.getItem('userId') !== ''){
       this.loggedIn = true;
     }
   }
 
-  public logout() {
+  logout(): void {
     sessionStorage.setItem('userId', '');
     sessionStorage.setItem('email', '');
     sessionStorage.setItem('password', '');
