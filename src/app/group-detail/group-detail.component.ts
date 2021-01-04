@@ -38,14 +38,12 @@ export class GroupDetailComponent implements OnInit {
 
           if (inviteToken && this.group) {
             this.groupService.joinGroup(this.group.id, inviteToken)
-            .then((result) => {
-              if (result) {
+              .then(() => {
                 this.alert = {
                   type: 'success',
                   message: 'Je bent nu lid van deze groep!',
                 };
-              }
-            });
+              });
           }
         });
       });
