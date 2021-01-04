@@ -75,33 +75,21 @@ export class GroupService {
       .toPromise();
   }
 
-  async create(
-    name: string,
-    description: string
-  ): Promise<any> {
-    const body = JSON.stringify({
-      name,
-      description
-    });
-
+  async create(id: number, group: FormData): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
-    const userId = sessionStorage.getItem('userId') || '';
-
+    const endpoint = `http://localhost:8080/group/create/${id}`;
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+    };
     return await this.http
-      .post('http://localhost:8080/group/create/' + parseInt(userId, undefined), body, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: 'Basic ' + btoa(`${email}:${password}`),
-        },
-      })
-      .toPromise();
+        .post(endpoint, group, { headers })
+        .toPromise();
   }
 
   async getGroup(groupId: number): Promise<Group> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
-
     return await this.http
       .get<Group>(`http://localhost:8080/group/${groupId}`, {
         headers: {

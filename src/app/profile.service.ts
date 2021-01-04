@@ -26,22 +26,15 @@ export class ProfileService {
     }
   }
 
-  async updateProfile(profileName: string, profilePicture: string): Promise<any> {
-    {
+  async updateProfile(id: number, profile: FormData): Promise<any> {
       const email = sessionStorage.getItem('email');
       const password = sessionStorage.getItem('password');
-      const id = sessionStorage.getItem('userId');
-      const body = JSON.stringify({
-        profileName, profilePicture
-      });
+      const endpoint = `http://localhost:8080/users/${id}/profile`;
+      const headers = {
+          Authorization: 'Basic ' + btoa(`${email}:${password}`)
+      };
       return await this.http
-        .put(`http://localhost:8080/users/${id}/profile`, body, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        })
-        .toPromise();
-    }
+          .put(endpoint, profile, { headers } )
+          .toPromise();
   }
 }

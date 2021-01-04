@@ -1,30 +1,42 @@
-<div id="group">
-  <div class="jumbotron">
-    <h1 class="display-4">Groep aanmaken</h1>
-    <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)">
-      <div class="input-box spacing-bottom">
-        <label for="groupName">Naam</label>
-        <input class="form-control" id="groupName" name="groupName" type="text" formControlName="groupName" />
-      </div>
-      <div class="input-box spacing-bottom">
-        <label for="groupDescription">Beschrijving</label>
-        <textarea class="form-control" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription">
-        </textarea>
-      </div>
-      <div class="custom-file">
-        <div class="container row">
-            <div class="custom-file">
-                <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>
-                <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
-            </div>
+<div>
+  <div class="modal-header" *ngIf="groupId >= 1 && userId">
+    <h2 class="modal-title" id="modal-basic-title">Groep aanpassen</h2>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div id="group">
+    <div class="jumbotron">
+      <h1 class="display-4" *ngIf="groupId < 0">Groep aanmaken</h1>
+      <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)" enctype="multipart/form-data">
+        <div class="input-box spacing-bottom">
+          <label for="groupName">Naam</label>
+          <input class="form-control" id="groupName" name="groupName" type="text" formControlName="groupName" />
         </div>
-      </div>
-      <button class="btn btn-primary" type="submit">Creating Group</button>
-      <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht Groepen</a></button>
-      <!-- Image Preview -->
-      <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
-        <img [src]="imageURL" [alt]="">
-      </div>
-    </form>
+        <div class="input-box spacing-bottom">
+          <label for="groupDescription">Beschrijving</label>
+          <textarea class="form-control" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription">
+          </textarea>
+        </div>
+        <div class="custom-file">
+          <p>Afbeelding</p>
+          <div class="container row">
+              <div class="custom-file">
+                  <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>
+                  <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
+              </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" type="submit" *ngIf="groupId < 0">Groep aanmaken</button>
+          <button class="btn btn-primary" type="submit" *ngIf="groupId >= 1 && userId">Groep aanpassen</button>
+          <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht Groepen</a></button>
+          <!-- Image Preview -->
+          <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+            <img [src]="imageURL" [alt]="">
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../group-list/group-list.component';
 import { GroupService } from '../group.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { GroupComponent } from '../group/group.component';
 
 interface Alert {
   type: string;
@@ -17,11 +19,13 @@ export class GroupDetailComponent implements OnInit {
   group?: Group;
   userId?: number;
   alert?: Alert;
+  groupId = -1;
 
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupService,
-    private router: Router
+    private router: Router,
+    private modalService: NgbModal,
   ) { }
 
   close(): void {
@@ -32,7 +36,18 @@ export class GroupDetailComponent implements OnInit {
     this.userId = parseInt(sessionStorage.getItem('userId') || '', undefined);
     this.route.paramMap.subscribe(params => {
       this.groupService.getGroup(parseInt(params.get('groupId') || '', undefined)).then((value) => {
-        this.group = value;
+        this.group = {
+          id: value.id,
+          userId: value.userId,
+          groupName: value.groupName,
+          description: value.description,
+          profiles: value.profiles,
+          groupImage: {
+            type: value.groupImage.type,
+            name: value.groupImage.name,
+            picByte: 'data:image/jpeg;base64,' + value.groupImage?.picByte
+          }
+        };
         this.route.queryParamMap.subscribe(queryParams => {
           const inviteToken = queryParams.get('inviteToken');
 
@@ -64,8 +79,18 @@ export class GroupDetailComponent implements OnInit {
 
   deleteGroup(): void {
     this.groupService.deleteGroup(this.group?.id).then(() => {
-      alert(`${this.group?.name} verwijderd.`);
+      alert(`${this.group?.groupName} verwijderd.`);
       this.router.navigate(['group-list']);
     });
+  }
+
+  handleEditing(): void {
+    const modalRef = this.modalService.open(GroupComponent, { centered: true });
+    modalRef.componentInstance.groupId = this.groupId;
+  }
+
+  editGroup(id: any): void {
+    this.groupId = id;
+    this.handleEditing();
   }
 }

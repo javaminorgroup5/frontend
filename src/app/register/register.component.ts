@@ -53,7 +53,8 @@ export class RegisterComponent implements OnInit {
     uploadImageData.append('user', userBlob);
     try {
       await this.authService.register(uploadImageData);
-      this.router.navigate(['login']);
+      alert(`U heeft zich geregistreerd, u kunt nu inloggen`);
+      await this.router.navigate(['login']);
     } catch (error) {
       console.error(error);
       }
