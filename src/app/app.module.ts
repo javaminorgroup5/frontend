@@ -8,7 +8,7 @@ import { GroupComponent } from './group/group.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MeComponent } from './me/me.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
 import { GroupListComponent } from './group-list/group-list.component';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
@@ -48,7 +48,7 @@ import { HomeComponent } from './home/home.component';
     MatButtonModule,
     FlexLayoutModule,
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, NgbActiveModal],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

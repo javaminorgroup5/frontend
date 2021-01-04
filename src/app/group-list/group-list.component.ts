@@ -1,12 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../group.service';
 
+interface GroupImage {
+  type: any;
+  name: any;
+  picByte: any;
+}
+
 export type Group = {
   id: number
   userId: number
-  name: string
+  groupName: string
   description: string
   profiles: any[]
+  groupImage: GroupImage
 };
 
 @Component({
@@ -40,7 +47,7 @@ export class GroupListComponent implements OnInit {
         groups[indexGroup].profiles = [{ id: this.userId }];
       }
 
-      alert(`You joined ${group.name}!`);
+      alert(`You joined ${group.groupName}!`);
       this.groups = groups;
     });
   }
