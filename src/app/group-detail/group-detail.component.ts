@@ -79,7 +79,7 @@ export class GroupDetailComponent implements OnInit {
 
   deleteGroup(): void {
     this.groupService.deleteGroup(this.group?.id).then(() => {
-      alert(`${this.group?.groupName} verwijderd.`);
+      // alert(`${this.group?.groupName} verwijderd.`);
       this.router.navigate(['group-list']);
     });
   }
