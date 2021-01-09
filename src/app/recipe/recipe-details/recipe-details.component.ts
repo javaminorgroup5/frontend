@@ -24,6 +24,10 @@ export class RecipeDetailsComponent implements OnInit {
   recipeForm;
   recipeId = -1;
   recipe: Recipe;
+  recipeAlert = false;
+  titleAlert = false;
+  descriptionAlert = false;
+  imageAlert = false;
 
   constructor(
     private recipeService: RecipeService,
@@ -33,16 +37,16 @@ export class RecipeDetailsComponent implements OnInit {
     private commonService: CommonService,
     public activeModal: NgbActiveModal,
   ) {
+    this.recipe = {
+      recipe: '',
+      description: '',
+      title: ''
+    };
     this.recipeForm = this.formBuilder.group({
       recipe: '',
       description: '',
       title: ''
     });
-    this.recipe = {
-        recipe: '',
-        description: '',
-        title: ''
-     };
     this.activeModal = activeModal;
   }
 
@@ -92,7 +96,32 @@ export class RecipeDetailsComponent implements OnInit {
       }
     }
 
-  async onSubmit(formData: FormData): Promise<void> {
+    checkRecipeValues(formData: FormData): boolean {
+      if (!formData.title) {
+        this.titleAlert = true;
+        return false;
+      }
+      if (!formData.description) {
+        this.descriptionAlert = true;
+        return false;
+      }
+      if (!formData.recipe) {
+        this.recipeAlert = true;
+        return false;
+      }
+      if (!this.selectedFile) {
+        this.imageAlert = true;
+        return false;
+      }
+      return true;
+    }
+
+    async onSubmit(formData: FormData): Promise<void> {
+
+    if (!this.checkRecipeValues(formData)) {
+      return;
+    }
+
     try {
       const recipe: Recipe = {
         recipe: formData.recipe,
@@ -106,7 +135,7 @@ export class RecipeDetailsComponent implements OnInit {
       uploadImageData.append('recipe', recipeBlob);
       const userId = sessionStorage.getItem('userId');
       if (userId) {
-        let result = '';
+        let result: string;
         const id = parseInt(userId, 0);
         if (this.recipeId >= 0) {
           result = await this.recipeService.updateRecipe(this.recipeId, id, uploadImageData);
