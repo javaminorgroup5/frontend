@@ -97,6 +97,10 @@ export class RecipeDetailsComponent implements OnInit {
     }
 
     checkRecipeValues(formData: FormData): boolean {
+      this.titleAlert = false;
+      this.descriptionAlert = false;
+      this.recipeAlert = false;
+      this.imageAlert = false;
       if (!formData.title) {
         this.titleAlert = true;
         return false;
