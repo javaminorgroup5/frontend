@@ -12,14 +12,14 @@
           <label for="title">Titel</label>
           <input class="form-control" id="title" name="title" type="text" formControlName="title">
           <div *ngIf="titleAlert" class="alert alert-danger">
-            Titel verplicht.
+            Titel is verplicht.
           </div>
         </div>
         <div class="input-box spacing-bottom mt-4">
           <label for="description">Omschrijving</label>
           <input class="form-control" id="description" name="description" type="text" formControlName="description" />
           <div *ngIf="descriptionAlert" class="alert alert-danger">
-            Omschrijving verplicht.
+            Omschrijving is verplicht.
           </div>
         </div>
         <div class="input-box spacing-bottom mt-4 mb-4">
@@ -28,7 +28,7 @@
             formControlName="recipe">
           </textarea>
           <div *ngIf="recipeAlert" class="alert alert-danger">
-            Recept verplicht.
+            Recept is verplicht.
           </div>
         </div>
         <div class="custom-file">
@@ -39,7 +39,7 @@
               <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een
                 afbeelding toe</label>
               <div *ngIf="imageAlert" class="alert alert-danger">
-                Afbeelding verplicht
+                Afbeelding is verplicht
               </div>
             </div>
           </div>
