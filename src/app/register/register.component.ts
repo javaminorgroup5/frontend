@@ -20,6 +20,10 @@ export class RegisterComponent implements OnInit {
   selectedFile: any;
   registerForm;
   imageURL = '';
+  emailAlert = false;
+  passwordAlert = false;
+  profileNameAlert = false;
+  imageAlert = false;
 
   constructor(
     private authService: AuthService,
@@ -35,7 +39,35 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  checkUserValues(formData: FormData): boolean {
+    this.emailAlert = false;
+    this.passwordAlert = false;
+    this.profileNameAlert = false;
+    this.imageAlert = false;
+    if (!formData.email) {
+      this.emailAlert = true;
+      return false;
+    }
+    if (!formData.password) {
+      this.passwordAlert = true;
+      return false;
+    }
+    if (!formData.profileName) {
+      this.profileNameAlert = true;
+      return false;
+    }
+    if (!this.selectedFile) {
+      this.imageAlert = true;
+      return false;
+    }
+    return true;
+  }
+
   async onSubmit(formData: FormData): Promise<void> {
+
+    if (!this.checkUserValues(formData)) {
+      return;
+    }
 
     const user: User = {
       username : formData.email,
