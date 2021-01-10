@@ -1,26 +1,20 @@
-<div class="recipes">
-  <button type="button" class="btn btn-primary mb-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol"
-    (click)="handleEditing()">
+<div class="recipes col-lg-6 col-md-6 col-xs-12 offset-3">
+  <button type="button" class="btn btn-primary mb-4" (click)="handleEditing()">
     Recept toevoegen
   </button>
-  <div class="card mb-4 col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol">
-    <div class="recipe-list">
-      <div fxFlex="50%" *ngFor="let recipe of recipes">
-        <mat-card class="mat-elevation-z4 recipeCard">
-          <mat-card-header>
-            <mat-card-title>{{ recipe.title }}</mat-card-title>
-          </mat-card-header>
-          <img class="image" mat-card-image [src]="recipe.recipeImage?.picByte" alt="" (click)="viewRecipe(recipe.id)"/>
-          <mat-card-content>
-            <p>{{ recipe.description }}</p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button (click)="updateRecipe(recipe.id)">Aanpasen</button>
-            <button mat-button (click)="deleteRecipe(recipe.id)">Verwijderen</button>
-            <button mat-button (click)="viewRecipe(recipe.id)">Bekijken</button>
-          </mat-card-actions>
-        </mat-card>
-      </div>
-    </div>
+  <div *ngFor="let recipe of recipes" class="recipe-list">
+    <mat-card class="mat-elevation-z2 mb-4">
+      <mat-card-header (click)="updateRecipe(recipe.id)">
+        <mat-card-title>{{ recipe.title }}</mat-card-title>
+      </mat-card-header>
+      <img class="image" mat-card-image [src]="recipe.recipeImage?.picByte" (click)="viewRecipe(recipe.id)" />
+      <mat-card-content>
+        <p>{{ recipe.description }}</p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="updateRecipe(recipe.id)">Aanpasen</button>
+        <button mat-button color="primary" (click)="deleteRecipe(recipe.id)">Verwijderen</button>
+      </mat-card-actions>
+    </mat-card>
   </div>
 </div>
