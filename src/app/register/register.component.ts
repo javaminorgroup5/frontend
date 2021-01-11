@@ -38,7 +38,7 @@ export class RegisterComponent implements OnInit {
   async onSubmit(formData: FormData): Promise<void> {
 
     const user: User = {
-      username : formData.email,
+      email : formData.email,
       password : formData.password,
       role: 'COMMUNITY_MANAGER',
       profile: {
