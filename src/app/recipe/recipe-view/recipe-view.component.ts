@@ -31,13 +31,15 @@ export class RecipeViewComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('recipeId');
-    console.log(id, 'id');
+    this.recipeId = this.commonService.NumberConverter(id);
+    if (this.router.url.endsWith('share')) {
+        this.getSharedRecipe(this.recipeId).then(r => console.log(r));
+        return;
+    }
     const userId = sessionStorage.getItem('userId');
     if (id && userId) {
-      this.recipeId = this.commonService.NumberConverter(id);
       this.loadRecipe(this.recipeId).then(r => console.log(r));
     }
-    console.log('ngOnInit');
   }
 
   async loadRecipe(recipeiId: number, ): Promise<any>  {
@@ -64,5 +66,29 @@ export class RecipeViewComponent implements OnInit {
       this.recipe = recipe;
     }
   }
+
+    async getSharedRecipe(recipeId: number): Promise<any>  {
+        if (!recipeId) {
+            console.log('Recipe id not found');
+            return;
+        }
+        const result: Recipe = await this.recipeService.getRecipeToShare(recipeId);
+        if (result) {
+            const recipe =
+                {
+                    id: result.id,
+                    recipe: result.recipe,
+                    description: result.description,
+                    title: result.title,
+                    recipeImage:
+                        {
+                            type: result.recipeImage?.type,
+                            name: result.recipeImage?.name,
+                            picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
+                        }
+                };
+            this.recipe = recipe;
+        }
+    }
 
 }
