@@ -50,7 +50,20 @@ export class RecipeViewComponent implements OnInit {
             if (shareLink) {
               this.recipeService.getRecipeByShareLink(this.recipeId, shareLink)
                 .then((result: any) => {
-                  this.recipe = result;
+                  const recipe =
+                  {
+                    id: result.id,
+                    recipe: result.recipe,
+                    description: result.description,
+                    title: result.title,
+                    recipeImage:
+                    {
+                      type: result.recipeImage?.type,
+                      name: result.recipeImage?.name,
+                      picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
+                    }
+                  };
+                  this.recipe = recipe;
                 })
             } else {
               this.loadRecipe(this.recipeId);
@@ -100,28 +113,28 @@ export class RecipeViewComponent implements OnInit {
     }
   }
 
-    async getSharedRecipe(recipeId: number): Promise<any>  {
-        if (!recipeId) {
-            console.log('Recipe id not found');
-            return;
-        }
-        const result: Recipe = await this.recipeService.getRecipeToShare(recipeId);
-        if (result) {
-            const recipe =
-                {
-                    id: result.id,
-                    recipe: result.recipe,
-                    description: result.description,
-                    title: result.title,
-                    recipeImage:
-                        {
-                            type: result.recipeImage?.type,
-                            name: result.recipeImage?.name,
-                            picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
-                        }
-                };
-            this.recipe = recipe;
-        }
+  async getSharedRecipe(recipeId: number): Promise<any> {
+    if (!recipeId) {
+      console.log('Recipe id not found');
+      return;
     }
+    const result: Recipe = await this.recipeService.getRecipeToShare(recipeId);
+    if (result) {
+      const recipe =
+      {
+        id: result.id,
+        recipe: result.recipe,
+        description: result.description,
+        title: result.title,
+        recipeImage:
+        {
+          type: result.recipeImage?.type,
+          name: result.recipeImage?.name,
+          picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
+        }
+      };
+      this.recipe = recipe;
+    }
+  }
 
 }
