@@ -6,4 +6,5 @@ export interface Recipe {
     recipe: string;
     description: string;
     recipeImage?: RecipeImage;
+    userId?: string
 }

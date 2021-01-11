@@ -10,7 +10,7 @@ export class RecipeService {
   userId = '';
   recipes: Recipe[] = [];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   async addRecipe(id: number, recipe: FormData): Promise<any> {
     const email = sessionStorage.getItem('email');
@@ -20,10 +20,10 @@ export class RecipeService {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
     return this.http
-        .post<Recipe>(endpoint, recipe, { headers })
-        .subscribe(response => {
-          console.log(response);
-        });
+      .post<Recipe>(endpoint, recipe, { headers })
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 
   async getAllRecipesByUserId(id: number): Promise<any> {
@@ -48,10 +48,46 @@ export class RecipeService {
     };
 
     return this.http
-        .delete<any>(endpoint, {headers})
-        .subscribe(response => {
-          console.log(response);
-        });
+      .delete<any>(endpoint, { headers })
+      .subscribe(response => {
+        console.log(response);
+      });
+  }
+
+
+
+  async generateShareLink(recipeId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const userId = sessionStorage.getItem('userId') || '';
+
+    try {
+      return await this.http
+        .post(`http://localhost:8080/recipe/${recipeId}/generate_share_link`, { userId }, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${email}:${password}`),
+          },
+        })
+        .toPromise<any>();
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async getRecipeByShareLink(recipeId: number, shareLink: string) {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+
+    return await this.http
+      .get(`http://localhost:8080/recipe/${recipeId}/share/${shareLink}`,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${email}:${password}`),
+          },
+        })
+      .toPromise();
   }
 
   async updateRecipe(recipeId: number, userId: number, recipe: FormData): Promise<any> {
@@ -62,10 +98,10 @@ export class RecipeService {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
     return this.http
-        .put<any>(endpoint, recipe, {headers})
-        .subscribe(response => {
-          console.log(response);
-        });
+      .put<any>(endpoint, recipe, { headers })
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 
   async getRecipe(recipeId: number, userId: number): Promise<any> {

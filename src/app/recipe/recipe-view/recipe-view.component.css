@@ -1,19 +1,11 @@
-.content {
-    margin: 50px;
-}
-
-.align-content-center {
-    margin: auto;
-    text-align:center;
+.recipe-view {
+    background-color: #e9ecef;
+    padding: 0;
 }
 
 .image {
     max-width: 100%;
     height: auto;
-}
-
-.title {
-    margin-top: 50px;
 }
 
 .description {

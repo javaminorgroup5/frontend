@@ -66,7 +66,7 @@ export class GroupDetailComponent implements OnInit {
   }
 
   generateGroupInvite(): void {
-    if (!confirm('Weet je zeker dat je dit item wilt verwijderen?')) {
+    if (!confirm('Weet je zeker dat je een invite wil genereren?')) {
       return;
     }
     if (this.group) {
