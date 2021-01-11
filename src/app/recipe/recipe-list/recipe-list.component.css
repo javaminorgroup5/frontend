@@ -2,8 +2,3 @@
   padding: 0;
   padding-bottom: 1rem;
 }
-
-p {
-  overflow: hidden;
-  max-height: 40px;
-}

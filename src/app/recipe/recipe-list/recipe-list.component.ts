@@ -61,7 +61,7 @@ export class RecipeListComponent implements OnInit {
     }
   }
   async deleteRecipe(id: any): Promise<any> {
-    if (!confirm('Weet je zeker dat je dit item wilt verijderen?')) {
+    if (!confirm('Weet je zeker dat je dit item wilt verwijderen?')) {
       return;
     }
     const userId = sessionStorage.getItem('userId');
