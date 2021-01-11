@@ -10,6 +10,9 @@
         <div *ngIf="emailAlert" class="alert alert-danger">
           Email is verplicht.
         </div>
+        <div *ngIf="invalidEmail" class="alert alert-danger">
+          Onjuiste indeling e-mailadres.
+        </div>
       </div>
       <div class="input-box spacing-bottom">
         <label for="password">Password</label>
