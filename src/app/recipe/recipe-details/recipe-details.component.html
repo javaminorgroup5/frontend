@@ -10,28 +10,37 @@
       <div class="modal-body">
         <div class="input-box spacing-bottom">
           <label for="title">Titel</label>
-          <input class="form-control" id="title" name="title" type="text" formControlName="title"
-            value="{{ recipe.title }}" required />
+          <input class="form-control" id="title" name="title" type="text" formControlName="title">
+          <div *ngIf="titleAlert" class="alert alert-danger">
+            Titel is verplicht.
+          </div>
         </div>
         <div class="input-box spacing-bottom mt-4">
           <label for="description">Omschrijving</label>
-          <input class="form-control" id="description" name="description" type="text" formControlName="description"
-            value="{{recipe.description}}" required />
+          <input class="form-control" id="description" name="description" type="text" formControlName="description" />
+          <div *ngIf="descriptionAlert" class="alert alert-danger">
+            Omschrijving is verplicht.
+          </div>
         </div>
         <div class="input-box spacing-bottom mt-4 mb-4">
           <label for="recipe">Recept</label>
           <textarea class="form-control" aria-label="With textarea" id="recipe" name="recipe" type="text"
-            formControlName="recipe" value="{{recipe.recipe}}" required>
+            formControlName="recipe">
           </textarea>
+          <div *ngIf="recipeAlert" class="alert alert-danger">
+            Recept is verplicht.
+          </div>
         </div>
         <div class="custom-file">
           <p>Afbeelding</p>
           <div class="container row">
             <div class="custom-file">
-              <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML"
-                required>
+              <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>
               <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een
                 afbeelding toe</label>
+              <div *ngIf="imageAlert" class="alert alert-danger">
+                Afbeelding is verplicht
+              </div>
             </div>
           </div>
         </div>

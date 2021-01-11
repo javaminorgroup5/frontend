@@ -70,7 +70,7 @@ export class RegisterComponent implements OnInit {
     }
 
     const user: User = {
-      username : formData.email,
+      email : formData.email,
       password : formData.password,
       role: 'COMMUNITY_MANAGER',
       profile: {
