@@ -24,25 +24,29 @@ export class RecipeDetailsComponent implements OnInit {
   recipeForm;
   recipeId = -1;
   recipe: Recipe;
+  recipeAlert = false;
+  titleAlert = false;
+  descriptionAlert = false;
+  imageAlert = false;
 
   constructor(
-    private recipeService: RecipeService,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private commonService: CommonService,
-    public activeModal: NgbActiveModal,
+      private recipeService: RecipeService,
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private activatedRoute: ActivatedRoute,
+      private commonService: CommonService,
+      public activeModal: NgbActiveModal,
   ) {
+    this.recipe = {
+      recipe: '',
+      description: '',
+      title: ''
+    };
     this.recipeForm = this.formBuilder.group({
       recipe: '',
       description: '',
       title: ''
     });
-    this.recipe = {
-        recipe: '',
-        description: '',
-        title: ''
-     };
     this.activeModal = activeModal;
   }
 
@@ -67,7 +71,7 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
 
-  async loadRecipe(recipeiId: number, ): Promise<any>  {
+  async loadRecipe(recipeiId: number): Promise<any> {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
@@ -75,24 +79,53 @@ export class RecipeDetailsComponent implements OnInit {
     }
     const result: Recipe = await this.recipeService.getRecipe(recipeiId, this.commonService.NumberConverter(userId));
     if (result) {
-        const recipe =
-        {
-          id: result.id,
-          recipe: result.recipe,
-          description: result.description,
-          title: result.title,
-          recipeImage:
+      const recipe =
           {
-            type: result.recipeImage?.type,
-            name: result.recipeImage?.name,
-            picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
-          }
-        };
-        this.recipe = recipe;
-      }
+            id: result.id,
+            recipe: result.recipe,
+            description: result.description,
+            title: result.title,
+            recipeImage:
+                {
+                  type: result.recipeImage?.type,
+                  name: result.recipeImage?.name,
+                  picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
+                }
+          };
+      this.recipe = recipe;
     }
+  }
+
+  checkRecipeValues(formData: FormData): boolean {
+    this.titleAlert = false;
+    this.descriptionAlert = false;
+    this.recipeAlert = false;
+    this.imageAlert = false;
+    if (!formData.title) {
+      this.titleAlert = true;
+      return false;
+    }
+    if (!formData.description) {
+      this.descriptionAlert = true;
+      return false;
+    }
+    if (!formData.recipe) {
+      this.recipeAlert = true;
+      return false;
+    }
+    if (!this.selectedFile) {
+      this.imageAlert = true;
+      return false;
+    }
+    return true;
+  }
 
   async onSubmit(formData: FormData): Promise<void> {
+
+    if (this.recipeId < 0 && !this.checkRecipeValues(formData)) {
+      return;
+    }
+
     try {
       const recipe: Recipe = {
         recipe: formData.recipe,
@@ -100,13 +133,15 @@ export class RecipeDetailsComponent implements OnInit {
         title: formData.title
       };
       const uploadImageData = new FormData();
-      uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
+      if (this.selectedFile) {
+        uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
+      }
       const recipeObjectString = JSON.stringify(recipe);
-      const recipeBlob = new Blob([recipeObjectString], { type: 'application/json'});
+      const recipeBlob = new Blob([recipeObjectString], {type: 'application/json'});
       uploadImageData.append('recipe', recipeBlob);
       const userId = sessionStorage.getItem('userId');
       if (userId) {
-        let result = '';
+        let result: string;
         const id = parseInt(userId, 0);
         if (this.recipeId >= 0) {
           result = await this.recipeService.updateRecipe(this.recipeId, id, uploadImageData);
