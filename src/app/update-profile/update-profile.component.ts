@@ -27,11 +27,18 @@ export class UpdateProfileComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    const userId = sessionStorage.getItem('userId');
+    if (userId) {
+      const id = parseInt(userId, 0);
+      const profile: UpdateProfileFormData = await this.profileService.getProfile(id);
+      this.updateProfileForm = this.formBuilder.group({
+        profileName: profile.profileName
+      });
+    }
   }
 
   async onSubmit(updateProfileFormData: UpdateProfileFormData): Promise<void> {
-
     let profile = {};
     if (updateProfileFormData.profileName) {
       profile = {
@@ -43,7 +50,6 @@ export class UpdateProfileComponent implements OnInit {
       uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
     }
     const profileObjectString = JSON.stringify(profile);
-    console.log(1, profileObjectString);
     const profileBlob = new Blob([profileObjectString], { type: 'application/json'});
     uploadImageData.append('profile', profileBlob);
     const userId = sessionStorage.getItem('userId');
@@ -55,6 +61,7 @@ export class UpdateProfileComponent implements OnInit {
       } catch (error) {
         console.error(error);
       }
+      location.reload();
     }
   }
 
