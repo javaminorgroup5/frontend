@@ -1,11 +1,13 @@
 <div id="update-profile">
     <div class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol-lg-6">
-        <h5 class="">Bewerk je profiel!</h5>
+        <h1 class="">Bewerk je profiel!</h1>
         <hr class="my-4">
         <form id="update-profile-form" [formGroup]="updateProfileForm" (ngSubmit)="onSubmit(updateProfileForm.value)">
-            <div class="input-box spacing-bottom col-lg-4 ">
-                <label for="profileName">Profielnaam</label>
-                <input class="form-control" id="profileName" name="profileName" type="text" formControlName="profileName">
+            <div class="input-box spacing-bottom">
+                <div class="input-box spacing-bottom">
+                    <label for="profileName">Profielnaam</label>
+                    <input class="form-control" id="profileName" name="profileName" type="text" formControlName="profileName">
+                </div>
             </div>
             <div class="custom-file">
                 <div class="container row">
