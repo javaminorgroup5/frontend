@@ -11,6 +11,14 @@
                 <img class="image" mat-card-image [src]="recipe.recipeImage?.picByte" alt="" />
                 <div class="px-4">
                     <span class="badge badge-info mt-4" *ngIf="recipe.userId === userId">Auteur</span>
+
+                    <div>
+                        <button type="button" class="btn btn-info mt-4" (click)="generateShareLink()"
+                            *ngIf="recipe.userId === userId">Bekijklink genereren</button>
+                    </div>
+                    <div *ngIf="alert" class="mt-4">
+                        <ngb-alert [type]="alert.type" (closed)="close()">{{ alert.message }}</ngb-alert>
+                    </div>
                     <div class="title mt-4">
                         <h1>{{ recipe.title }}</h1>
                     </div>
