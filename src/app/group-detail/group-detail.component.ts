@@ -66,6 +66,9 @@ export class GroupDetailComponent implements OnInit {
   }
 
   generateGroupInvite(): void {
+    if (!confirm('Weet je zeker dat je dit item wilt verijderen?')) {
+      return;
+    }
     if (this.group) {
       const groupId = this.group.id;
       this.groupService.generateGroupInvite(groupId).then(({ token }) => {
