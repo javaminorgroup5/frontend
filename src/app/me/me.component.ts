@@ -25,7 +25,7 @@ export class MeComponent implements OnInit {
     }
   }
 
-  enableEditting(): void {
+  enableEditing(): void {
     this.editing = true;
   }
 }
