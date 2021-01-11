@@ -61,11 +61,8 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    const userId = sessionStorage.getItem('userId');
-    if (id && userId) {
-      this.recipeId = this.commonService.NumberConverter(id);
-      this.loadRecipe(this.recipeId);
+    if (this.recipeId > 0) {
+      this.loadRecipe(this.recipeId).then(r => console.log(r));
       console.log(this.recipe);
     }
   }
@@ -79,20 +76,11 @@ export class RecipeDetailsComponent implements OnInit {
     }
     const result: Recipe = await this.recipeService.getRecipe(recipeiId, this.commonService.NumberConverter(userId));
     if (result) {
-      const recipe =
-          {
-            id: result.id,
-            recipe: result.recipe,
-            description: result.description,
-            title: result.title,
-            recipeImage:
-                {
-                  type: result.recipeImage?.type,
-                  name: result.recipeImage?.name,
-                  picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
-                }
-          };
-      this.recipe = recipe;
+      this.recipeForm = this.formBuilder.group({
+        recipe: result.recipe,
+        description: result.description,
+        title: result.title
+      });
     }
   }
 
@@ -149,7 +137,8 @@ export class RecipeDetailsComponent implements OnInit {
           result = await this.recipeService.addRecipe(id, uploadImageData);
         }
         if (result) {
-          await this.router.navigate(['recipe/list']);
+          console.log(result);
+          location.reload();
         }
       }
     } catch (error) {
