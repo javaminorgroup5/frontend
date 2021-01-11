@@ -15,6 +15,7 @@ export class RecipeViewComponent implements OnInit {
   selectedFile: any;
   recipeId = -1;
   recipe: Recipe;
+  userId?: number;
 
   constructor(
       private recipeService: RecipeService,
@@ -31,9 +32,9 @@ export class RecipeViewComponent implements OnInit {
 
   ngOnInit(): void {
     const id = this.activatedRoute.snapshot.paramMap.get('recipeId');
-    console.log(id, 'id');
-    const userId = sessionStorage.getItem('userId');
-    if (id && userId) {
+    this.userId = parseInt(sessionStorage.getItem('userId') || '', undefined);
+
+    if (id && this.userId) {
       this.recipeId = this.commonService.NumberConverter(id);
       this.loadRecipe(this.recipeId).then(r => console.log(r));
     }
@@ -41,12 +42,10 @@ export class RecipeViewComponent implements OnInit {
   }
 
   async loadRecipe(recipeiId: number, ): Promise<any>  {
-    const userId = sessionStorage.getItem('userId');
-    if (!userId) {
-      console.log('user id not found');
+    if (!this.userId) {
       return;
     }
-    const result: Recipe = await this.recipeService.getRecipe(recipeiId, this.commonService.NumberConverter(userId));
+    const result: Recipe = await this.recipeService.getRecipe(recipeiId, this.userId);
     if (result) {
       const recipe =
           {
@@ -54,6 +53,7 @@ export class RecipeViewComponent implements OnInit {
             recipe: result.recipe,
             description: result.description,
             title: result.title,
+            userId: result.userId,
             recipeImage:
                 {
                   type: result.recipeImage?.type,

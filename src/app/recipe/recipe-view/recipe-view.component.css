@@ -1,19 +1,6 @@
-.content {
-    margin: 50px;
-}
-
-.align-content-center {
-    margin: auto;
-    text-align:center;
-}
-
 .image {
     max-width: 100%;
     height: auto;
-}
-
-.title {
-    margin-top: 50px;
 }
 
 .description {
