@@ -3,6 +3,7 @@ import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../auth.service';
 import { User } from '../recipe/model/user';
+import {CommonService} from '../common.service';
 
 
 interface FormData {
@@ -24,11 +25,13 @@ export class RegisterComponent implements OnInit {
   passwordAlert = false;
   profileNameAlert = false;
   imageAlert = false;
+  invalidEmail = false;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private commonservice: CommonService
   ) {
     this.registerForm = this.formBuilder.group({
       email: '',
@@ -44,10 +47,18 @@ export class RegisterComponent implements OnInit {
     this.passwordAlert = false;
     this.profileNameAlert = false;
     this.imageAlert = false;
+    this.invalidEmail = false;
+
     if (!formData.email) {
       this.emailAlert = true;
       return false;
     }
+
+    if (!this.commonservice.isValidaEmail(formData.email)) {
+      this.invalidEmail = true;
+      return false;
+    }
+
     if (!formData.password) {
       this.passwordAlert = true;
       return false;

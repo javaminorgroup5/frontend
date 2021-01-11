@@ -116,4 +116,11 @@ export class RecipeService {
       .toPromise();
   }
 
+  async getRecipeToShare(recipeId: number): Promise<any> {
+    const endpoint = `http://localhost:8080/recipe/${recipeId}/share`;
+    return await this.http
+        .get<Recipe>(endpoint)
+        .toPromise();
+  }
+
 }

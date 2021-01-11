@@ -23,7 +23,8 @@ const routes: Routes = [
   { path: 'recipe/details', component: RecipeDetailsComponent },
   { path: 'recipe/list', component: RecipeListComponent },
   { path: 'update', component: UpdateProfileComponent },
-  { path: 'recipe/:recipeId', component: RecipeViewComponent }
+  { path: 'recipe/:recipeId', component: RecipeViewComponent },
+  { path: 'recipe/:recipeId/share', component: RecipeViewComponent }
 ];
 
 @NgModule({
