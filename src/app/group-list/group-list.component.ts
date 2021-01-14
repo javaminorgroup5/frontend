@@ -1,11 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupService } from '../group.service';
-
-interface GroupImage {
-  type: any;
-  name: any;
-  picByte: any;
-}
+import {Image} from '../recipe/model/image';
 
 export type Group = {
   id: number
@@ -13,7 +8,7 @@ export type Group = {
   groupName: string
   description: string
   profiles: any[]
-  groupImage: GroupImage
+  image: Image
 };
 
 @Component({

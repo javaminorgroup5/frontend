@@ -59,10 +59,10 @@ export class GroupComponent implements OnInit {
         description: result.description,
         profiles: result.profiles,
         userId: result.userId,
-        groupImage: {
-          type: result.groupImage.type,
-          name: result.groupImage.name,
-          picByte: result.groupImage.picByte
+        image: {
+          type: result.image.type,
+          name: result.image.name,
+          picByte: result.image.picByte
         }
       };
       this.group = group;

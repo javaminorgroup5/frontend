@@ -1,10 +1,10 @@
-import { RecipeImage } from './recipeImage';
+import { Image } from './image';
 
 export interface Recipe {
     id?: number;
     title: string;
     recipe: string;
     description: string;
-    recipeImage?: RecipeImage;
-    userId?: string
+    image?: Image;
+    userId?: string;
 }

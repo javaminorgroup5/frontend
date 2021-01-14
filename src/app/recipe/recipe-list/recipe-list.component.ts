@@ -49,11 +49,11 @@ export class RecipeListComponent implements OnInit {
               recipe: r.recipe,
               description: r.description,
               title: r.title,
-              recipeImage:
+              image:
                   {
-                    type: r.recipeImage?.type,
-                    name: r.recipeImage?.name,
-                    picByte: 'data:image/jpeg;base64,' + r.recipeImage?.picByte
+                    type: r.image?.type,
+                    name: r.image?.name,
+                    picByte: 'data:image/jpeg;base64,' + r.image?.picByte
                   }
             };
         this.recipes.push(recipe);

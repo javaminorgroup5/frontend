@@ -8,13 +8,17 @@
         <!-- Header with image -->
         <header>
             <div>
-                <img class="image" mat-card-image [src]="recipe.recipeImage?.picByte" alt="" />
+                <img class="image" mat-card-image [src]="recipe.image?.picByte" alt="" />
                 <div class="px-4">
                     <span class="badge badge-info mt-4" *ngIf="recipe.userId === userId">Auteur</span>
 
                     <div>
                         <button type="button" class="btn btn-info mt-4" (click)="generateShareLink()"
                             *ngIf="recipe.userId === userId">Bekijklink genereren</button>
+                    </div>
+                    <div>
+                        {{ testValue }}
+                        <button type="button" class="btn btn-info mt-4" (click)="test()">test</button>
                     </div>
                     <div *ngIf="alert" class="mt-4">
                         <ngb-alert [type]="alert.type" (closed)="close()">{{ alert.message }}</ngb-alert>
