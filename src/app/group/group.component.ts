@@ -45,14 +45,14 @@ export class GroupComponent implements OnInit {
 
     this.group = {
       id: 0,
-      groupName: "",
-      description: "",
+      groupName: '',
+      description: '',
       profiles: [],
       userId: 0,
       groupImage: {
-        name: "",
-        type: "",
-        picByte: ""
+        name: '',
+        type: '',
+        picByte: ''
       },
     };
 
@@ -134,7 +134,7 @@ export class GroupComponent implements OnInit {
         }
         if (result) {
           console.log(result);
-          if (typeof(result) == 'number') {
+          if (typeof(result) === 'number') {
             await this.router.navigate(['group/' + result]);
           }
           location.reload();
