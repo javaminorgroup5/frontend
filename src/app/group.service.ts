@@ -101,4 +101,18 @@ export class GroupService {
       .toPromise();
   }
 
+  async updateGroup(groupId: number, userId: number, group: FormData): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const endpoint = `http://localhost:8080/group/${groupId}/user/${userId}`;
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+    };
+    return this.http
+        .put<any>(endpoint, group, { headers })
+        .subscribe(response => {
+          console.log(response);
+        });
+  }
+
 }

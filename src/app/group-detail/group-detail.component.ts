@@ -62,6 +62,7 @@ export class GroupDetailComponent implements OnInit {
           }
         });
       });
+
     });
   }
 
@@ -90,6 +91,7 @@ export class GroupDetailComponent implements OnInit {
   handleEditing(): void {
     const modalRef = this.modalService.open(GroupComponent, { centered: true });
     modalRef.componentInstance.groupId = this.groupId;
+    modalRef.componentInstance.group = this.group;
   }
 
   editGroup(id: any): void {

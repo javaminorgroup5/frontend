@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="group">
   <div class="modal-header" *ngIf="groupId >= 1 && userId">
     <h2 class="modal-title" id="modal-basic-title">Groep aanpassen</h2>
     <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
@@ -11,12 +11,18 @@
       <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)" enctype="multipart/form-data">
         <div class="input-box spacing-bottom">
           <label for="groupName">Naam</label>
-          <input class="form-control" id="groupName" name="groupName" type="text" formControlName="groupName" />
+          <input class="form-control" [(ngModel)]="group.groupName" id="groupName" name="groupName" type="text" value="test" formControlName="groupName" />
+          <div *ngIf="titleAlert" class="alert alert-danger">
+            Titel is verplicht.
+          </div>
         </div>
         <div class="input-box spacing-bottom">
           <label for="groupDescription">Beschrijving</label>
-          <textarea class="form-control" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription">
+          <textarea class="form-control" [(ngModel)]="group.description" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription">
           </textarea>
+          <div *ngIf="descriptionAlert" class="alert alert-danger">
+            Omschrijving is verplicht.
+          </div>
         </div>
         <div class="custom-file">
           <p>Afbeelding</p>
@@ -24,6 +30,9 @@
               <div class="custom-file">
                   <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>
                   <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
+                  <div *ngIf="imageAlert" class="alert alert-danger">
+                    Afbeelding is verplicht
+                  </div>
               </div>
           </div>
         </div>
