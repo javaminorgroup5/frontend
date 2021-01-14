@@ -18,7 +18,7 @@
                 </a>
                 <div class="media-body">
                     <a href="#">
-                        Andrew Williams
+                        {{ entry.profileName }}
                     </a>
                     <small class="text-muted">{{entry.createdAt | date: "dd MMM yyyy - HH:mm" }}</small>
                 </div>
@@ -27,7 +27,7 @@
                 <p>
                     {{ entry.message}}
                 </p>
-                <img src="https://via.placeholder.com/650x280/FFB6C1/000000" class="img-responsive" alt="">
+                <img [src]="entry.image?.picByte" class="img-responsive" alt="">
                 <div class="btn-group">
                     <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
                     <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>

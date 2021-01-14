@@ -14,9 +14,12 @@ export class FeedComponent implements OnInit {
   constructor(private feesService: FeedService) { }
 
   ngOnInit(): void {
-    this.loadFeed().then(r => {
-      this.feed = r;
-      console.log(r);
+    this.loadFeed().then(result => {
+      for (const r of result) {
+        r.image.picByte = 'data:image/jpeg;base64,' + r.image.picByte;
+      }
+      this.feed = result;
+      console.log(result);
     });
   }
 
