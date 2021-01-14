@@ -8,4 +8,5 @@ export interface Message {
     createdAt: string;
     profileName: string;
     image: Image;
+    profileImage: Image;
 }

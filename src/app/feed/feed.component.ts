@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FeedService} from './service/feed.service';
 import {Message} from './modal/message';
+import {ProfileService} from '../profile.service';
 
 @Component({
   selector: 'app-feed',
@@ -11,20 +12,31 @@ export class FeedComponent implements OnInit {
 
   feed: Message[] = [];
 
-  constructor(private feesService: FeedService) { }
+  constructor(private feedService: FeedService,
+              private profileService: ProfileService) { }
 
   ngOnInit(): void {
-    this.loadFeed().then(result => {
+    this.loadFeed().then(async result => {
       for (const r of result) {
         r.image.picByte = 'data:image/jpeg;base64,' + r.image.picByte;
+        this.loadProfileImage(r.userId).then(profile => {
+          r.profileImage = {
+            picByte: 'data:image/jpeg;base64,' + profile.image.picByte,
+            type: profile.image.type,
+            name: profile.image.name
+          };
+        });
       }
       this.feed = result;
-      console.log(result);
     });
+
   }
 
   async loadFeed(): Promise<Message[]> {
-    return this.feesService.getFeedByGroup(6);
+    return this.feedService.getFeedByGroup(6);
   }
 
+  async loadProfileImage(id: number): Promise<any> {
+    return this.profileService.getProfile(id);
+  }
 }
