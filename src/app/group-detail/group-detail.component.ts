@@ -42,10 +42,10 @@ export class GroupDetailComponent implements OnInit {
           groupName: value.groupName,
           description: value.description,
           profiles: value.profiles,
-          groupImage: {
-            type: value.groupImage.type,
-            name: value.groupImage.name,
-            picByte: 'data:image/jpeg;base64,' + value.groupImage?.picByte
+          image: {
+            type: value.image.type,
+            name: value.image.name,
+            picByte: 'data:image/jpeg;base64,' + value.image?.picByte
           }
         };
         this.route.queryParamMap.subscribe(queryParams => {

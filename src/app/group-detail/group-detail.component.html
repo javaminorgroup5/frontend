@@ -1,6 +1,6 @@
 <div class="list-group container-md p-0">
   <div class="jumbotron" *ngIf="group && userId">
-    <img class="image" mat-card-image [src]="group.groupImage?.picByte" alt="" />
+    <img class="image" mat-card-image [src]="group.image?.picByte" alt="" />
     <h1 class="display-4">{{ group.groupName }}</h1>
     <span class="badge badge-info mb-4" *ngIf="group.userId === userId">Eigenaar</span>
     <span class="badge badge-info mb-4" *ngIf="group.profiles?.includes(userId)">Lid</span>
