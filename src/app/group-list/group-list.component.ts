@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GroupService } from '../group.service';
-import {Image} from '../recipe/model/image';
+import { GroupService } from '../service/group.service';
+import {Image} from '../model/image';
 
 export type Group = {
   id: number
