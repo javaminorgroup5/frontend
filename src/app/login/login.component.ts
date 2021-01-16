@@ -19,12 +19,13 @@ export class LoginComponent implements OnInit {
   passwordAlert = false;
   invalidEmail = false;
   loginForm;
+  error: string | undefined;
 
   constructor(
       private authService: AuthService,
       private formBuilder: FormBuilder,
       private router: Router,
-      private commonservice: CommonService
+      private commonService: CommonService
   ) {
     this.loginForm = this.formBuilder.group({
       email: '',
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
       return false;
     }
 
-    if (!this.commonservice.isValidaEmail(formData.email)) {
+    if (!this.commonService.isValidaEmail(formData.email)) {
       this.invalidEmail = true;
       return false;
     }
@@ -69,7 +70,6 @@ export class LoginComponent implements OnInit {
           formData.email,
           formData.password
       );
-
       if (result) {
         window.location.href = '/me';
         sessionStorage.setItem('userId', result);
@@ -77,6 +77,7 @@ export class LoginComponent implements OnInit {
         sessionStorage.setItem('password', formData.password);
       }
     } catch (error) {
+      this.error = 'Uw email en of password is niet correct.';
       console.error(error);
     }
   }
