@@ -1,4 +1,4 @@
-import {Image} from '../../recipe/model/image';
+import {Image} from './image';
 
 export interface Message {
     id: number;

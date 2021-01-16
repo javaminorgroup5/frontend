@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { RecipeService } from '../service/recipe.service';
-import { Recipe } from '../model/recipe';
-import { CommonService } from 'src/app/common.service';
+import { RecipeService } from '../../service/recipe.service';
+import { Recipe } from '../../model/recipe';
+import { CommonService } from 'src/app/service/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeDetailsComponent } from '../recipe-details/recipe-details.component';
 import {Router} from '@angular/router';

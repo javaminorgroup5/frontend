@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Group } from '../group-list/group-list.component';
-import { GroupService } from '../group.service';
+import { GroupService } from '../service/group.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GroupComponent } from '../group/group.component';
 

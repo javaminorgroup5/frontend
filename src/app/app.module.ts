@@ -35,7 +35,8 @@ import { FeedComponent } from './feed/feed.component';
     UpdateProfileComponent,
     RecipeViewComponent,
     HomeComponent,
-    FeedComponent],
+    FeedComponent,
+  ],
 
   imports: [
     BrowserModule,

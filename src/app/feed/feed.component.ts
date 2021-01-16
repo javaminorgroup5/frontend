@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {FeedService} from './service/feed.service';
-import {Message} from './modal/message';
-import {ProfileService} from '../profile.service';
+import {FeedService} from '../service/feed.service';
+import {Message} from '../model/message';
+import {ProfileService} from '../service/profile.service';
 
 @Component({
   selector: 'app-feed',
