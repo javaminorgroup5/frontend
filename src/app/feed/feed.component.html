@@ -29,7 +29,7 @@
                 </p>
                 <img [src]="entry.image?.picByte" class="img-responsive" alt="">
                 <div class="btn-group">
-                    <button class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i> Like this!</button>
+                    <button (click)="submitLike(entry.id, entry.recipeId)" class="btn btn-white btn-xs"><i class="fa fa-thumbs-up"></i><span *ngIf="entry.likes">{{entry.likes.length}}</span></button>
                     <button class="btn btn-white btn-xs"><i class="fa fa-comments"></i> Comment</button>
                     <button class="btn btn-white btn-xs"><i class="fa fa-share"></i> Share</button>
                 </div>

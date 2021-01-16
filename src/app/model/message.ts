@@ -1,4 +1,5 @@
 import {Image} from './image';
+import {Like} from './Like';
 
 export interface Message {
     id: number;
@@ -9,4 +10,6 @@ export interface Message {
     profileName: string;
     image: Image;
     profileImage: Image;
+    recipeId: number;
+    likes?: Like[];
 }
