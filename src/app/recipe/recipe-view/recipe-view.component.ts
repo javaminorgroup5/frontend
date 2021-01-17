@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../model/recipe';
-import { RecipeService } from '../service/recipe.service';
-import {ActivatedRoute, Router} from '@angular/router';
-import { CommonService } from '../../common.service';
+import { Recipe } from '../../model/recipe';
+import { RecipeService } from '../../service/recipe.service';
+import {ActivatedRoute} from '@angular/router';
+import { CommonService } from '../../service/common.service';
 
 interface Alert {
   type: string;
@@ -34,14 +34,6 @@ export class RecipeViewComponent implements OnInit {
       description: '',
       title: ''
     };
-    setInterval(() => {
-      this.test();
-    }, 5000);
-  }
-
-  test(): any {
-    this.testValue += 1;
-    return this.ngOnInit();
   }
 
   ngOnInit(): void {

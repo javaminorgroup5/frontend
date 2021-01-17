@@ -22,6 +22,9 @@
         </div>
       </div>
       <button class="btn btn-primary" type="submit">Login</button>
+      <div *ngIf="error" class="alert alert-danger">
+        {{error}}
+      </div>
       <button type="button" class="btn btn-link mt-2"><a href="/register">of klik hier om te registreren</a></button>
     </form>
   </div>
