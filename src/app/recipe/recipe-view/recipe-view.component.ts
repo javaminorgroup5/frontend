@@ -34,14 +34,6 @@ export class RecipeViewComponent implements OnInit {
       description: '',
       title: ''
     };
-    setInterval(() => {
-      this.test();
-    }, 5000);
-  }
-
-  test(): any {
-    this.testValue += 1;
-    return this.ngOnInit();
   }
 
   ngOnInit(): void {

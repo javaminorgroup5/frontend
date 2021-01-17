@@ -21,7 +21,6 @@ export class GroupDetailComponent implements OnInit {
   userId?: number;
   alert?: Alert;
   groupId = -1;
-  openChat = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -65,12 +64,15 @@ export class GroupDetailComponent implements OnInit {
         });
       });
     });
+    this.route.paramMap.subscribe(params => {
+      this.groupId = this.commonService.NumberConverter(params.get('groupId') || '');
+    });
+    this.startFeed(this.groupId).then(r => console.log(r));
   }
 
-  async startChat(groupId: number): Promise<void> {
+  async startFeed(groupId: number): Promise<void> {
     const group: Group = await this.groupService.getGroup(groupId);
     this.commonService.sendGroup(group);
-    this.openChat = !this.openChat;
   }
 
   generateGroupInvite(): void {
@@ -90,7 +92,6 @@ export class GroupDetailComponent implements OnInit {
 
   deleteGroup(): void {
     this.groupService.deleteGroup(this.group?.id).then(() => {
-      // alert(`${this.group?.groupName} verwijderd.`);
       this.router.navigate(['group-list']);
     });
   }

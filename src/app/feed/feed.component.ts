@@ -7,6 +7,7 @@ import {Like} from '../model/Like';
 import {CommonService} from '../service/common.service';
 import {Group} from '../model/group';
 import {GroupService} from '../service/group.service';
+import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -17,13 +18,12 @@ export class FeedComponent implements OnInit {
 
   feed: Message[] = [];
   group: Group | undefined;
-  openChat = false;
 
   constructor(private feedService: FeedService,
               private profileService: ProfileService,
               private likeService: LikeService,
-              private commonService: CommonService,
-              private groupService: GroupService) { }
+              private commonService: CommonService) {
+  }
 
   ngOnInit(): void {
     this.renderFeed();
@@ -31,12 +31,6 @@ export class FeedComponent implements OnInit {
 
   async loadFeed(groupId: number): Promise<Message[]> {
     return this.feedService.getFeedByGroup(groupId);
-  }
-
-  async startChat(groupId: number): Promise<void> {
-    const group: Group = await this.groupService.getGroup(groupId);
-    this.commonService.sendGroup(group);
-    this.openChat = !this.openChat;
   }
 
   renderFeed(): void {
@@ -58,6 +52,14 @@ export class FeedComponent implements OnInit {
         this.feed = result;
       });
     });
+    setInterval(() => {
+      this.recheckFeed();
+    }, 5000);
+  }
+
+  recheckFeed(): any {
+    this.renderFeed();
+    return this.ngOnInit();
   }
 
   async loadProfileImage(id: number): Promise<any> {
@@ -75,7 +77,7 @@ export class FeedComponent implements OnInit {
       };
       this.likeService.toggleLike(like).then(r => console.log(r));
     }
-    this.ngOnInit();
+    return this.ngOnInit();
   }
 
   async getLikes(messageId: number): Promise<Like[]> {
