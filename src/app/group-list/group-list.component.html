@@ -13,13 +13,11 @@
         (click)="joinGroup(group)">
         Volgen
       </button>
-      <div
-        *ngIf="group.profiles?.includes(userId)"
-      >
+      <div *ngIf="group.profiles?.includes(userId)">
         <span class="badge badge-pill badge-info">Lid</span>
       </div>
     </div>
     <p class="mb-1">{{ group.description }}</p>
-    <a href="group/{{ group.id }}"><small>Klik om naar de groepspagina te gaan</small></a>
+    <button class="btn btn-link" (click)="groupDetail(group.id)"><small>Klik om naar de groepspagina te gaan</small></button>
   </div>
 </div>

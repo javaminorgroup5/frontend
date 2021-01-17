@@ -17,4 +17,6 @@
     </div>
   </div>
   <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht Groepen</a></button>
+  <button *ngIf="group" type="button" (click)="startChat(group.id)" class="btn btn-link mt-2">Start Chat</button>
 </div>
+<app-feed></app-feed>

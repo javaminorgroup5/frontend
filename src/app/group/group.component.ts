@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit } from '@angular/core';
 import { GroupService} from '../service/group.service';
 import { FormBuilder } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -46,7 +46,7 @@ export class GroupComponent implements OnInit {
     const id = this.activatedRoute.snapshot.paramMap.get('groupId');
     if (id && this.userId) {
       this.groupId = this.commonService.NumberConverter(id);
-      this.loadGroup(this.groupId);
+      this.loadGroup(this.groupId).then(r => console.log(r));
     }
   }
 
@@ -88,7 +88,6 @@ export class GroupComponent implements OnInit {
             if (this.activeModal) {
               this.activeModal.close();
             }
-            // alert(`You created ${formData.groupName}!`);
             await this.router.navigate(['group/' + result]);
           }
         } catch (error) {
@@ -106,5 +105,4 @@ export class GroupComponent implements OnInit {
     };
     reader.readAsDataURL(this.selectedFile);
   }
-
 }

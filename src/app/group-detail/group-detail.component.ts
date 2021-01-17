@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Group } from '../group-list/group-list.component';
 import { GroupService } from '../service/group.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GroupComponent } from '../group/group.component';
+import {CommonService} from '../service/common.service';
+import {Group} from '../model/group';
 
 interface Alert {
   type: string;
@@ -16,16 +17,18 @@ interface Alert {
   styleUrls: ['./group-detail.component.css']
 })
 export class GroupDetailComponent implements OnInit {
-  group?: Group;
+  group: Group | undefined;
   userId?: number;
   alert?: Alert;
   groupId = -1;
+  openChat = false;
 
   constructor(
     private route: ActivatedRoute,
     private groupService: GroupService,
     private router: Router,
     private modalService: NgbModal,
+    private commonService: CommonService
   ) { }
 
   close(): void {
@@ -50,7 +53,6 @@ export class GroupDetailComponent implements OnInit {
         };
         this.route.queryParamMap.subscribe(queryParams => {
           const inviteToken = queryParams.get('inviteToken');
-
           if (inviteToken && this.group) {
             this.groupService.joinGroup(this.group.id, inviteToken)
               .then(() => {
@@ -63,6 +65,12 @@ export class GroupDetailComponent implements OnInit {
         });
       });
     });
+  }
+
+  async startChat(groupId: number): Promise<void> {
+    const group: Group = await this.groupService.getGroup(groupId);
+    this.commonService.sendGroup(group);
+    this.openChat = !this.openChat;
   }
 
   generateGroupInvite(): void {
