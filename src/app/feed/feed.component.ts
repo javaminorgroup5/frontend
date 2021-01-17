@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FeedService} from '../service/feed.service';
 import {Message} from '../model/message';
 import {ProfileService} from '../service/profile.service';
@@ -6,8 +6,6 @@ import {LikeService} from '../service/like.service';
 import {Like} from '../model/Like';
 import {CommonService} from '../service/common.service';
 import {Group} from '../model/group';
-import {GroupService} from '../service/group.service';
-import {NavigationEnd, Router} from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -49,7 +47,7 @@ export class FeedComponent implements OnInit {
             };
           });
         }
-        this.feed = result;
+        this.feed = result.slice().reverse();
       });
     });
     setInterval(() => {
