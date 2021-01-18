@@ -76,6 +76,25 @@ export class GroupService {
       .toPromise();
   }
 
+  async enrollInGroup(groupId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const userId = sessionStorage.getItem('userId') || '';
+
+    return await this.http
+    .post(`http://localhost:8080/group/${groupId}/enroll`,
+        {
+         userId
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${email}:${password}`),
+          },
+        })
+      .toPromise();
+  }
+
   async create(id: number, group: FormData): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
@@ -113,6 +132,19 @@ export class GroupService {
         .subscribe(response => {
           console.log(response);
         });
+  }
+
+  async getEnrolledGroupsForUser(userId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');  
+    const endpoint = `http://localhost:8080/users/${userId}/enrolled`;
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+    };
+
+    return this.http
+    .get<any>(endpoint, {headers} ).toPromise
+  
   }
 
 }
