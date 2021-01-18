@@ -1,20 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { GroupService } from '../group.service';
-
-interface GroupImage {
-  type: any;
-  name: any;
-  picByte: any;
-}
-
-export type Group = {
-  id: number
-  userId: number
-  groupName: string
-  description: string
-  profiles: any[]
-  groupImage: GroupImage
-};
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import { GroupService } from '../service/group.service';
+import {Group} from '../model/group';
+import {Router} from '@angular/router';
+export {Group} from '../model/group';
 
 @Component({
   selector: 'app-group-list',
@@ -25,7 +13,8 @@ export class GroupListComponent implements OnInit {
   groups: Group[] = [];
   userId: string;
 
-  constructor(private groupService: GroupService) {
+  constructor(private groupService: GroupService,
+              private router: Router) {
     this.userId = '';
   }
 
@@ -34,6 +23,10 @@ export class GroupListComponent implements OnInit {
     this.groupService.getGroups().then((value) => {
       this.groups = value;
     });
+  }
+
+  async groupDetail(id: number): Promise<void> {
+    this.router.navigate([`group/${id}`]).then(r => console.log(r));
   }
 
   joinGroup(group: Group): void {
@@ -46,7 +39,6 @@ export class GroupListComponent implements OnInit {
       } else {
         groups[indexGroup].profiles = [{ id: this.userId }];
       }
-
       alert(`You joined ${group.groupName}!`);
       this.groups = groups;
     });

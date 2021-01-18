@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import { RecipeService } from '../service/recipe.service';
-import { Recipe } from '../model/recipe';
-import { CommonService } from 'src/app/common.service';
+import { RecipeService } from '../../service/recipe.service';
+import { Recipe } from '../../model/recipe';
+import { CommonService } from 'src/app/service/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeDetailsComponent } from '../recipe-details/recipe-details.component';
 import {Router} from '@angular/router';
@@ -49,11 +49,11 @@ export class RecipeListComponent implements OnInit {
               recipe: r.recipe,
               description: r.description,
               title: r.title,
-              recipeImage:
+              image:
                   {
-                    type: r.recipeImage?.type,
-                    name: r.recipeImage?.name,
-                    picByte: 'data:image/jpeg;base64,' + r.recipeImage?.picByte
+                    type: r.image?.type,
+                    name: r.image?.name,
+                    picByte: 'data:image/jpeg;base64,' + r.image?.picByte
                   }
             };
         this.recipes.push(recipe);

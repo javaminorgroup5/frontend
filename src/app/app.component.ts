@@ -1,5 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import { LoginComponent } from './login/login.component';
 import { Router } from '@angular/router';
 
 @Component({
@@ -26,6 +25,6 @@ export class AppComponent implements OnInit {
     sessionStorage.setItem('userId', '');
     sessionStorage.setItem('email', '');
     sessionStorage.setItem('password', '');
-    this.router.navigate(['login']);
+    this.router.navigate(['login']).then(r => console.log(r));
   }
 }
