@@ -1,0 +1,14 @@
+<p>personalfeed works!</p>
+<button *ngIf="feed" (click)="recheckFeed()">Reload Feed</button>
+<div *ngFor="let entry of feed">
+    <div class="card mb-4">
+        <div class="card-header">
+            {{ entry.profileName }}
+        </div>
+        <img *ngIf="entry.image" [src]="entry.image?.picByte" class="card-img-top" alt="">
+        <div class="card-body">
+            {{ entry.message}}
+        </div>
+        <p class="card-text"><small class="text-muted">{{entry.createdAt | date: "dd MMM yyyy - HH:mm" }}</small></p>
+    </div>
+</div>

@@ -1,19 +1,19 @@
-import {Component, OnInit} from '@angular/core';
-import {FeedService} from '../service/feed.service';
+import { Component, OnInit } from '@angular/core';
 import {Message} from '../model/message';
+import {Group} from '../model/group';
+import {FeedService} from '../service/feed.service';
 import {ProfileService} from '../service/profile.service';
 import {LikeService} from '../service/like.service';
-import {Like} from '../model/Like';
 import {CommonService} from '../service/common.service';
-import {Group} from '../model/group';
 import {ActivatedRoute, Router} from '@angular/router';
+import {Like} from '../model/Like';
 
 @Component({
-  selector: 'app-feed',
-  templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.css']
+  selector: 'app-personalfeed',
+  templateUrl: './personalfeed.component.html',
+  styleUrls: ['./personalfeed.component.css']
 })
-export class FeedComponent implements OnInit {
+export class PersonalfeedComponent implements OnInit {
 
   feed: Message[] = [];
   group: Group | undefined;
@@ -32,18 +32,17 @@ export class FeedComponent implements OnInit {
     this.renderFeed();
   }
 
-  async loadFeed(groupId: number): Promise<Message[]> {
-    return this.feedService.getFeedByGroup(groupId);
+  async loadFeed(userId: number): Promise<Message[]> {
+    return this.feedService.getPersonalFeed(userId);
   }
 
   renderFeed(): void {
-    this.commonService.groupSourceO$.subscribe(g => {
-      this.loadFeed(g.id).then(async result => {
+    const userIdString = sessionStorage.getItem('userId');
+    if (userIdString) {
+      const userId = this.commonService.NumberConverter(userIdString);
+      this.loadFeed(userId).then(async result => {
         for (const r of result) {
           r.image.picByte = 'data:image/jpeg;base64,' + r.image.picByte;
-          this.getLikes(r.id).then(likes => {
-            r.likes = likes;
-          });
           this.loadProfileImage(r.userId).then(profile => {
             r.profileImage = {
               picByte: 'data:image/jpeg;base64,' + profile.image.picByte,
@@ -54,7 +53,7 @@ export class FeedComponent implements OnInit {
         }
         this.feed = this.feed = result.slice().reverse();
       });
-    });
+    }
   }
 
   recheckFeed(): any {
@@ -63,23 +62,5 @@ export class FeedComponent implements OnInit {
 
   async loadProfileImage(id: number): Promise<any> {
     return this.profileService.getProfile(id);
-  }
-
-  async submitLike(messageId: number, recipeId: number): Promise<any> {
-    const userIdString = sessionStorage.getItem('userId');
-    if (userIdString) {
-      const userId = this.commonService.NumberConverter(userIdString);
-      const like: Like = {
-        messageId,
-        userId,
-        recipeId,
-      };
-      this.likeService.toggleLike(like).then(r => console.log(r));
-    }
-    return this.ngOnInit();
-  }
-
-  async getLikes(messageId: number): Promise<Like[]> {
-    return this.likeService.getLikeByMessageId(messageId);
   }
 }
