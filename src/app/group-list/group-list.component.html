@@ -13,14 +13,16 @@
         <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'PRIVATE'">Gesloten</span>
       </div>
 
-      <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'OPEN'" type="button"
-        class="btn btn-primary" (click)="joinGroup(group)">
-        Volgen
-      </button>
-      <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'PRIVATE'" type="button"
-        class="btn btn-primary" (click)="joinGroup(group)">
-        Volgverzoek sturen
-      </button>
+      <div>
+        <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'OPEN'" type="button"
+          class="btn btn-primary" (click)="joinGroup(group)">
+          Volgen
+        </button>
+        <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'PRIVATE'" type="button"
+          class="btn btn-primary" (click)="joinGroup(group)">
+          Volgverzoek sturen
+        </button>
+      </div>
       <div *ngIf="group.profiles?.includes(userId)">
         <span class="badge badge-pill badge-info">Lid</span>
       </div>
