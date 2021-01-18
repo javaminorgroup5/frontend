@@ -1,12 +1,16 @@
-<<div class="container">
+<div class="container">
   <div class="row">
     <div class="col">
       <div class="list-group container-md p-0">
         <div class="jumbotron" *ngIf="group && userId">
           <img class="image" mat-card-image [src]="group.image?.picByte" alt="" />
           <h1 class="display-4">{{ group.groupName }}</h1>
-          <span class="badge badge-info mb-4" *ngIf="group.userId === userId">Eigenaar</span>
-          <span class="badge badge-info mb-4" *ngIf="group.profiles?.includes(userId)">Lid</span>
+          <span class="badge badge-primary mb-4 mr-2" *ngIf="group.userId === userId">Eigenaar</span>
+          <span class="badge badge-primary mb-4 mr-2" *ngIf="group.profiles?.includes(userId)">Lid</span>
+          <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'OPEN'">PRIVACY: Open</span>
+          <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'INVITE'">PRIVACY: Op
+            uitnodiging</span>
+          <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'PRIVATE'">PRIVACY: Gesloten</span>
           <p class="lead">{{ group.description }}</p>
           <hr class="my-4" />
           <div *ngIf="group.userId === userId">
@@ -26,4 +30,4 @@
       <app-feed></app-feed>
     </div>
   </div>
-</div>
+  </div>
