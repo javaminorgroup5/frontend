@@ -40,6 +40,7 @@ export class GroupDetailComponent implements OnInit {
       this.groupService.getGroup(parseInt(params.get('groupId') || '', undefined)).then((value) => {
         this.group = {
           id: value.id,
+          groupPrivacy: value.groupPrivacy,
           userId: value.userId,
           groupName: value.groupName,
           description: value.description,

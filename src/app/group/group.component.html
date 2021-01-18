@@ -8,17 +8,32 @@
   <div id="group">
     <div class="jumbotron">
       <h1 class="display-4" *ngIf="groupId < 0">Groep aanmaken</h1>
-      <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)" enctype="multipart/form-data">
+      <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)"
+        enctype="multipart/form-data">
+        <div class="mb-4">
+          <label for="groupName">Groeps privacy</label>
+          <select formControlName="groupPrivacy" class="custom-select" id="groupPrivacy" [(ngModel)]="group.groupPrivacy" >
+            <option value="" selected>Choose...</option>
+            <option value="PRIVATE">Gesloten</option>
+            <option value="INVITE">Op uitnodiging</option>
+            <option value="OPEN">Open</option>
+          </select>
+          <div *ngIf="privacyAlert" class="alert alert-danger">
+            Groeps privacy is verplicht.
+          </div>
+        </div>
         <div class="input-box spacing-bottom">
           <label for="groupName">Naam</label>
-          <input class="form-control" [(ngModel)]="group.groupName" id="groupName" name="groupName" type="text" value="test" formControlName="groupName" />
+          <input class="form-control" [(ngModel)]="group.groupName" id="groupName" name="groupName" type="text"
+            value="test" formControlName="groupName" />
           <div *ngIf="titleAlert" class="alert alert-danger">
             Titel is verplicht.
           </div>
         </div>
         <div class="input-box spacing-bottom">
           <label for="groupDescription">Beschrijving</label>
-          <textarea class="form-control" [(ngModel)]="group.description" id="groupDescription" name="groupDescription" type="textarea" formControlName="groupDescription">
+          <textarea class="form-control" [(ngModel)]="group.description" id="groupDescription" name="groupDescription"
+            type="textarea" formControlName="groupDescription">
           </textarea>
           <div *ngIf="descriptionAlert" class="alert alert-danger">
             Omschrijving is verplicht.
@@ -27,19 +42,22 @@
         <div class="custom-file">
           <p>Afbeelding</p>
           <div class="container row">
-              <div class="custom-file">
-                  <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML" required>
-                  <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
-                  <div *ngIf="imageAlert" class="alert alert-danger">
-                    Afbeelding is verplicht
-                  </div>
+            <div class="custom-file">
+              <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML"
+                required>
+              <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding
+                toe</label>
+              <div *ngIf="imageAlert" class="alert alert-danger">
+                Afbeelding is verplicht
               </div>
+            </div>
           </div>
         </div>
         <div class="modal-footer">
           <button class="btn btn-primary" type="submit" *ngIf="groupId < 0">Groep aanmaken</button>
           <button class="btn btn-primary" type="submit" *ngIf="groupId >= 1 && userId">Groep aanpassen</button>
-          <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht Groepen</a></button>
+          <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht
+              Groepen</a></button>
           <!-- Image Preview -->
           <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
             <img [src]="imageURL" class="preview" [alt]="">
