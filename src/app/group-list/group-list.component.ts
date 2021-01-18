@@ -8,6 +8,7 @@ interface GroupImage {
 }
 
 export enum GroupPrivacy {
+  PRIVATE = 'PRIVATE',
   INVITE = 'INVITE',
   OPEN = 'OPEN',
 }

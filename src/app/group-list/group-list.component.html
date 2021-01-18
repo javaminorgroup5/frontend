@@ -13,6 +13,13 @@
         (click)="joinGroup(group)">
         Volgen
       </button>
+      <button
+        *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'PRIVATE'"
+        type="button"
+        class="btn btn-primary"
+        (click)="joinGroup(group)">
+        Volgverzoek sturen
+      </button>
       <div
         *ngIf="group.profiles?.includes(userId)"
       >

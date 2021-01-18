@@ -38,7 +38,7 @@ export class GroupComponent implements OnInit {
       public activeModal: NgbActiveModal
   ) {
     this.groupCreateForm = this.formBuilder.group({
-      groupPrivacy: false,
+      groupPrivacy: '',
       groupName: '',
       groupDescription: ''
     });
@@ -106,14 +106,14 @@ export class GroupComponent implements OnInit {
   }
 
   async onSubmit(formData: FormData): Promise<void> {
-
+    console.log(formData)
     if (this.groupId < 0 && !this.checkGroupValues(formData)) {
       return;
     }
 
     try {
       const group = {
-        groupPrivacy: formData.groupPrivacy ? GroupPrivacy.OPEN : GroupPrivacy.INVITE,
+        groupPrivacy: formData.groupPrivacy,
         groupName: formData.groupName,
         description: formData.groupDescription
       };
