@@ -21,6 +21,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component';
 import { HomeComponent } from './home/home.component';
 import { FeedComponent } from './feed/feed.component';
+import {RecipeListGroupComponent} from "./recipe/recipe-list-group/recipe-list-group.component";
 
 @NgModule({
   declarations: [AppComponent,
@@ -29,6 +30,7 @@ import { FeedComponent } from './feed/feed.component';
     MeComponent,
     RecipeDetailsComponent,
     RecipeListComponent,
+    RecipeListGroupComponent,
     GroupComponent,
     GroupListComponent,
     GroupDetailComponent,

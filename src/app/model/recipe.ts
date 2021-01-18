@@ -7,4 +7,5 @@ export interface Recipe {
     description: string;
     image?: Image;
     userId?: string;
+    groupId?: string;
 }

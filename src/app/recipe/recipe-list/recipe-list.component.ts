@@ -27,11 +27,39 @@ export class RecipeListComponent implements OnInit {
     this.loadRecipes().then(r => {
       console.log(r);
     });
+
+    this.loadRecipesByGroup().then(r => {
+      console.log(r);
+    });
   }
 
   handleEditing(): void {
     const modalRef = this.modalService.open(RecipeDetailsComponent, { centered: true });
     modalRef.componentInstance.recipeId = this.recipeId;
+  }
+
+  async loadRecipesByGroup(): Promise<any>  {
+    const groupId = "1";
+    const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0));
+    console.log(result);
+    if (result) {
+      for (const r of result) {
+        const recipe =
+            {
+              id: r.id,
+              recipe: r.recipe,
+              description: r.description,
+              title: r.title,
+              image:
+                  {
+                    type: r.image?.type,
+                    name: r.image?.name,
+                    picByte: 'data:image/jpeg;base64,' + r.image?.picByte
+                  }
+            };
+        this.recipes.push(recipe);
+      }
+    }
   }
 
   async loadRecipes(): Promise<any>  {

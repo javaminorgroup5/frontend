@@ -10,6 +10,7 @@ interface FormData {
   recipe: string;
   description: string;
   title: string;
+  groupId: string;
 }
 
 @Component({
@@ -28,6 +29,10 @@ export class RecipeDetailsComponent implements OnInit {
   titleAlert = false;
   descriptionAlert = false;
   imageAlert = false;
+  groupIdAlert = false;
+  disableSelect = false;
+
+  groupId = -1;
 
   constructor(
       private recipeService: RecipeService,
@@ -40,12 +45,14 @@ export class RecipeDetailsComponent implements OnInit {
     this.recipe = {
       recipe: '',
       description: '',
-      title: ''
+      title: '',
+      groupId: '',
     };
     this.recipeForm = this.formBuilder.group({
       recipe: '',
       description: '',
-      title: ''
+      title: '',
+      groupId: ''
     });
     this.activeModal = activeModal;
   }
@@ -64,8 +71,18 @@ export class RecipeDetailsComponent implements OnInit {
     if (this.recipeId > 0) {
       this.loadRecipe(this.recipeId).then(r => console.log(r));
     }
-  }
 
+    if(this.groupId && this.groupId != -1) {
+      this.recipeForm = this.formBuilder.group({
+        recipe: '',
+        description: '',
+        title: '',
+        groupId: this.groupId,
+      });
+      this.disableSelect = true;
+    }
+
+  }
 
   async loadRecipe(recipeiId: number): Promise<any> {
     const userId = sessionStorage.getItem('userId');
@@ -78,8 +95,12 @@ export class RecipeDetailsComponent implements OnInit {
       this.recipeForm = this.formBuilder.group({
         recipe: result.recipe,
         description: result.description,
-        title: result.title
+        title: result.title,
+        groupId: result.groupId,
       });
+      if(result.groupId != '') {
+        this.disableSelect = true;
+      }
     }
   }
 
@@ -88,6 +109,12 @@ export class RecipeDetailsComponent implements OnInit {
     this.descriptionAlert = false;
     this.recipeAlert = false;
     this.imageAlert = false;
+    this.groupIdAlert = false;
+
+    if (!formData.groupId) {
+      this.groupIdAlert = true;
+      return false;
+    }
     if (!formData.title) {
       this.titleAlert = true;
       return false;
@@ -117,7 +144,8 @@ export class RecipeDetailsComponent implements OnInit {
       const recipe: Recipe = {
         recipe: formData.recipe,
         description: formData.description,
-        title: formData.title
+        title: formData.title,
+        groupId: formData.groupId,
       };
       const uploadImageData = new FormData();
       if (this.selectedFile) {
