@@ -1,8 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import { GroupService } from '../service/group.service';
-import {Group} from '../model/group';
+import { GroupService } from '../../service/group.service';
+import {Group} from '../../model/group';
 import {Router} from '@angular/router';
-export {Group} from '../model/group';
+export {Group} from '../../model/group';
 
 @Component({
   selector: 'app-group-list',

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Group } from '../group-list/group-list.component';
+import { Group } from '../group/group-list/group-list.component';
 
 @Injectable({
   providedIn: 'root',

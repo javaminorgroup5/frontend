@@ -4,14 +4,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './register/register.component';
 import { LoginComponent } from './login/login.component';
-import { GroupComponent } from './group/group.component';
+import { GroupComponent } from './group/group-view/group-view.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { MeComponent } from './me/me.component';
 import {NgbActiveModal, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { UpdateProfileComponent } from './update-profile/update-profile.component';
-import { GroupListComponent } from './group-list/group-list.component';
-import { GroupDetailComponent } from './group-detail/group-detail.component';
+import { GroupListComponent } from './group/group-list/group-list.component';
+import { GroupDetailComponent } from './group/group-detail/group-detail.component';
 import { RecipeDetailsComponent } from './recipe/recipe-details/recipe-details.component';
 import { RecipeListComponent } from './recipe/recipe-list/recipe-list.component';
 import { MatCardModule } from '@angular/material/card';
@@ -22,6 +22,8 @@ import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component'
 import { HomeComponent } from './home/home.component';
 import { FeedComponent } from './feed/feed.component';
 import { GroupEnrollmentComponent } from './group-enrollment/group-enrollment.component';
+import {RecipeListGroupComponent} from "./recipe/recipe-list-group/recipe-list-group.component";
+
 
 @NgModule({
   declarations: [AppComponent,
@@ -30,6 +32,7 @@ import { GroupEnrollmentComponent } from './group-enrollment/group-enrollment.co
     MeComponent,
     RecipeDetailsComponent,
     RecipeListComponent,
+    RecipeListGroupComponent,
     GroupComponent,
     GroupListComponent,
     GroupDetailComponent,

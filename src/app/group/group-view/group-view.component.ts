@@ -1,11 +1,11 @@
 import {Component, OnInit } from '@angular/core';
-import { GroupService} from '../service/group.service';
+import { GroupService} from '../../service/group.service';
 import { FormBuilder } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CommonService} from '../service/common.service';
+import {CommonService} from '../../service/common.service';
 import {Group} from '../group-list/group-list.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { GroupPrivacy } from '../model/group';
+import { GroupPrivacy } from '../../model/group';
 
 interface FormData {
   groupPrivacy: GroupPrivacy;
@@ -14,9 +14,9 @@ interface FormData {
 }
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.component.html',
-  styleUrls: ['./group.component.css'],
+  selector: 'app-group-view',
+  templateUrl: './group-view.component.html',
+  styleUrls: ['./group-view.component.css'],
 })
 export class GroupComponent implements OnInit {
 
@@ -111,7 +111,6 @@ export class GroupComponent implements OnInit {
   }
 
   async onSubmit(formData: FormData): Promise<void> {
-    console.log(formData)
     if (this.groupId < 0 && !this.checkGroupValues(formData)) {
       return;
     }
@@ -127,7 +126,6 @@ export class GroupComponent implements OnInit {
       if (this.selectedFile) {
         uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       }
-
       const groupObjectString = JSON.stringify(group);
 
       const groupBlob = new Blob([groupObjectString], {type: 'application/json'});
@@ -143,7 +141,7 @@ export class GroupComponent implements OnInit {
           result = await this.groupService.create(id, uploadImageData);
         }
         if (result) {
-          if (typeof(result) == 'number') {
+          if (typeof(result) ==='number') {
             await this.router.navigate(['group/' + result]);
           }
           location.reload();

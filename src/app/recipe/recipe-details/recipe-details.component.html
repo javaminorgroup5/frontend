@@ -9,6 +9,13 @@
     <div class="modal-body">
       <div class="modal-body">
         <div class="input-box spacing-bottom">
+          <label for="groupId">Group Id</label>
+          <input class="form-control" id="groupId" name="groupId" type="number" formControlName="groupId" [readonly]="disableSelect">
+          <div *ngIf="groupIdAlert" class="alert alert-danger">
+            groupId is verplicht.
+          </div>
+        </div>
+        <div class="input-box spacing-bottom">
           <label for="title">Titel</label>
           <input class="form-control" id="title" name="title" type="text" formControlName="title">
           <div *ngIf="titleAlert" class="alert alert-danger">
