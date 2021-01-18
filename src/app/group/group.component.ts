@@ -111,7 +111,6 @@ export class GroupComponent implements OnInit {
   }
 
   async onSubmit(formData: FormData): Promise<void> {
-    console.log(formData)
     if (this.groupId < 0 && !this.checkGroupValues(formData)) {
       return;
     }
@@ -127,7 +126,6 @@ export class GroupComponent implements OnInit {
       if (this.selectedFile) {
         uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       }
-
       const groupObjectString = JSON.stringify(group);
 
       const groupBlob = new Blob([groupObjectString], {type: 'application/json'});
