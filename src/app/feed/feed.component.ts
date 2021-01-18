@@ -6,6 +6,7 @@ import {LikeService} from '../service/like.service';
 import {Like} from '../model/Like';
 import {CommonService} from '../service/common.service';
 import {Group} from '../model/group';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -16,11 +17,15 @@ export class FeedComponent implements OnInit {
 
   feed: Message[] = [];
   group: Group | undefined;
+  timer: any;
 
   constructor(private feedService: FeedService,
               private profileService: ProfileService,
               private likeService: LikeService,
-              private commonService: CommonService) {
+              private commonService: CommonService,
+              private route: ActivatedRoute,
+              private router: Router) {
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
   }
 
   ngOnInit(): void {
@@ -32,6 +37,7 @@ export class FeedComponent implements OnInit {
   }
 
   renderFeed(): void {
+    console.log('renderFeed');
     this.commonService.groupSourceO$.subscribe(g => {
       this.loadFeed(g.id).then(async result => {
         for (const r of result) {
@@ -47,17 +53,15 @@ export class FeedComponent implements OnInit {
             };
           });
         }
-        this.feed = result.slice().reverse();
+        this.feed = result;
       });
     });
-    setInterval(() => {
-      this.recheckFeed();
-    }, 5000);
   }
 
   recheckFeed(): any {
-    this.renderFeed();
-    return this.ngOnInit();
+    // console.log(this.route.url);
+    // console.log(this.router.url);
+    this.router.navigate([this.router.url]);
   }
 
   async loadProfileImage(id: number): Promise<any> {
