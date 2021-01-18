@@ -3,10 +3,11 @@ import { GroupService} from '../group.service';
 import { FormBuilder } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '../common.service';
-import {Group} from '../group-list/group-list.component';
+import {Group, GroupPrivacy} from '../group-list/group-list.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 
 interface FormData {
+  groupPrivacy: GroupPrivacy;
   groupName: string;
   groupDescription: string;
 }
@@ -37,6 +38,7 @@ export class GroupComponent implements OnInit {
       public activeModal: NgbActiveModal
   ) {
     this.groupCreateForm = this.formBuilder.group({
+      groupPrivacy: false,
       groupName: '',
       groupDescription: ''
     });
@@ -45,6 +47,7 @@ export class GroupComponent implements OnInit {
 
     this.group = {
       id: 0,
+      groupPrivacy: GroupPrivacy.OPEN,
       groupName: "",
       description: "",
       profiles: [],
@@ -72,6 +75,7 @@ export class GroupComponent implements OnInit {
     if (result) {
       const group: Group = {
         id: result.id,
+        groupPrivacy: result.groupPrivacy,
         groupName: result.groupName,
         description: result.description,
         profiles: result.profiles,
@@ -109,6 +113,7 @@ export class GroupComponent implements OnInit {
 
     try {
       const group = {
+        groupPrivacy: formData.groupPrivacy ? GroupPrivacy.OPEN : GroupPrivacy.INVITE,
         groupName: formData.groupName,
         description: formData.groupDescription
       };
@@ -133,7 +138,6 @@ export class GroupComponent implements OnInit {
           result = await this.groupService.create(id, uploadImageData);
         }
         if (result) {
-          console.log(result);
           if (typeof(result) == 'number') {
             await this.router.navigate(['group/' + result]);
           }

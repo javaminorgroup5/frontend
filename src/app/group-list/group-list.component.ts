@@ -7,9 +7,15 @@ interface GroupImage {
   picByte: any;
 }
 
+export enum GroupPrivacy {
+  INVITE = 'INVITE',
+  OPEN = 'OPEN',
+}
+
 export type Group = {
   id: number
   userId: number
+  groupPrivacy: GroupPrivacy
   groupName: string
   description: string
   profiles: any[]

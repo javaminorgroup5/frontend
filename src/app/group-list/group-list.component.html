@@ -7,7 +7,7 @@
     <div class="d-flex w-100 justify-content-between">
       <h5 class="mb-1">{{ group.groupName }}</h5>
       <button
-        *ngIf="!group.profiles?.includes(userId)"
+        *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'OPEN'"
         type="button"
         class="btn btn-primary"
         (click)="joinGroup(group)">

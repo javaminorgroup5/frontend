@@ -2,8 +2,10 @@
   <div class="jumbotron" *ngIf="group && userId">
     <img class="image" mat-card-image [src]="group.groupImage?.picByte" alt="" />
     <h1 class="display-4">{{ group.groupName }}</h1>
-    <span class="badge badge-info mb-4" *ngIf="group.userId === userId">Eigenaar</span>
-    <span class="badge badge-info mb-4" *ngIf="group.profiles?.includes(userId)">Lid</span>
+    <span class="badge badge-primary mb-4 mr-2" *ngIf="group.userId === userId">Eigenaar</span>
+    <span class="badge badge-primary mb-4 mr-2" *ngIf="group.profiles?.includes(userId)">Lid</span>
+    <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'OPEN'">PRIVACY: OPEN</span>
+    <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'INVITE'">PRIVACY: INVITE</span>
     <p class="lead">{{ group.description }}</p>
     <hr class="my-4" />
     <div *ngIf="group.userId === userId">

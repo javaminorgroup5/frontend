@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Group } from '../group-list/group-list.component';
+import { Group, GroupPrivacy } from '../group-list/group-list.component';
 import { GroupService } from '../group.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { GroupComponent } from '../group/group.component';
@@ -38,6 +38,7 @@ export class GroupDetailComponent implements OnInit {
       this.groupService.getGroup(parseInt(params.get('groupId') || '', undefined)).then((value) => {
         this.group = {
           id: value.id,
+          groupPrivacy: value.groupPrivacy,
           userId: value.userId,
           groupName: value.groupName,
           description: value.description,

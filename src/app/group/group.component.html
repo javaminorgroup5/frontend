@@ -9,6 +9,10 @@
     <div class="jumbotron">
       <h1 class="display-4" *ngIf="groupId < 0">Groep aanmaken</h1>
       <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)" enctype="multipart/form-data">
+        <div class="custom-control custom-switch my-4">
+          <input type="checkbox" class="custom-control-input" id="groupPrivacy" [(ngModel)]="group.groupPrivacy" formControlName="groupPrivacy">
+          <label class="custom-control-label" for="groupPrivacy">Groep privacy: open (iedereen kan zich aansluiten bij de groep)</label>
+        </div>
         <div class="input-box spacing-bottom">
           <label for="groupName">Naam</label>
           <input class="form-control" [(ngModel)]="group.groupName" id="groupName" name="groupName" type="text" value="test" formControlName="groupName" />
