@@ -111,7 +111,6 @@ export class GroupComponent implements OnInit {
   }
 
   async onSubmit(formData: FormData): Promise<void> {
-    console.log(formData)
     if (this.groupId < 0 && !this.checkGroupValues(formData)) {
       return;
     }
@@ -127,7 +126,6 @@ export class GroupComponent implements OnInit {
       if (this.selectedFile) {
         uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       }
-
       const groupObjectString = JSON.stringify(group);
 
       const groupBlob = new Blob([groupObjectString], {type: 'application/json'});
@@ -143,7 +141,7 @@ export class GroupComponent implements OnInit {
           result = await this.groupService.create(id, uploadImageData);
         }
         if (result) {
-          if (typeof(result) == 'number') {
+          if (typeof(result) ==='number') {
             await this.router.navigate(['group/' + result]);
           }
           location.reload();

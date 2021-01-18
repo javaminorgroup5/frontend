@@ -9,7 +9,7 @@ export enum GroupPrivacy {
 export interface Group {
     id: number;
     userId: number;
-    groupPrivacy: GroupPrivacy
+    groupPrivacy: GroupPrivacy;
     groupName: string;
     description: string;
     profiles: any[];

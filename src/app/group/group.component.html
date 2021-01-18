@@ -12,7 +12,7 @@
         enctype="multipart/form-data">
         <div class="mb-4">
           <label for="groupName">Groeps privacy</label>
-          <select formControlName="groupPrivacy" class="custom-select" id="groupPrivacy">
+          <select formControlName="groupPrivacy" class="custom-select" id="groupPrivacy" [(ngModel)]="group.groupPrivacy" >
             <option value="" selected>Choose...</option>
             <option value="PRIVATE">Gesloten</option>
             <option value="INVITE">Op uitnodiging</option>
