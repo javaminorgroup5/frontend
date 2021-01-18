@@ -49,7 +49,7 @@ export class GroupComponent implements OnInit {
       description: '',
       profiles: [],
       userId: 0,
-      groupImage: {
+      image: {
         name: '',
         type: '',
         picByte: ''
@@ -60,17 +60,8 @@ export class GroupComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = sessionStorage.getItem('userId') || '';
-<<<<<<< HEAD
     if (this.group && this.userId && this.groupId > 0) {
       this.loadGroup(this.groupId);
-      console.log(this.group);
-      console.log(this.groupId);
-=======
-    const id = this.activatedRoute.snapshot.paramMap.get('groupId');
-    if (id && this.userId) {
-      this.groupId = this.commonService.NumberConverter(id);
-      this.loadGroup(this.groupId).then(r => console.log(r));
->>>>>>> development
     }
   }
 
@@ -83,15 +74,7 @@ export class GroupComponent implements OnInit {
         description: result.description,
         profiles: result.profiles,
         userId: result.userId,
-<<<<<<< HEAD
-        groupImage: result.groupImage,
-=======
-        image: {
-          type: result.image.type,
-          name: result.image.name,
-          picByte: result.image.picByte
-        }
->>>>>>> development
+        image: result.image,
       };
       this.group = group;
     }
