@@ -1,11 +1,11 @@
 import {Component, OnInit } from '@angular/core';
-import { GroupService} from '../service/group.service';
+import { GroupService} from '../../service/group.service';
 import { FormBuilder } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CommonService} from '../service/common.service';
+import {CommonService} from '../../service/common.service';
 import {Group} from '../group-list/group-list.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { GroupPrivacy } from '../model/group';
+import { GroupPrivacy } from '../../model/group';
 
 interface FormData {
   groupPrivacy: GroupPrivacy;
@@ -14,9 +14,9 @@ interface FormData {
 }
 
 @Component({
-  selector: 'app-group',
-  templateUrl: './group.component.html',
-  styleUrls: ['./group.component.css'],
+  selector: 'app-group-view',
+  templateUrl: './group-view.component.html',
+  styleUrls: ['./group-view.component.css'],
 })
 export class GroupComponent implements OnInit {
 

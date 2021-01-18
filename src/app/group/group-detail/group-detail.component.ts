@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GroupService } from '../service/group.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { GroupComponent } from '../group/group.component';
-import {CommonService} from '../service/common.service';
-import {Group} from '../model/group';
+
+import { GroupService } from '../../service/group.service';
+import { GroupComponent } from '../group-view/group-view.component';
+import {CommonService} from '../../service/common.service';
+import {Group} from '../../model/group';
 
 interface Alert {
   type: string;
