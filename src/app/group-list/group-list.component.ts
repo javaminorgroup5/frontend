@@ -43,4 +43,8 @@ export class GroupListComponent implements OnInit {
       this.groups = groups;
     });
   }
+
+  enrollInGroup(group: Group): void {
+    this.groupService.enrollInGroup(group.id)
+  }
 }

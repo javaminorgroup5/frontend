@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { parse } from 'path';
 import { Group } from '../group-list/group-list.component';
 
 @Injectable({
@@ -66,6 +67,25 @@ export class GroupService {
         {
           inviteToken,
           userId: parseInt(userId, undefined),
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${email}:${password}`),
+          },
+        })
+      .toPromise();
+  }
+
+  async enrollInGroup(groupId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const userId = sessionStorage.getItem('userId') || '';
+
+    return await this.http
+    .post(`http://localhost:8080/group/${groupId}/enroll`,
+        {
+         userId
         },
         {
           headers: {

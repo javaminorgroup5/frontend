@@ -13,6 +13,13 @@
         (click)="joinGroup(group)">
         Volgen
       </button>
+      <button
+        *ngIf="!group.profiles?.includes(userId)"
+        type="button"
+        class="btn btn-primary"
+        (click)="enrollInGroup(group)">
+        Inschrijven
+      </button>
       <div *ngIf="group.profiles?.includes(userId)">
         <span class="badge badge-pill badge-info">Lid</span>
       </div>
