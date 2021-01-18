@@ -10,12 +10,15 @@
           <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'OPEN'">PRIVACY: Open</span>
           <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'INVITE'">PRIVACY: Op
             uitnodiging</span>
+          {{group.groupPrivacy}}
           <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'PRIVATE'">PRIVACY: Gesloten</span>
           <p class="lead">{{ group.description }}</p>
           <hr class="my-4" />
           <div *ngIf="group.userId === userId">
             <button type="button" class="btn btn-info mr-4 mb-2" *ngIf="group.groupPrivacy === 'INVITE'" (click)="generateGroupInvite()">Uitnodigingslink
               genereren</button>
+            <button type="button" class="btn btn-info mr-4 mb-2" *ngIf="group.groupPrivacy === 'PRIVATE'" (click)="generateGroupFeedInvite()">Uitnodiging
+              via feed</button>
             <button type="button" class="btn btn-danger mr-4 mb-2" (click)="deleteGroup()">Groep verwijderen</button>
             <button type="button" class="btn btn-primary mb-2" (click)="editGroup(group.id)">Groep aanpassen</button>
           </div>

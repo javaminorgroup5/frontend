@@ -92,6 +92,16 @@ export class GroupDetailComponent implements OnInit {
     }
   }
 
+  generateGroupFeedInvite(): void {
+    if (!confirm('Weet je zeker dat je een invite wil genereren?')) {
+      return;
+    }
+    if (this.group) {
+      const groupId = this.group.id;
+      this.groupService.generateGroupFeedInvite(groupId).then( r => console.log(r));
+    }
+  }
+
   deleteGroup(): void {
     this.groupService.deleteGroup(this.group?.id).then(() => {
       this.router.navigate(['group-list']);

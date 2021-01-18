@@ -56,6 +56,25 @@ export class GroupService {
     }
   }
 
+  async generateGroupFeedInvite(groupId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const userId = sessionStorage.getItem('userId') || '';
+
+    try {
+      return await this.http
+          .post(`http://localhost:8080/group/${groupId}/generate_feed_invite`, { userId }, {
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: 'Basic ' + btoa(`${email}:${password}`),
+            },
+          })
+          .toPromise<any>();
+    } catch (error) {
+      return error;
+    }
+  }
+
   async joinGroup(groupId: number, inviteToken?: string): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
