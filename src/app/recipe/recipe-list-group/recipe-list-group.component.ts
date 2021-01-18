@@ -16,8 +16,7 @@ export class RecipeListGroupComponent implements OnInit {
   recipes: Recipe[] = [];
   recipeId = -1;
 
-  userId:any = '';
-
+  userId: any = '';
   groupId: any = '';
 
   constructor(

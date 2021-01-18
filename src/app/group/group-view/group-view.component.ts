@@ -141,7 +141,7 @@ export class GroupComponent implements OnInit {
           result = await this.groupService.create(id, uploadImageData);
         }
         if (result) {
-          if (typeof(result) ==='number') {
+          if (typeof(result) === 'number') {
             await this.router.navigate(['group/' + result]);
           }
           location.reload();

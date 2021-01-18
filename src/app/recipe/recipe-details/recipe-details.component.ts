@@ -72,7 +72,7 @@ export class RecipeDetailsComponent implements OnInit {
       this.loadRecipe(this.recipeId).then(r => console.log(r));
     }
 
-    if(this.groupId && this.groupId != -1) {
+    if (this.groupId && this.groupId !== -1) {
       this.recipeForm = this.formBuilder.group({
         recipe: '',
         description: '',
@@ -98,7 +98,7 @@ export class RecipeDetailsComponent implements OnInit {
         title: result.title,
         groupId: result.groupId,
       });
-      if(result.groupId != '') {
+      if (result.groupId !== '') {
         this.disableSelect = true;
       }
     }
