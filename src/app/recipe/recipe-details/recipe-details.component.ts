@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { RecipeService } from '../service/recipe.service';
-import { Recipe } from '../model/recipe';
+import { RecipeService } from '../../service/recipe.service';
+import { Recipe } from '../../model/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from 'src/app/common.service';
+import { CommonService } from 'src/app/service/common.service';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface FormData {

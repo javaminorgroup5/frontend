@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { GroupService} from '../group.service';
+import {Component, OnInit } from '@angular/core';
+import { GroupService} from '../service/group.service';
 import { FormBuilder } from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
-import {CommonService} from '../common.service';
-import {Group, GroupPrivacy} from '../group-list/group-list.component';
+import {CommonService} from '../service/common.service';
+import {Group} from '../group-list/group-list.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { GroupPrivacy } from '../model/group';
 
 interface FormData {
   groupPrivacy: GroupPrivacy;
@@ -49,14 +50,14 @@ export class GroupComponent implements OnInit {
     this.group = {
       id: 0,
       groupPrivacy: GroupPrivacy.OPEN,
-      groupName: "",
-      description: "",
+      groupName: '',
+      description: '',
       profiles: [],
       userId: 0,
-      groupImage: {
-        name: "",
-        type: "",
-        picByte: ""
+      image: {
+        name: '',
+        type: '',
+        picByte: ''
       },
     };
 
@@ -66,8 +67,6 @@ export class GroupComponent implements OnInit {
     this.userId = sessionStorage.getItem('userId') || '';
     if (this.group && this.userId && this.groupId > 0) {
       this.loadGroup(this.groupId);
-      console.log(this.group);
-      console.log(this.groupId);
     }
   }
 
@@ -81,7 +80,7 @@ export class GroupComponent implements OnInit {
         description: result.description,
         profiles: result.profiles,
         userId: result.userId,
-        groupImage: result.groupImage,
+        image: result.image,
       };
       this.group = group;
     }
@@ -164,5 +163,4 @@ export class GroupComponent implements OnInit {
     };
     reader.readAsDataURL(this.selectedFile);
   }
-
 }

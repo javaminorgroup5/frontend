@@ -1,4 +1,6 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
+import {Subject} from 'rxjs';
+import {Group} from '../model/group';
 
 @Injectable({
   providedIn: 'root'
@@ -6,6 +8,13 @@ import { Injectable } from '@angular/core';
 export class CommonService {
 
   constructor() { }
+
+  private groupSource = new Subject<Group>();
+  groupSourceO$ = this.groupSource.asObservable();
+
+  sendGroup(group: Group): void {
+    this.groupSource.next(group);
+  }
 
   NumberConverter = (value: any) => {
     if (value === null || value === undefined || typeof value === 'number') {

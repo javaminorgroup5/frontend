@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { User } from '../recipe/model/user';
-import {CommonService} from '../common.service';
+import { AuthService } from '../service/auth.service';
+import { User } from '../model/user';
+import {CommonService} from '../service/common.service';
 
 
 interface FormData {

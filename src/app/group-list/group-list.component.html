@@ -12,21 +12,21 @@
           uitnodiging</span>
         <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'PRIVATE'">Gesloten</span>
       </div>
-      <div>
-        <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'OPEN'" type="button"
-          class="btn btn-primary" (click)="joinGroup(group)">
-          Volgen
-        </button>
-        <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'PRIVATE'" type="button"
-          class="btn btn-primary" (click)="joinGroup(group)">
-          Volgverzoek sturen
-        </button>
-        <div *ngIf="group.profiles?.includes(userId)">
-          <span class="badge badge-pill badge-info">Lid</span>
-        </div>
+
+      <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'OPEN'" type="button"
+        class="btn btn-primary" (click)="joinGroup(group)">
+        Volgen
+      </button>
+      <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'PRIVATE'" type="button"
+        class="btn btn-primary" (click)="joinGroup(group)">
+        Volgverzoek sturen
+      </button>
+      <div *ngIf="group.profiles?.includes(userId)">
+        <span class="badge badge-pill badge-info">Lid</span>
       </div>
     </div>
     <p class="mb-1">{{ group.description }}</p>
-    <a href="group/{{ group.id }}"><small>Klik om naar de groepspagina te gaan</small></a>
+    <button class="btn btn-link" (click)="groupDetail(group.id)"><small>Klik om naar de groepspagina te
+        gaan</small></button>
   </div>
 </div>

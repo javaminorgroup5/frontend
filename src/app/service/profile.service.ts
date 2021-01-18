@@ -1,5 +1,4 @@
 import { HttpClient } from '@angular/common/http';
-import { R3ResolvedDependencyType } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 
 @Injectable({

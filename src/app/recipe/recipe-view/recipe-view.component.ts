@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Recipe } from '../model/recipe';
-import { RecipeService } from '../service/recipe.service';
-import { ActivatedRoute } from '@angular/router';
-import { CommonService } from '../../common.service';
+import { Recipe } from '../../model/recipe';
+import { RecipeService } from '../../service/recipe.service';
+import {ActivatedRoute} from '@angular/router';
+import { CommonService } from '../../service/common.service';
 
 interface Alert {
   type: string;
@@ -22,11 +22,12 @@ export class RecipeViewComponent implements OnInit {
   alert?: Alert;
   recipe: Recipe;
   userId?: number;
+  testValue = 0;
 
   constructor(
     private recipeService: RecipeService,
     private route: ActivatedRoute,
-    private commonService: CommonService,
+    private commonService: CommonService
   ) {
     this.recipe = {
       recipe: '',
@@ -56,15 +57,15 @@ export class RecipeViewComponent implements OnInit {
                     recipe: result.recipe,
                     description: result.description,
                     title: result.title,
-                    recipeImage:
+                    image:
                     {
-                      type: result.recipeImage?.type,
-                      name: result.recipeImage?.name,
-                      picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
+                      type: result.image?.type,
+                      name: result.image?.name,
+                      picByte: 'data:image/jpeg;base64,' + result.image?.picByte
                     }
                   };
                   this.recipe = recipe;
-                })
+                });
             } else {
               this.loadRecipe(this.recipeId);
             }
@@ -74,7 +75,7 @@ export class RecipeViewComponent implements OnInit {
     }
   }
 
-  async generateShareLink() {
+  async generateShareLink(): Promise<void> {
     if (this.recipe.id) {
       this.recipeService.generateShareLink(this.recipe.id).then(({ shareLink }) => {
         this.alert = {
@@ -89,7 +90,7 @@ export class RecipeViewComponent implements OnInit {
     this.alert = undefined;
   }
 
-  async loadRecipe(recipeiId: number,): Promise<any> {
+  async loadRecipe(recipeiId: number): Promise<any> {
     if (!this.userId) {
       return;
     }
@@ -102,11 +103,11 @@ export class RecipeViewComponent implements OnInit {
         description: result.description,
         title: result.title,
         userId: result.userId,
-        recipeImage:
+        image:
         {
-          type: result.recipeImage?.type,
-          name: result.recipeImage?.name,
-          picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
+          type: result.image?.type,
+          name: result.image?.name,
+          picByte: 'data:image/jpeg;base64,' + result.image?.picByte
         }
       };
       this.recipe = recipe;
@@ -126,11 +127,11 @@ export class RecipeViewComponent implements OnInit {
         recipe: result.recipe,
         description: result.description,
         title: result.title,
-        recipeImage:
+        image:
         {
-          type: result.recipeImage?.type,
-          name: result.recipeImage?.name,
-          picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
+          type: result.image?.type,
+          name: result.image?.name,
+          picByte: 'data:image/jpeg;base64,' + result.image?.picByte
         }
       };
       this.recipe = recipe;

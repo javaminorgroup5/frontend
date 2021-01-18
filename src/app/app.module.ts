@@ -20,6 +20,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component';
 import { HomeComponent } from './home/home.component';
+import { FeedComponent } from './feed/feed.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -33,7 +34,9 @@ import { HomeComponent } from './home/home.component';
     GroupDetailComponent,
     UpdateProfileComponent,
     RecipeViewComponent,
-    HomeComponent],
+    HomeComponent,
+    FeedComponent,
+  ],
 
   imports: [
     BrowserModule,

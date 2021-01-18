@@ -75,7 +75,7 @@ export class RecipeService {
     }
   }
 
-  async getRecipeByShareLink(recipeId: number, shareLink: string) {
+  async getRecipeByShareLink(recipeId: number, shareLink: string): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
 
