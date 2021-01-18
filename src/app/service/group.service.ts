@@ -134,17 +134,21 @@ export class GroupService {
         });
   }
 
-  async getEnrolledGroupsForUser(userId: number): Promise<any> {
+  async getEnrolledGroupsForUser(id?: number): Promise<any> {
     const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');  
-    const endpoint = `http://localhost:8080/users/${userId}/enrolled`;
-    const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
-    };
-
-    return this.http
-    .get<any>(endpoint, {headers} ).toPromise
-  
+    const password = sessionStorage.getItem('password'); 
+    try{
+      return await this.http
+      .get(`htttp://localhost:8080/users/${id}/enrolled`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa(`${email}:${password}`),        
+        },
+      })
+      .toPromise();
+    } catch(error) {
+      console.error(error);
+    }
   }
 
 }

@@ -31,5 +31,7 @@ export class GroupListComponent implements OnInit {
 
   enrollInGroup(group: Group): void {
     this.groupService.enrollInGroup(group.id)
+    const groupname = group.groupName;
+    alert("U bent nu lid van de " + groupname)
   }
 }

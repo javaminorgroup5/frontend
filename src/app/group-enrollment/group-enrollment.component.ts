@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Group } from '../model/group';
 import { GroupService } from '../service/group.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class GroupEnrollmentComponent implements OnInit {
   constructor(
     private groupService: GroupService,
     
-  ) { this.group = '' }
+  ) { this.group = ''  }
 
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');

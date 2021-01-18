@@ -2,6 +2,8 @@
 <div *ngIf="profile" class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol-lg-6">
   <img class="image" mat-card-image [src]="profile.image?.picByte" alt="" />
   <div id="profile-name"> <h1>{{ profile.profileName }}</h1> </div>
+  <div> <app-group-enrollment></app-group-enrollment> </div>
+
   <div>
     <button *ngIf="!editing" type="button" class="btn btn-primary" (click)="enableEditing()">Profiel aanpassen</button>
   </div>
