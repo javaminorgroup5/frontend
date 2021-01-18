@@ -4,8 +4,9 @@
     <h1 class="display-4">{{ group.groupName }}</h1>
     <span class="badge badge-primary mb-4 mr-2" *ngIf="group.userId === userId">Eigenaar</span>
     <span class="badge badge-primary mb-4 mr-2" *ngIf="group.profiles?.includes(userId)">Lid</span>
-    <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'OPEN'">PRIVACY: OPEN</span>
-    <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'INVITE'">PRIVACY: INVITE</span>
+    <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'OPEN'">PRIVACY: Open</span>
+    <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'INVITE'">PRIVACY: Op uitnodiging</span>
+    <span class="badge badge-dark mb-4 mr-2" *ngIf="group.groupPrivacy === 'PRIVATE'">PRIVACY: Gesloten</span>
     <p class="lead">{{ group.description }}</p>
     <hr class="my-4" />
     <div *ngIf="group.userId === userId">
