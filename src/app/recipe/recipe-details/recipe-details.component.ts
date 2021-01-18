@@ -63,7 +63,6 @@ export class RecipeDetailsComponent implements OnInit {
   ngOnInit(): void {
     if (this.recipeId > 0) {
       this.loadRecipe(this.recipeId).then(r => console.log(r));
-      console.log(this.recipe);
     }
   }
 

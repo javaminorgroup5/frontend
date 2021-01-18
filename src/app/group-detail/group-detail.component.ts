@@ -63,6 +63,7 @@ export class GroupDetailComponent implements OnInit {
           }
         });
       });
+
     });
     this.route.paramMap.subscribe(params => {
       this.groupId = this.commonService.NumberConverter(params.get('groupId') || '');
@@ -99,6 +100,7 @@ export class GroupDetailComponent implements OnInit {
   handleEditing(): void {
     const modalRef = this.modalService.open(GroupComponent, { centered: true });
     modalRef.componentInstance.groupId = this.groupId;
+    modalRef.componentInstance.group = this.group;
   }
 
   editGroup(id: any): void {

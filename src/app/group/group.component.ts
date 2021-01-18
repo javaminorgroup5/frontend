@@ -24,6 +24,9 @@ export class GroupComponent implements OnInit {
   selectedFile: any;
   groupId = -1;
   group: Group | undefined;
+  titleAlert = false;
+  descriptionAlert = false;
+  imageAlert = false;
 
   constructor(
       private groupService: GroupService,
@@ -39,14 +42,26 @@ export class GroupComponent implements OnInit {
     });
     this.userId = '';
     this.activeModal = activeModal;
+
+    this.group = {
+      id: 0,
+      groupName: '',
+      description: '',
+      profiles: [],
+      userId: 0,
+      image: {
+        name: '',
+        type: '',
+        picByte: ''
+      },
+    };
+
   }
 
   ngOnInit(): void {
     this.userId = sessionStorage.getItem('userId') || '';
-    const id = this.activatedRoute.snapshot.paramMap.get('groupId');
-    if (id && this.userId) {
-      this.groupId = this.commonService.NumberConverter(id);
-      this.loadGroup(this.groupId).then(r => console.log(r));
+    if (this.group && this.userId && this.groupId > 0) {
+      this.loadGroup(this.groupId);
     }
   }
 
@@ -59,41 +74,73 @@ export class GroupComponent implements OnInit {
         description: result.description,
         profiles: result.profiles,
         userId: result.userId,
-        image: {
-          type: result.image.type,
-          name: result.image.name,
-          picByte: result.image.picByte
-        }
+        image: result.image,
       };
       this.group = group;
     }
   }
 
+  checkGroupValues(formData: FormData): boolean {
+    this.titleAlert = false;
+    this.descriptionAlert = false;
+    this.imageAlert = false;
+    if (!formData.groupName) {
+      this.titleAlert = true;
+      return false;
+    }
+    if (!formData.groupDescription) {
+      this.descriptionAlert = true;
+      return false;
+    }
+    if (!this.selectedFile) {
+      this.imageAlert = true;
+      return false;
+    }
+    return true;
+  }
+
   async onSubmit(formData: FormData): Promise<void> {
+
+    if (this.groupId < 0 && !this.checkGroupValues(formData)) {
+      return;
+    }
+
+    try {
       const group = {
-        name: formData.groupName,
+        groupName: formData.groupName,
         description: formData.groupDescription
       };
-      const uploadGroupData = new FormData();
-      uploadGroupData.append('file', this.selectedFile, this.selectedFile.name);
+
+      const uploadImageData = new FormData();
+      if (this.selectedFile) {
+        uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
+      }
+
       const groupObjectString = JSON.stringify(group);
-      const groupBlob = new Blob([groupObjectString], { type: 'application/json'});
-      uploadGroupData.append('group', groupBlob);
+
+      const groupBlob = new Blob([groupObjectString], {type: 'application/json'});
+      uploadImageData.append('group', groupBlob);
       const userId = sessionStorage.getItem('userId');
+
       if (userId) {
+        let result: string;
         const id = parseInt(userId, 0);
-        try {
-          const result = await this.groupService.create(id, uploadGroupData);
-          if (result) {
-            if (this.activeModal) {
-              this.activeModal.close();
-            }
+        if (this.groupId >= 0) {
+          result = await this.groupService.updateGroup(this.groupId, id, uploadImageData);
+        } else {
+          result = await this.groupService.create(id, uploadImageData);
+        }
+        if (result) {
+          console.log(result);
+          if (typeof(result) === 'number') {
             await this.router.navigate(['group/' + result]);
           }
-        } catch (error) {
-          console.error(error);
+          location.reload();
         }
       }
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   public onFileChanged(event: any): void {
