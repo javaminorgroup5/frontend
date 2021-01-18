@@ -53,14 +53,12 @@ export class FeedComponent implements OnInit {
             };
           });
         }
-        this.feed = result;
+        this.feed = this.feed = result.slice().reverse();
       });
     });
   }
 
   recheckFeed(): any {
-    // console.log(this.route.url);
-    // console.log(this.router.url);
     this.router.navigate([this.router.url]);
   }
 
