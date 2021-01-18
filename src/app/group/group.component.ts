@@ -5,8 +5,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {CommonService} from '../service/common.service';
 import {Group} from '../group-list/group-list.component';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { GroupPrivacy } from '../model/group';
 
 interface FormData {
+  groupPrivacy: GroupPrivacy;
   groupName: string;
   groupDescription: string;
 }
@@ -25,6 +27,7 @@ export class GroupComponent implements OnInit {
   groupId = -1;
   group: Group | undefined;
   titleAlert = false;
+  privacyAlert = false;
   descriptionAlert = false;
   imageAlert = false;
 
@@ -37,6 +40,7 @@ export class GroupComponent implements OnInit {
       public activeModal: NgbActiveModal
   ) {
     this.groupCreateForm = this.formBuilder.group({
+      groupPrivacy: '',
       groupName: '',
       groupDescription: ''
     });
@@ -45,6 +49,7 @@ export class GroupComponent implements OnInit {
 
     this.group = {
       id: 0,
+      groupPrivacy: GroupPrivacy.OPEN,
       groupName: '',
       description: '',
       profiles: [],
@@ -70,6 +75,7 @@ export class GroupComponent implements OnInit {
     if (result) {
       const group: Group = {
         id: result.id,
+        groupPrivacy: result.groupPrivacy,
         groupName: result.groupName,
         description: result.description,
         profiles: result.profiles,
@@ -81,9 +87,14 @@ export class GroupComponent implements OnInit {
   }
 
   checkGroupValues(formData: FormData): boolean {
+    this.privacyAlert = false;
     this.titleAlert = false;
     this.descriptionAlert = false;
     this.imageAlert = false;
+    if (!formData.groupPrivacy) {
+      this.privacyAlert = true;
+      return false;
+    }
     if (!formData.groupName) {
       this.titleAlert = true;
       return false;
@@ -100,13 +111,13 @@ export class GroupComponent implements OnInit {
   }
 
   async onSubmit(formData: FormData): Promise<void> {
-
     if (this.groupId < 0 && !this.checkGroupValues(formData)) {
       return;
     }
 
     try {
       const group = {
+        groupPrivacy: formData.groupPrivacy,
         groupName: formData.groupName,
         description: formData.groupDescription
       };
@@ -115,7 +126,6 @@ export class GroupComponent implements OnInit {
       if (this.selectedFile) {
         uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       }
-
       const groupObjectString = JSON.stringify(group);
 
       const groupBlob = new Blob([groupObjectString], {type: 'application/json'});
@@ -131,8 +141,7 @@ export class GroupComponent implements OnInit {
           result = await this.groupService.create(id, uploadImageData);
         }
         if (result) {
-          console.log(result);
-          if (typeof(result) === 'number') {
+          if (typeof(result) ==='number') {
             await this.router.navigate(['group/' + result]);
           }
           location.reload();

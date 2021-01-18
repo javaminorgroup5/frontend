@@ -5,19 +5,30 @@
   </div>
   <div class="list-group-item list-group-item-action" *ngFor="let group of groups">
     <div class="d-flex w-100 justify-content-between">
-      <h5 class="mb-1">{{ group.groupName }}</h5>
-      <button
-        *ngIf="!group.profiles?.includes(userId)"
-        type="button"
-        class="btn btn-primary"
-        (click)="joinGroup(group)">
-        Volgen
-      </button>
+      <div>
+        <h5 class="mb-1">{{ group.groupName }}</h5>
+        <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'OPEN'">Open</span>
+        <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'INVITE'">Op
+          uitnodiging</span>
+        <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'PRIVATE'">Gesloten</span>
+      </div>
+
+      <div>
+        <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'OPEN'" type="button"
+          class="btn btn-primary" (click)="joinGroup(group)">
+          Volgen
+        </button>
+        <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'PRIVATE'" type="button"
+          class="btn btn-primary" (click)="joinGroup(group)">
+          Volgverzoek sturen
+        </button>
+      </div>
       <div *ngIf="group.profiles?.includes(userId)">
         <span class="badge badge-pill badge-info">Lid</span>
       </div>
     </div>
     <p class="mb-1">{{ group.description }}</p>
-    <button class="btn btn-link" (click)="groupDetail(group.id)"><small>Klik om naar de groepspagina te gaan</small></button>
+    <button class="btn btn-link" (click)="groupDetail(group.id)"><small>Klik om naar de groepspagina te
+        gaan</small></button>
   </div>
 </div>

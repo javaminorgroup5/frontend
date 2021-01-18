@@ -1,5 +1,6 @@
+<button (click)="recheckFeed()">Reload Feed</button>
 <div *ngFor="let entry of feed">
-    <div class="card">
+    <div class="card mb-4">
         <div class="card-header">
             {{ entry.profileName }}
         </div>
