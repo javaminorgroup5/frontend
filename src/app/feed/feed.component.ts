@@ -1,4 +1,4 @@
-import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
 import {FeedService} from '../service/feed.service';
 import {Message} from '../model/message';
 import {ProfileService} from '../service/profile.service';
@@ -6,18 +6,18 @@ import {LikeService} from '../service/like.service';
 import {Like} from '../model/Like';
 import {CommonService} from '../service/common.service';
 import {Group} from '../model/group';
-import {GroupService} from '../service/group.service';
-import {NavigationEnd, Router} from '@angular/router';
+import {interval} from 'rxjs';
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
   styleUrls: ['./feed.component.css']
 })
-export class FeedComponent implements OnInit {
+export class FeedComponent implements OnInit, OnDestroy {
 
   feed: Message[] = [];
   group: Group | undefined;
+  timer: any;
 
   constructor(private feedService: FeedService,
               private profileService: ProfileService,
@@ -52,12 +52,15 @@ export class FeedComponent implements OnInit {
         this.feed = result;
       });
     });
-    setInterval(() => {
-      this.recheckFeed();
-    }, 5000);
+    // this.timer = setInterval(() => {
+    //   this.recheckFeed();
+    // }, 5000);
+    const autoPlayInter = interval(1000);
   }
 
   recheckFeed(): any {
+    let test = 1;
+    console.log(++test);
     this.renderFeed();
     return this.ngOnInit();
   }
@@ -82,5 +85,9 @@ export class FeedComponent implements OnInit {
 
   async getLikes(messageId: number): Promise<Like[]> {
     return this.likeService.getLikeByMessageId(messageId);
+  }
+
+  ngOnDestroy(): void {
+    clearInterval(this.timer);
   }
 }

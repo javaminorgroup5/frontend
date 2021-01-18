@@ -11,7 +11,6 @@ import { GroupListComponent } from './group-list/group-list.component';
 import { GroupDetailComponent } from './group-detail/group-detail.component';
 import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component';
 import { HomeComponent } from './home/home.component';
-import {FeedComponent} from './feed/feed.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -25,9 +24,7 @@ const routes: Routes = [
   { path: 'recipe/list', component: RecipeListComponent },
   { path: 'update', component: UpdateProfileComponent },
   { path: 'recipe/:recipeId', component: RecipeViewComponent },
-  { path: 'recipe/:recipeId/share', component: RecipeViewComponent },
-    // tmp
-  { path: 'feed', component: FeedComponent },
+  { path: 'recipe/:recipeId/share', component: RecipeViewComponent }
 ];
 
 @NgModule({
