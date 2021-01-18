@@ -26,6 +26,7 @@ export class GroupComponent implements OnInit {
   groupId = -1;
   group: Group | undefined;
   titleAlert = false;
+  privacyAlert = false;
   descriptionAlert = false;
   imageAlert = false;
 
@@ -87,9 +88,14 @@ export class GroupComponent implements OnInit {
   }
 
   checkGroupValues(formData: FormData): boolean {
+    this.privacyAlert = false;
     this.titleAlert = false;
     this.descriptionAlert = false;
     this.imageAlert = false;
+    if (!formData.groupPrivacy) {
+      this.privacyAlert = true;
+      return false;
+    }
     if (!formData.groupName) {
       this.titleAlert = true;
       return false;

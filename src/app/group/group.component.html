@@ -18,6 +18,9 @@
             <option value="INVITE">Op uitnodiging</option>
             <option value="OPEN">Open</option>
           </select>
+          <div *ngIf="privacyAlert" class="alert alert-danger">
+            Groeps privacy is verplicht.
+          </div>
         </div>
         <div class="input-box spacing-bottom">
           <label for="groupName">Naam</label>
