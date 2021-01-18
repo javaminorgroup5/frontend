@@ -18,4 +18,15 @@ export class FeedService {
     return await this.http
         .get<[]>(endpoint, { headers}).toPromise();
   }
+
+  async getFeedByUser(userId: number): Promise<any>  {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    const endpoint = `http://localhost:8080/users/${userId}/feed`;
+    const headers = {
+      Authorization: 'Basic ' + btoa(`${email}:${password}`)
+    };
+    return await this.http
+        .get<[]>(endpoint, { headers}).toPromise();
+  }
 }

@@ -16,6 +16,8 @@ export class RecipeListGroupComponent implements OnInit {
   recipes: Recipe[] = [];
   recipeId = -1;
 
+  userId:any = '';
+
   groupId: any = '';
 
   constructor(
@@ -27,6 +29,8 @@ export class RecipeListGroupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    this.userId = sessionStorage.getItem('userId');
 
     this.groupId = this.route.snapshot.paramMap.get('groupId');
 
@@ -46,6 +50,7 @@ export class RecipeListGroupComponent implements OnInit {
     if (groupId >= 0) {
       const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0));
       if (result) {
+        console.log(result);
         for (const r of result) {
           const recipe =
               {
@@ -53,6 +58,7 @@ export class RecipeListGroupComponent implements OnInit {
                 recipe: r.recipe,
                 description: r.description,
                 title: r.title,
+                userId: r.userId,
                 image:
                     {
                       type: r.image?.type,

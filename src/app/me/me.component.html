@@ -1,15 +1,28 @@
-<body>
-<div *ngIf="profile" class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol-lg-6">
-  <img class="image" mat-card-image [src]="profile.image?.picByte" alt="" />
-  <div id="profile-name"> <h1>{{ profile.profileName }}</h1> </div>
-  <div>
-    <button *ngIf="!editing" type="button" class="btn btn-primary" (click)="enableEditing()">Profiel aanpassen</button>
+
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <div class="list-group container-md p-0">
+        <div *ngIf="profile" class="jumbotron">
+          <img class="image" mat-card-image [src]="profile.image?.picByte" alt="" />
+          <div id="profile-name"> <h1>{{ profile.profileName }}</h1> </div>
+          <div>
+            <button *ngIf="!editing" type="button" class="btn btn-primary" (click)="enableEditing()">Profiel aanpassen</button>
+          </div>
+
+          <app-update-profile *ngIf="editing"></app-update-profile>
+        </div>
+      </div>
+
+      <div class="list-group container-md p-0">
+       <app-recipe-list></app-recipe-list>
+      </div>
+
+    </div>
+    <div class="col">
+      <app-feed-profile></app-feed-profile>
+      <!--  ToDo; this doenst work    -->
+      <app-group-enrollment></app-group-enrollment>
+    </div>
   </div>
 </div>
-
-  <app-update-profile *ngIf="editing"></app-update-profile>
-
-  <app-recipe-list></app-recipe-list>
-  <app-group-enrollment></app-group-enrollment>
-
-</body>
