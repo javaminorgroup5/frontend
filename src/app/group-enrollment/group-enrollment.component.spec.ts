@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import { GroupEnrollmentComponent } from './group-enrollment.component';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('GroupEnrollmentComponent', () => {
   let component: GroupEnrollmentComponent;
@@ -8,6 +9,10 @@ describe('GroupEnrollmentComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       declarations: [ GroupEnrollmentComponent ]
     })
     .compileComponents();
