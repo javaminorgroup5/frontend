@@ -1,6 +1,7 @@
 # Frontend
+This is the frontend repo, you need the backend repo as well to have a working frontend. The backend repo is: https://github.com/javaminorgroup5/backend
 
-# Angular
+# Angular start project
 npm install
 npm run start or ng serve
 
