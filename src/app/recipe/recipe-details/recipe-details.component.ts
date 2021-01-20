@@ -104,6 +104,7 @@ export class RecipeDetailsComponent implements OnInit {
       });
       if (result.groupId !== '') {
         this.disableSelect = true;
+        this.typeFieldGroupId = 'hidden';
       }
     }
   }
