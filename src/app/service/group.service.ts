@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Group } from '../group/group-list/group-list.component';
+import { Group } from '../model/group';
 
 @Injectable({
   providedIn: 'root',
@@ -136,15 +136,11 @@ export class GroupService {
 
   async getEnrolledGroupsForUser(userId: number): Promise<any> {
     const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');  
+    const password = sessionStorage.getItem('password');
     const endpoint = `http://localhost:8080/users/${userId}/enrolled`;
     const headers = {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
-
-    return this.http
-    .get<any>(endpoint, {headers} ).toPromise
-  
+    return this.http.get<any>(endpoint, {headers} ).toPromise();
   }
-
 }

@@ -30,7 +30,7 @@
         *ngIf="!group.profiles?.includes(userId)"
         type="button"
         class="btn btn-primary"
-        (click)="enrollInGroup(group)">
+        (click)="enrollInGroup(group.id)">
         Inschrijven
       </button>
       </div>

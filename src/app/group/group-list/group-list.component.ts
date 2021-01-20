@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { GroupService } from '../../service/group.service';
 import {Group} from '../../model/group';
 import {Router} from '@angular/router';
@@ -29,7 +29,7 @@ export class GroupListComponent implements OnInit {
     this.router.navigate([`group/${id}`]).then(r => console.log(r));
   }
 
-  enrollInGroup(group: Group): void {
-    this.groupService.enrollInGroup(group.id)
+  enrollInGroup(id: number): void {
+    this.groupService.enrollInGroup(id).then(r => console.log(r));
   }
 }
