@@ -8,18 +8,18 @@ import { GroupService } from '../service/group.service';
   styleUrls: ['./group-enrollment.component.css']
 })
 export class GroupEnrollmentComponent implements OnInit {
-  group: String;
+  group?: String[];
 
   constructor(
     private groupService: GroupService,
     
-  ) { this.group = ''  }
+  ) { this.group = [];  }
 
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');
     if (userId) {
       this.groupService.getEnrolledGroupsForUser(parseInt(userId, 0)).then((value) =>{
-        this.group = value;
+      value = this.group
       })
     }
   }
