@@ -47,7 +47,7 @@ export class RecipeListGroupComponent implements OnInit {
 
   async loadRecipes(groupId: any): Promise<any>  {
     if (groupId >= 0) {
-      const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0));
+      const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0), '');
       if (result) {
         console.log(result);
         for (const r of result) {

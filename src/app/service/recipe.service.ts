@@ -26,12 +26,12 @@ export class RecipeService {
       });
   }
 
-  async getAllRecipesByUserId(id: number): Promise<any> {
+  async getAllRecipesByUserId(id: number, query: string): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
 
     return await this.http
-      .get<[]>(`http://localhost:8080/recipe/${id}`, {
+      .get<[]>(`http://localhost:8080/recipe/${id}?q=${query}`, {
         headers: {
           'Content-Type': 'application/json',
           Authorization: 'Basic ' + btoa(`${email}:${password}`),
@@ -39,12 +39,12 @@ export class RecipeService {
       }).toPromise();
   }
 
-  async getAllRecipesByGroupId(id: number): Promise<any> {
+  async getAllRecipesByGroupId(id: number, query: string): Promise<any> {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
 
     return await this.http
-        .get<[]>(`http://localhost:8080/recipe/group/${id}`, {
+        .get<[]>(`http://localhost:8080/recipe/group/${id}?q=${query}`, {
           headers: {
             'Content-Type': 'application/json',
             Authorization: 'Basic ' + btoa(`${email}:${password}`),

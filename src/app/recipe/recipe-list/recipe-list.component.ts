@@ -5,42 +5,62 @@ import { CommonService } from 'src/app/service/common.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { RecipeDetailsComponent } from '../recipe-details/recipe-details.component';
 import {Router} from '@angular/router';
+import {FormBuilder, FormGroup} from '@angular/forms';
+
+interface FormData {
+    query: string;
+}
 
 @Component({
-  selector: 'app-recipe-list',
-  templateUrl: './recipe-list.component.html',
-  styleUrls: ['./recipe-list.component.css']
+    selector: 'app-recipe-list',
+    templateUrl: './recipe-list.component.html',
+    styleUrls: ['./recipe-list.component.css']
 })
 export class RecipeListComponent implements OnInit {
 
-  recipes: Recipe[] = [];
-  recipeId = -1;
+    recipes: Recipe[] = [];
+    recipeId = -1;
+    queryForm: FormGroup;
 
   constructor(
     private recipeService: RecipeService,
     private commonService: CommonService,
     private modalService: NgbModal,
-    private router: Router
-  ) { }
+    private router: Router,
+    private formBuilder: FormBuilder
+  ) {
+      this.queryForm = this.formBuilder.group({
+          query: '',
+      });
+  }
 
   ngOnInit(): void {
-    this.loadRecipes().then(r => {
+      // TODO hierdoor komen recepten twee keer in de lijst
+      this.recipes = [];
+      this.loadUserRecipes(this.queryForm?.value.query).then(r => {
       console.log(r);
-    });
-
-    this.loadRecipesByGroup().then(r => {
+      });
+      this.loadRecipesByGroup(this.queryForm?.value.query).then(r => {
       console.log(r);
-    });
+      });
+      console.log('ngOnInit');
   }
+
+  onSubmit(formData: FormData): void {
+      this.recipes = [];
+      this.loadRecipesByGroup(formData.query).then(r => console.log(r));
+  }
+
 
   handleEditing(): void {
     const modalRef = this.modalService.open(RecipeDetailsComponent, { centered: true });
     modalRef.componentInstance.recipeId = this.recipeId;
   }
 
-  async loadRecipesByGroup(): Promise<any>  {
+  async loadRecipesByGroup(query = ''): Promise<any>  {
+      // TODO check wie hier meer bezig is
     const groupId = '1';
-    const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0));
+    const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0), query);
     console.log(result);
     if (result) {
       for (const r of result) {
@@ -62,13 +82,13 @@ export class RecipeListComponent implements OnInit {
     }
   }
 
-  async loadRecipes(): Promise<any>  {
+  async loadUserRecipes(query = ''): Promise<any>  {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
       return;
     }
-    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId, 0));
+    const result: Recipe[] = await this.recipeService.getAllRecipesByUserId(parseInt(userId, 0), query);
     if (result) {
       for (const r of result) {
         const recipe =

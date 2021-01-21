@@ -7,7 +7,6 @@
     <div class="d-flex w-100 justify-content-between">
 
       <h5 class="mb-1">{{ group.groupName }}</h5>
-     
 
       <div>
         <h5 class="mb-1">{{ group.groupName }}</h5>
@@ -18,14 +17,6 @@
       </div>
 
       <div>
-        <!-- <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'OPEN'" type="button"
-          class="btn btn-primary" (click)="joinGroup(group)">
-          Volgen
-        </button>
-        <button *ngIf="!group.profiles?.includes(userId) && group.groupPrivacy === 'PRIVATE'" type="button"
-          class="btn btn-primary" (click)="joinGroup(group)">
-          Volgverzoek sturen
-        </button> -->
         <button
         *ngIf="!group.profiles?.includes(userId)"
         type="button"
