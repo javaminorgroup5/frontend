@@ -32,6 +32,8 @@ export class RecipeDetailsComponent implements OnInit {
   groupIdAlert = false;
   disableSelect = false;
 
+  typeFieldGroupId = 'number';
+
   groupId = -1;
 
   constructor(
@@ -80,6 +82,8 @@ export class RecipeDetailsComponent implements OnInit {
         groupId: this.groupId,
       });
       this.disableSelect = true;
+
+      this.typeFieldGroupId = 'hidden';
     }
 
   }
@@ -100,6 +104,7 @@ export class RecipeDetailsComponent implements OnInit {
       });
       if (result.groupId !== '') {
         this.disableSelect = true;
+        this.typeFieldGroupId = 'hidden';
       }
     }
   }
