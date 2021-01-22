@@ -41,6 +41,7 @@ export class GroupDetailComponent implements OnInit {
       this.groupService.getGroup(parseInt(params.get('groupId') || '', undefined)).then((value) => {
         this.group = {
           id: value.id,
+          groupCategory: value.groupCategory,
           groupPrivacy: value.groupPrivacy,
           userId: value.userId,
           groupName: value.groupName,
@@ -70,7 +71,7 @@ export class GroupDetailComponent implements OnInit {
     this.route.paramMap.subscribe(params => {
       this.groupId = this.commonService.NumberConverter(params.get('groupId') || '');
     });
-    this.startFeed(this.groupId).then(r => console.log(r));
+    this.startFeed(this.groupId);
   }
 
   async startFeed(groupId: number): Promise<void> {

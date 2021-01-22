@@ -6,9 +6,15 @@ export enum GroupPrivacy {
     OPEN = 'OPEN',
 }
 
+export interface GroupCategory {
+    id: number;
+    categoryName: string;
+}
+
 export interface Group {
     id: number;
     userId: number;
+    groupCategory: GroupCategory;
     groupPrivacy: GroupPrivacy;
     groupName: string;
     description: string;

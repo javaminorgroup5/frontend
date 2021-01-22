@@ -42,9 +42,7 @@ export class RecipeListGroupComponent implements OnInit {
     this.recipes = [];
     this.userId = sessionStorage.getItem('userId');
     this.groupId = this.route.snapshot.paramMap.get('groupId');
-    this.loadGroupRecipes(this.groupId, this.queryForm?.value.query).then(r => {
-      console.log(r);
-    });
+    this.loadGroupRecipes(this.groupId, this.queryForm?.value.query);
 
   }
 
@@ -58,7 +56,6 @@ export class RecipeListGroupComponent implements OnInit {
     if (groupId >= 0) {
       const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0), query);
       if (result) {
-        console.log(result);
         for (const r of result) {
           const recipe =
               {

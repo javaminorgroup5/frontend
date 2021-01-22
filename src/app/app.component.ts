@@ -25,6 +25,6 @@ export class AppComponent implements OnInit {
     sessionStorage.setItem('userId', '');
     sessionStorage.setItem('email', '');
     sessionStorage.setItem('password', '');
-    this.router.navigate(['login']).then(r => console.log(r));
+    this.router.navigate(['login']);
   }
 }
