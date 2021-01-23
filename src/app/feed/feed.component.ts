@@ -30,7 +30,6 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.renderFeed();
-    console.log(this.feed);
   }
 
   async loadFeed(groupId: number): Promise<Message[]> {
@@ -38,7 +37,6 @@ export class FeedComponent implements OnInit {
   }
 
   renderFeed(): void {
-    console.log('renderFeed');
     this.commonService.groupSourceO$.subscribe(g => {
       this.loadFeed(g.id).then(async result => {
         for (const r of result) {
@@ -48,7 +46,6 @@ export class FeedComponent implements OnInit {
           });
 
           this.loadProfileImage(r.userId).then(profile => {
-            console.log(profile);
             r.profileImage = {
               picByte: 'data:image/jpeg;base64,' + profile.image.picByte,
               type: profile.image.type,
@@ -78,7 +75,7 @@ export class FeedComponent implements OnInit {
         userId,
         recipeId,
       };
-      this.likeService.toggleLike(like).then(r => console.log(r));
+      this.likeService.toggleLike(like);
     }
     return this.ngOnInit();
   }

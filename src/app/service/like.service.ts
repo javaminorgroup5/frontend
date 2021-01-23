@@ -30,8 +30,6 @@ export class LikeService {
     };
     return this.http
         .post<Recipe>(endpoint, like, { headers })
-        .subscribe(response => {
-          console.log(response);
-        });
+        .toPromise();
   }
 }

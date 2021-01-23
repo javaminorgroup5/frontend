@@ -26,10 +26,10 @@ export class GroupListComponent implements OnInit {
   }
 
   async groupDetail(id: number): Promise<void> {
-    this.router.navigate([`group/${id}`]).then(r => console.log(r));
+    this.router.navigate([`group/${id}`]);
   }
 
   enrollInGroup(id: number): void {
-    this.groupService.enrollInGroup(id).then(r => console.log(r));
+    this.groupService.enrollInGroup(id);
   }
 }

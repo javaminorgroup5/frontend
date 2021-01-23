@@ -12,7 +12,8 @@
         enctype="multipart/form-data">
         <div class="mb-4">
           <label for="groupName">Groeps privacy</label>
-          <select formControlName="groupPrivacy" class="custom-select" id="groupPrivacy" [(ngModel)]="group.groupPrivacy" >
+          <select formControlName="groupPrivacy" class="custom-select" id="groupPrivacy"
+            [(ngModel)]="group.groupPrivacy">
             <option value="" selected>Choose...</option>
             <option value="PRIVATE">Gesloten</option>
             <option value="INVITE">Op uitnodiging</option>
@@ -20,6 +21,17 @@
           </select>
           <div *ngIf="privacyAlert" class="alert alert-danger">
             Groeps privacy is verplicht.
+          </div>
+        </div>
+        <div class="mb-4">
+          <label for="groupName">Groepscategorie</label>
+          <select formControlName="groupCategoryId" class="custom-select" id="groupCategoryId"
+            [(ngModel)]="group.groupCategory">
+            <option value="" selected>Choose...</option>
+            <option *ngFor="let category of categories" value="{{ category.id }}" selected>{{ category.categoryName }}</option>
+          </select>
+          <div *ngIf="categoryAlert" class="alert alert-danger">
+            Groepscategorie is verplicht.
           </div>
         </div>
         <div class="input-box spacing-bottom">
