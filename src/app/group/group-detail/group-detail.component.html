@@ -14,8 +14,8 @@
           <p class="lead">{{ group.description }}</p>
           <hr class="my-4" />
           <div *ngIf="group.userId === userId">
-            <button type="button" class="btn btn-info mr-4 mb-2" *ngIf="group.groupPrivacy === 'INVITE'" (click)="generateGroupInvite()">Uitnodigingslink
-              genereren</button>
+            <button type="button" class="btn btn-info mr-4 mb-2" *ngIf="group.groupPrivacy === 'INVITE'" (click)="generateGroupInvite()">Uitnodigingslink genereren</button>
+            <button type="button" class="btn btn-info mr-4 mb-2" *ngIf="group.groupPrivacy === 'PRIVATE'" (click)="handleGroupInviteViaFeed()">Uitnodigingslink</button>
             <button type="button" class="btn btn-danger mr-4 mb-2" (click)="deleteGroup()">Groep verwijderen</button>
             <button type="button" class="btn btn-primary mb-2" (click)="editGroup(group.id)">Groep aanpassen</button>
           </div>

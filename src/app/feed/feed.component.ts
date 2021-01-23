@@ -38,7 +38,7 @@ export class FeedComponent implements OnInit {
   }
 
   renderFeed(): void {
-    console.log('renderFeed');
+    // get group from groupSource
     this.commonService.groupSourceO$.subscribe(g => {
       this.loadFeed(g.id).then(async result => {
         for (const r of result) {

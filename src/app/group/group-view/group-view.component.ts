@@ -1,9 +1,8 @@
 import {Component, OnInit } from '@angular/core';
 import { GroupService} from '../../service/group.service';
 import { FormBuilder } from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {CommonService} from '../../service/common.service';
-import {Group} from '../group-list/group-list.component';
+import {Router} from '@angular/router';
+import {Group} from '../../model/group';
 import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
 import { GroupPrivacy } from '../../model/group';
 
@@ -35,8 +34,6 @@ export class GroupComponent implements OnInit {
       private groupService: GroupService,
       private formBuilder: FormBuilder,
       private router: Router,
-      private commonService: CommonService,
-      private activatedRoute: ActivatedRoute,
       public activeModal: NgbActiveModal
   ) {
     this.groupCreateForm = this.formBuilder.group({

@@ -11,7 +11,7 @@
       <form id="groupCreate-form" [formGroup]="groupCreateForm" (ngSubmit)="onSubmit(groupCreateForm.value)"
         enctype="multipart/form-data">
         <div class="mb-4">
-          <label for="groupName">Groeps privacy</label>
+          <label for="groupPrivacy">Groeps privacy</label>
           <select formControlName="groupPrivacy" class="custom-select" id="groupPrivacy" [(ngModel)]="group.groupPrivacy" >
             <option value="" selected>Choose...</option>
             <option value="PRIVATE">Gesloten</option>

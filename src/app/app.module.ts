@@ -24,6 +24,7 @@ import { FeedComponent } from './feed/feed.component';
 import { GroupEnrollmentComponent } from './group-enrollment/group-enrollment.component';
 import {RecipeListGroupComponent} from './recipe/recipe-list-group/recipe-list-group.component';
 import {FeedProfileComponent} from './feed-profile/feed-profile.component';
+import { FeedInviteComponent } from './group/feed-invite/feed-invite.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -41,7 +42,8 @@ import {FeedProfileComponent} from './feed-profile/feed-profile.component';
     HomeComponent,
     FeedComponent,
     GroupEnrollmentComponent,
-    FeedProfileComponent
+    FeedProfileComponent,
+    FeedInviteComponent
   ],
 
   imports: [
@@ -51,7 +53,6 @@ import {FeedProfileComponent} from './feed-profile/feed-profile.component';
     ReactiveFormsModule,
     HttpClientModule,
     NgbModule,
-    // mag deze module weg? BrowserAnimationsModule,
     MatCardModule,
     MatToolbarModule,
     MatButtonModule,
