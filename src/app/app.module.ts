@@ -25,6 +25,7 @@ import { GroupEnrollmentComponent } from './group-enrollment/group-enrollment.co
 import {RecipeListGroupComponent} from './recipe/recipe-list-group/recipe-list-group.component';
 import {FeedProfileComponent} from './feed-profile/feed-profile.component';
 import { FeedInviteComponent } from './group/feed-invite/feed-invite.component';
+import { EnrolledUsersForGroupComponent } from './enrolled-users-for-group/enrolled-users-for-group.component';
 
 @NgModule({
   declarations: [AppComponent,
@@ -43,7 +44,8 @@ import { FeedInviteComponent } from './group/feed-invite/feed-invite.component';
     FeedComponent,
     GroupEnrollmentComponent,
     FeedProfileComponent,
-    FeedInviteComponent
+    FeedInviteComponent,
+    EnrolledUsersForGroupComponent
   ],
 
   imports: [
