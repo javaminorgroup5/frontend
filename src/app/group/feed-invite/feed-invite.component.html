@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <h2 class="modal-title" id="modal-basic-title">Uitnodiging versturen</h2>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div id="group">
+    <div class="jumbotron">
+        <h1 class="display-4" *ngIf="groupId < 0">Groep aanmaken</h1>
+        <form id="groupCreate-form" [formGroup]="inviteForm" (ngSubmit)="generateGroupInviteViaFeed(inviteForm.value)"
+              enctype="multipart/form-data">
+            <div class="mb-4">
+                <label for="user">Selecteer een profiel</label>
+                <select formControlName="userId" class="custom-select" id="user" [(ngModel)]="userId">
+                    <option *ngFor="let user of users" [ngValue]="user.id">
+                        {{user.profile.profileName}}
+                    </option>
+                </select>
+                <div *ngIf="profileAlert" class="alert alert-danger">
+                    Profiel is verplicht.
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Verstuur een uitnodiging</button>
+                <button type="button" class="btn btn-link mt-2"><a href="/group-list">Terug naar overzicht
+                    Groepen</a></button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { ProfileService } from '../service/profile.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 interface UpdateProfileFormData {
   profileName: string;

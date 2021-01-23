@@ -6,11 +6,8 @@ import { GroupService } from '../../service/group.service';
 import { GroupComponent } from '../group-view/group-view.component';
 import {CommonService} from '../../service/common.service';
 import {Group} from '../../model/group';
-
-interface Alert {
-  type: string;
-  message: string;
-}
+import {FeedInviteComponent} from '../feed-invite/feed-invite.component';
+import {Alert} from '../../model/alert';
 
 @Component({
   selector: 'app-group-detail',
@@ -76,6 +73,7 @@ export class GroupDetailComponent implements OnInit {
 
   async startFeed(groupId: number): Promise<void> {
     const group: Group = await this.groupService.getGroup(groupId);
+    // set Group to group source
     this.commonService.sendGroup(group);
   }
 
@@ -109,5 +107,11 @@ export class GroupDetailComponent implements OnInit {
   editGroup(id: any): void {
     this.groupId = id;
     this.handleEditing();
+  }
+
+  handleGroupInviteViaFeed(): void {
+    const modalRef = this.modalService.open(FeedInviteComponent, { centered: true });
+    modalRef.componentInstance.groupId = this.groupId;
+    modalRef.componentInstance.group = this.group;
   }
 }
