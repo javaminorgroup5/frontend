@@ -37,18 +37,13 @@ export class RecipeListComponent implements OnInit {
   ngOnInit(): void {
       // TODO hierdoor komen recepten twee keer in de lijst
       this.recipes = [];
-      this.loadUserRecipes(this.queryForm?.value.query).then(r => {
-      console.log(r);
-      });
-      this.loadRecipesByGroup(this.queryForm?.value.query).then(r => {
-      console.log(r);
-      });
-      console.log('ngOnInit');
+      this.loadUserRecipes(this.queryForm?.value.query);
+      this.loadRecipesByGroup(this.queryForm?.value.query);
   }
 
   onSubmit(formData: FormData): void {
       this.recipes = [];
-      this.loadRecipesByGroup(formData.query).then(r => console.log(r));
+      this.loadRecipesByGroup(formData.query);
   }
 
 
@@ -61,7 +56,7 @@ export class RecipeListComponent implements OnInit {
       // TODO check wie hier meer bezig is
     const groupId = '1';
     const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0), query);
-    console.log(result);
+
     if (result) {
       for (const r of result) {
         const recipe =

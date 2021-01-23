@@ -1,12 +1,15 @@
 import {Component, OnInit } from '@angular/core';
 import { GroupService} from '../../service/group.service';
 import { FormBuilder } from '@angular/forms';
-import {Router} from '@angular/router';
-import {Group} from '../../model/group';
-import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
-import { GroupPrivacy } from '../../model/group';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CommonService } from '../../service/common.service';
+import { Group } from '../group-list/group-list.component';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { GroupCategory, GroupPrivacy } from '../../model/group';
+import { CategoryService } from 'src/app/service/category.service';
 
 interface FormData {
+  groupCategoryId: string;
   groupPrivacy: GroupPrivacy;
   groupName: string;
   groupDescription: string;
@@ -19,6 +22,7 @@ interface FormData {
 })
 export class GroupComponent implements OnInit {
 
+  categories: GroupCategory[] = [];
   userId: string;
   groupCreateForm;
   imageURL = '';
@@ -27,25 +31,30 @@ export class GroupComponent implements OnInit {
   group: Group | undefined;
   titleAlert = false;
   privacyAlert = false;
+  categoryAlert = false;
   descriptionAlert = false;
   imageAlert = false;
 
   constructor(
-      private groupService: GroupService,
-      private formBuilder: FormBuilder,
-      private router: Router,
-      public activeModal: NgbActiveModal
+    private groupService: GroupService,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private commonService: CommonService,
+    private activatedRoute: ActivatedRoute,
+    private categoryService: CategoryService,
+    public activeModal: NgbActiveModal
   ) {
     this.groupCreateForm = this.formBuilder.group({
+      groupCategoryId: '',
       groupPrivacy: '',
       groupName: '',
       groupDescription: ''
     });
     this.userId = '';
     this.activeModal = activeModal;
-
     this.group = {
       id: 0,
+      groupCategory: { categoryName: '', id: 0 },
       groupPrivacy: GroupPrivacy.OPEN,
       groupName: '',
       description: '',
@@ -61,6 +70,9 @@ export class GroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.categoryService.getCategories().then((result) => {
+      this.categories = result;
+    })
     this.userId = sessionStorage.getItem('userId') || '';
     if (this.group && this.userId && this.groupId > 0) {
       this.loadGroup(this.groupId);
@@ -72,6 +84,7 @@ export class GroupComponent implements OnInit {
     if (result) {
       const group: Group = {
         id: result.id,
+        groupCategory: result.groupCategory,
         groupPrivacy: result.groupPrivacy,
         groupName: result.groupName,
         description: result.description,
@@ -90,6 +103,10 @@ export class GroupComponent implements OnInit {
     this.imageAlert = false;
     if (!formData.groupPrivacy) {
       this.privacyAlert = true;
+      return false;
+    }
+    if (!formData.groupCategoryId) {
+      this.categoryAlert = true;
       return false;
     }
     if (!formData.groupName) {
@@ -118,15 +135,16 @@ export class GroupComponent implements OnInit {
         groupName: formData.groupName,
         description: formData.groupDescription
       };
-
       const uploadImageData = new FormData();
+
       if (this.selectedFile) {
         uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
       }
       const groupObjectString = JSON.stringify(group);
 
-      const groupBlob = new Blob([groupObjectString], {type: 'application/json'});
+      const groupBlob = new Blob([groupObjectString], { type: 'application/json' });
       uploadImageData.append('group', groupBlob);
+      uploadImageData.append('groupCategoryId', new Blob([formData.groupCategoryId], { type: 'application/json' }));
       const userId = sessionStorage.getItem('userId');
 
       if (userId) {
@@ -138,7 +156,7 @@ export class GroupComponent implements OnInit {
           result = await this.groupService.create(id, uploadImageData);
         }
         if (result) {
-          if (typeof(result) === 'number') {
+          if (typeof (result) === 'number') {
             await this.router.navigate(['group/' + result]);
           }
           location.reload();

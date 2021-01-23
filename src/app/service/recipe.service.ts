@@ -21,9 +21,7 @@ export class RecipeService {
     };
     return this.http
       .post<Recipe>(endpoint, recipe, { headers })
-      .subscribe(response => {
-        console.log(response);
-      });
+      .toPromise();
   }
 
   async getAllRecipesByUserId(id: number, query: string): Promise<any> {
@@ -44,12 +42,12 @@ export class RecipeService {
     const password = sessionStorage.getItem('password');
 
     return await this.http
-        .get<[]>(`http://localhost:8080/recipe/group/${id}?q=${query}`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        }).toPromise();
+      .get<[]>(`http://localhost:8080/recipe/group/${id}?q=${query}`, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: 'Basic ' + btoa(`${email}:${password}`),
+        },
+      }).toPromise();
   }
 
   async deleteRecipe(recipeId: number, userId: number): Promise<any> {
@@ -62,9 +60,7 @@ export class RecipeService {
 
     return this.http
       .delete<any>(endpoint, { headers })
-      .subscribe(response => {
-        console.log(response);
-      });
+      .toPromise();
   }
 
 
@@ -112,9 +108,7 @@ export class RecipeService {
     };
     return this.http
       .put<any>(endpoint, recipe, { headers })
-      .subscribe(response => {
-        console.log(response);
-      });
+      .toPromise();
   }
 
   async getRecipe(recipeId: number, userId: number): Promise<any> {
@@ -132,8 +126,8 @@ export class RecipeService {
   async getRecipeToShare(recipeId: number): Promise<any> {
     const endpoint = `http://localhost:8080/recipe/${recipeId}/share`;
     return await this.http
-        .get<Recipe>(endpoint)
-        .toPromise();
+      .get<Recipe>(endpoint)
+      .toPromise();
   }
 
 }

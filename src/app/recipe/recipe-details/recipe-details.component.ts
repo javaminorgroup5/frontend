@@ -32,6 +32,8 @@ export class RecipeDetailsComponent implements OnInit {
   groupIdAlert = false;
   disableSelect = false;
 
+  typeFieldGroupId = 'number';
+
   groupId = -1;
 
   constructor(
@@ -69,7 +71,7 @@ export class RecipeDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.recipeId > 0) {
-      this.loadRecipe(this.recipeId).then(r => console.log(r));
+      this.loadRecipe(this.recipeId);
     }
 
     if (this.groupId && this.groupId !== -1) {
@@ -80,6 +82,8 @@ export class RecipeDetailsComponent implements OnInit {
         groupId: this.groupId,
       });
       this.disableSelect = true;
+
+      this.typeFieldGroupId = 'hidden';
     }
 
   }
@@ -100,6 +104,7 @@ export class RecipeDetailsComponent implements OnInit {
       });
       if (result.groupId !== '') {
         this.disableSelect = true;
+        this.typeFieldGroupId = 'hidden';
       }
     }
   }
@@ -164,7 +169,6 @@ export class RecipeDetailsComponent implements OnInit {
           result = await this.recipeService.addRecipe(id, uploadImageData);
         }
         if (result) {
-          console.log(result);
           location.reload();
         }
       }

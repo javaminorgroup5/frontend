@@ -101,9 +101,9 @@ export class GroupService {
     const userId = sessionStorage.getItem('userId') || '';
 
     return await this.http
-    .post(`http://localhost:8080/group/${groupId}/enroll`,
+      .post(`http://localhost:8080/group/${groupId}/enroll`,
         {
-         userId
+          userId
         },
         {
           headers: {
@@ -147,10 +147,8 @@ export class GroupService {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
     return this.http
-        .put<any>(endpoint, group, { headers })
-        .subscribe(response => {
-          console.log(response);
-        });
+      .put<any>(endpoint, group, { headers })
+      .toPromise();
   }
 
   async getEnrolledGroupsForUser(userId: number): Promise<any> {
@@ -160,6 +158,6 @@ export class GroupService {
     const headers = {
       Authorization: 'Basic ' + btoa(`${email}:${password}`)
     };
-    return this.http.get<any>(endpoint, {headers} ).toPromise();
+    return this.http.get<any>(endpoint, { headers }).toPromise();
   }
 }

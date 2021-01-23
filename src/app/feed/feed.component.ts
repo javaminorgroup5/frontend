@@ -30,7 +30,6 @@ export class FeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.renderFeed();
-    console.log(this.feed);
   }
 
   async loadFeed(groupId: number): Promise<Message[]> {
@@ -48,7 +47,6 @@ export class FeedComponent implements OnInit {
           });
 
           this.loadProfileImage(r.userId).then(profile => {
-            console.log(profile);
             r.profileImage = {
               picByte: 'data:image/jpeg;base64,' + profile.image.picByte,
               type: profile.image.type,
