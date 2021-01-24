@@ -12,6 +12,7 @@ export {Group} from '../../model/group';
 export class GroupListComponent implements OnInit {
   groups: Group[] = [];
   userId: string;
+  isEnrolled: boolean = true;
 
   constructor(private groupService: GroupService,
               private router: Router) {
