@@ -10,20 +10,34 @@ export class GroupService {
   constructor(private http: HttpClient, private baseService: BaseService) { }
 
   async getGroups(): Promise<any> {
-    return this.baseService.getApiCall("/group");
+    const endpoint = `/group`;
+
+    return this.baseService.getApiCall(endpoint);
   }
 
   async deleteGroup(groupId?: number): Promise<any> {
     const userId = sessionStorage.getItem('userId') || '';
+    const endpoint = `/group/${groupId}/${userId}`;
 
-    return this.baseService.deleteApiCall(`/group/${groupId}/${userId}`);
+    return this.baseService.deleteApiCall(endpoint);
   }
 
   async generateGroupInvite(groupId: number): Promise<any> {
     const userId = sessionStorage.getItem('userId') || '';
     const endpoint = `/group/${groupId}/generate_invite`;
 
-    return this.baseService.postApiCall(endpoint, { userId });
+    return this.baseService.postApiCall(endpoint, {
+        userId
+    });
+  }
+
+  async sendGeneratedGroupInviteToFeed(groupId: number, invitedUserId: number): Promise<any> {
+    const userId = sessionStorage.getItem('userId') || '';
+    const endpoint = `/group/${groupId}/generate_feed_invite/${invitedUserId}`;
+
+    return this.baseService.postApiCall(endpoint, {
+        userId
+    });
   }
 
   async joinGroup(groupId: number, inviteToken?: string): Promise<any> {
@@ -51,17 +65,18 @@ export class GroupService {
   }
 
   async getGroup(groupId: number): Promise<Group> {
-    return this.baseService.getApiCall(`/group/${groupId}`);
+    const endpoint = `/group/${groupId}`;
+    return this.baseService.getApiCall(endpoint);
   }
 
   async updateGroup(groupId: number, userId: number, group: FormData): Promise<any> {
     const endpoint = `/group/${groupId}/user/${userId}`;
-
     return this.baseService.putApiCall(endpoint, group);
   }
 
   async getEnrolledGroupsForUser(userId: number): Promise<any> {
-    return this.baseService.getApiCall(`/users/${userId}/enrolled`);
+    const endpoint = `/users/${userId}/enrolled`;
+    return this.baseService.getApiCall(endpoint);
   }
 
 }
