@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { GroupService } from '../../service/group.service';
+import {Component, OnInit } from '@angular/core';
+import { GroupService} from '../../service/group.service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../service/common.service';
@@ -101,7 +101,6 @@ export class GroupComponent implements OnInit {
     this.titleAlert = false;
     this.descriptionAlert = false;
     this.imageAlert = false;
-
     if (!formData.groupPrivacy) {
       this.privacyAlert = true;
       return false;

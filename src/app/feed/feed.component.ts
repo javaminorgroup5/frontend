@@ -37,6 +37,7 @@ export class FeedComponent implements OnInit {
   }
 
   renderFeed(): void {
+    // get group from groupSource
     this.commonService.groupSourceO$.subscribe(g => {
       this.loadFeed(g.id).then(async result => {
         for (const r of result) {
@@ -75,7 +76,7 @@ export class FeedComponent implements OnInit {
         userId,
         recipeId,
       };
-      this.likeService.toggleLike(like);
+      this.likeService.toggleLike(like).then(r => console.log(r));
     }
     return this.ngOnInit();
   }
