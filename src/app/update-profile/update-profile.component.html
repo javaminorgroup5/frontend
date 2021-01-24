@@ -1,23 +1,30 @@
 <div id="update-profile">
     <div>
-        <h1 class="">Bewerk je profiel!</h1>
-        <hr class="my-4">
+        <hr class="mb-4">
+        <h3><b>Profiel bewerken</b></h3>
         <form id="update-profile-form" [formGroup]="updateProfileForm" (ngSubmit)="onSubmit(updateProfileForm.value)">
             <div class="input-box spacing-bottom">
                 <div class="input-box spacing-bottom">
                     <label for="profileName">Profielnaam</label>
-                    <input class="form-control" id="profileName" name="profileName" type="text" formControlName="profileName">
+                    <input class="form-control" id="profileName" name="profileName" type="text"
+                        formControlName="profileName">
                 </div>
             </div>
             <div class="custom-file">
+                <label for="custom-file" class="mt-2">Profielafbeelding</label>
                 <div class="container row">
                     <div class="custom-file">
-                        <input type="file" (change)="onFileChanged($event)" class="custom-file-input" id="customFileLangHTML">
-                        <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een afbeelding toe</label>
+                        <input type="file" (change)="onFileChanged($event)" class="custom-file-input"
+                            id="customFileLangHTML">
+                        <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een
+                            afbeelding toe</label>
                     </div>
                 </div>
             </div>
-            <button class="btn btn-primary spacing-bottom ml-1 mt-4" type="submit">Update</button>
+            <div class="actions">
+                <button class="btn btn-link spacing-bottom ml-1 mt-4" type="button" (click)="cancelUpdate()">Annuleren</button>
+                <button class="btn btn-primary spacing-bottom ml-1 mt-4" type="submit">Update</button>
+            </div>
             <!-- Image Preview -->
             <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
                 <img [src]="imageURL" class="preview" [alt]="">
