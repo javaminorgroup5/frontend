@@ -16,7 +16,7 @@ export class BaseService {
 
     constructor(private http: HttpClient) {}
 
-    async getApiCall(endpoint: string) {
+    async getApiCall(endpoint: string): Promise<any> {
         try {
             return await this.http
                 .get(this.base_url + endpoint, {
@@ -32,7 +32,7 @@ export class BaseService {
         }
     }
 
-    async deleteApiCall(endpoint: string) {
+    async deleteApiCall(endpoint: string): Promise<any> {
         try {
             return await this.http
                 .delete(this.base_url + endpoint, {
@@ -48,7 +48,7 @@ export class BaseService {
         }
     }
 
-    async postApiCall(endpoint: string, body: any) {
+    async postApiCall(endpoint: string, body: any): Promise<any> {
         try {
             return await this.http.post(
                 this.base_url + endpoint,
@@ -65,14 +65,13 @@ export class BaseService {
         }
     }
 
-    async putApiCall(endpoint: string, body: any) {
+    async putApiCall(endpoint: string, body: any): Promise<any> {
         try {
             return await this.http.put<any>(
                 this.base_url + endpoint,
                 body,
                 {
                     headers: {
-                        'Content-Type': 'application/json',
                         Authorization: this.authorization,
                     },
                 })

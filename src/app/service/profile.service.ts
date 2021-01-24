@@ -9,8 +9,8 @@ export class ProfileService {
   constructor(private http: HttpClient, private baseService: BaseService) { }
 
   async getProfile(id?: number): Promise<any> {
-    const endpoint = `/users/${id}/profile`;
-    return this.baseService.getApiCall(endpoint);
+      const endpoint = `/users/${id}/profile`;
+      return this.baseService.getApiCall(endpoint);
   }
 
   async updateProfile(id: number, profile: FormData): Promise<any> {
