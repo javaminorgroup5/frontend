@@ -65,6 +65,10 @@ export class UpdateProfileComponent implements OnInit {
     }
   }
 
+  public cancelUpdate(): void {
+    window.location.reload();
+  }
+
   public onFileChanged(event: any): void {
     this.selectedFile = event.target.files[0];
     // File Preview
