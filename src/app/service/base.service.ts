@@ -15,25 +15,37 @@ export class BaseService {
 
     constructor(private http: HttpClient) {}
 
-    async getApiCall(url) {
-        return await this.http
-            .get(this.base_url + url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Basic ' + btoa(`${this.email}:${this.password}`),
-                },
-            })
-            .toPromise();
+    async getApiCall(url: any) {
+        try {
+            return await this.http
+                .get(this.base_url + url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Basic ' + btoa(`${this.email}:${this.password}`),
+                    },
+                })
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+
     }
 
-    async deleteApiCall(url) {
-        return await this.http
-            .delete(this.base_url + url, {
-                headers: {
-                    'Content-Type': 'application/json',
-                    Authorization: 'Basic ' + btoa(`${this.email}:${this.password}`),
-                },
-            })
-            .toPromise();
+    async deleteApiCall(url: any) {
+        try {
+            return await this.http
+                .delete(this.base_url + url, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                        Authorization: 'Basic ' + btoa(`${this.email}:${this.password}`),
+                    },
+                })
+                .toPromise();
+        } catch (error) {
+            console.error(error);
+            return error;
+        }
+
     }
 }

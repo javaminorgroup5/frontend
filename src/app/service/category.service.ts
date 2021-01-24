@@ -1,21 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import {BaseService} from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private baseService: BaseService) { }
 
   async getCategories(): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-    const endpoint = 'http://localhost:8080/category';
-    const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
-    };
-    return await this.http
-      .get<[]>(endpoint, { headers }).toPromise();
+    return this.baseService.getApiCall('/category');
   }
 }
