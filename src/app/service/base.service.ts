@@ -15,7 +15,7 @@ export class BaseService {
 
     constructor(private http: HttpClient) {}
 
-    async getApiCall(url: any) {
+    async getApiCall(url: string) {
         try {
             return await this.http
                 .get(this.base_url + url, {
@@ -32,7 +32,7 @@ export class BaseService {
 
     }
 
-    async deleteApiCall(url: any) {
+    async deleteApiCall(url: string) {
         try {
             return await this.http
                 .delete(this.base_url + url, {
