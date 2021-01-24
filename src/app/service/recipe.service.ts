@@ -14,15 +14,8 @@ export class RecipeService {
   constructor(private http: HttpClient, private baseService: BaseService) { }
 
   async addRecipe(id: number, recipe: FormData): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-    const endpoint = `http://localhost:8080/recipe/create/${id}`;
-    const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
-    };
-    return this.http
-      .post<Recipe>(endpoint, recipe, { headers })
-      .toPromise();
+    const endpoint = `/recipe/create/${id}`;
+    return this.baseService.postApiCall(endpoint, recipe)
   }
 
   async getAllRecipesByUserId(id: number, query: string): Promise<any> {
@@ -41,22 +34,10 @@ export class RecipeService {
   }
 
   async generateShareLink(recipeId: number): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
     const userId = sessionStorage.getItem('userId') || '';
+    const endpoint = `/recipe/${recipeId}/generate_share_link`;
+    return this.baseService.postApiCall(endpoint,{userId});
 
-    try {
-      return await this.http
-        .post(`http://localhost:8080/recipe/${recipeId}/generate_share_link`, { userId }, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        })
-        .toPromise<any>();
-    } catch (error) {
-      return error;
-    }
   }
 
   async getRecipeByShareLink(recipeId: number, shareLink: string): Promise<any> {
@@ -65,15 +46,8 @@ export class RecipeService {
   }
 
   async updateRecipe(recipeId: number, userId: number, recipe: FormData): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-    const endpoint = `http://localhost:8080/recipe/${recipeId}/user/${userId}`;
-    const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
-    };
-    return this.http
-      .put<any>(endpoint, recipe, { headers })
-      .toPromise();
+    const endpoint = `/recipe/${recipeId}/user/${userId}`;
+    return this.baseService.putApiCall(endpoint, recipe);
   }
 
   async getRecipe(recipeId: number, userId: number): Promise<any> {

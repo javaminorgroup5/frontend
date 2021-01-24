@@ -20,73 +20,34 @@ export class GroupService {
   }
 
   async generateGroupInvite(groupId: number): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
     const userId = sessionStorage.getItem('userId') || '';
+    const endpoint = `/group/${groupId}/generate_invite`;
 
-    try {
-      return await this.http
-        .post(`http://localhost:8080/group/${groupId}/generate_invite`, { userId }, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        })
-        .toPromise<any>();
-    } catch (error) {
-      return error;
-    }
+    return this.baseService.postApiCall(endpoint, { userId });
   }
 
   async joinGroup(groupId: number, inviteToken?: string): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
     const userId = sessionStorage.getItem('userId') || '';
+    const endpoint = `/group/${groupId}/join`;
 
-    return await this.http
-      .post(`http://localhost:8080/group/${groupId}/join`,
-        {
-          inviteToken,
-          userId: parseInt(userId, undefined),
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        })
-      .toPromise();
+    return this.baseService.postApiCall(endpoint, {
+      inviteToken,
+      userId: parseInt(userId, undefined),
+    });
   }
 
   async enrollInGroup(groupId: number): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
     const userId = sessionStorage.getItem('userId') || '';
+    const endpoint = `/group/${groupId}/enroll`;
 
-    return await this.http
-    .post(`http://localhost:8080/group/${groupId}/enroll`,
-        {
-         userId
-        },
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        })
-      .toPromise();
+    return this.baseService.postApiCall(endpoint, {
+      userId
+    });
   }
 
   async create(id: number, group: FormData): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-    const endpoint = `http://localhost:8080/group/create/${id}`;
-    const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
-    };
-    return await this.http
-      .post(endpoint, group, { headers })
-      .toPromise();
+    const endpoint = `/group/create/${id}`;
+    return this.baseService.postApiCall(endpoint, group);
   }
 
   async getGroup(groupId: number): Promise<Group> {
@@ -94,20 +55,13 @@ export class GroupService {
   }
 
   async updateGroup(groupId: number, userId: number, group: FormData): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-    const endpoint = `http://localhost:8080/group/${groupId}/user/${userId}`;
-    const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
-    };
-    return this.http
-        .put<any>(endpoint, group, { headers })
-        .subscribe(response => {
-          console.log(response);
-        });
+    const endpoint = `/group/${groupId}/user/${userId}`;
+
+    return this.baseService.putApiCall(endpoint, group);
   }
 
   async getEnrolledGroupsForUser(userId: number): Promise<any> {
     return this.baseService.getApiCall(`/users/${userId}/enrolled`);
   }
+
 }

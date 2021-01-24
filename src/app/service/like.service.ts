@@ -17,14 +17,7 @@ export class LikeService {
   }
 
   async toggleLike(like: Like): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-    const endpoint = `http://localhost:8080/likes/message`;
-    const headers = {
-      Authorization: 'Basic ' + btoa(`${email}:${password}`)
-    };
-    return this.http
-        .post<Recipe>(endpoint, like, { headers })
-        .toPromise();
+    const endpoint = `/likes/message`;
+    return this.baseService.postApiCall(endpoint, like);
   }
 }

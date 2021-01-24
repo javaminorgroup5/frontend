@@ -14,14 +14,7 @@ export class ProfileService {
   }
 
   async updateProfile(id: number, profile: FormData): Promise<any> {
-      const email = sessionStorage.getItem('email');
-      const password = sessionStorage.getItem('password');
-      const endpoint = `http://localhost:8080/users/${id}/profile`;
-      const headers = {
-          Authorization: 'Basic ' + btoa(`${email}:${password}`)
-      };
-      return await this.http
-          .put(endpoint, profile, { headers } )
-          .toPromise();
+      const endpoint = `/users/${id}/profile`;
+      return this.baseService.putApiCall(endpoint, profile);
   }
 }
