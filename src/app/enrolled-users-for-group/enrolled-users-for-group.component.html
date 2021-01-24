@@ -1,2 +1,4 @@
-<b>Leden van deze groep:</b>
-<p>{{enrolled_users}}</p>
+<div>
+<h2>Leden van deze groep:</h2>
+<span *ngFor="let enrolled_user of enrolled_users; let isLast=last">{{enrolled_user}}{{isLast ? '' : ', '}}<br></span>
+</div>

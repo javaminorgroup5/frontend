@@ -16,22 +16,26 @@
         <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'PRIVATE'">Gesloten</span>
       </div>
 
-      <div>
+      <div *ngIf="isEnrolled; else alreadyEnrolledMessage">
         <button
-        *ngIf="!group.profiles?.includes(userId)"
+        *ngIf="!group.profiles?.includes(userId);"
         type="button"
         class="btn btn-primary"
-        (click)="enrollInGroup(group.id)">
+        (click)="enrollInGroup(group.id);">
         Inschrijven
       </button>
       </div>
+
+      <ng-template #alreadyEnrolledMessage>
+        <button class="btn btn-success">Ingeschreven</button>
+      </ng-template>
 
       <div *ngIf="group.profiles?.includes(userId)">
         <span class="badge badge-pill badge-info">Lid</span>
       </div>
     </div>
     <p class="mb-1">{{ group.description }}</p>
-    <button class="btn btn-link" (click)="groupDetail(group.id)"><small>Klik om naar de groepspagina te
+    <button class="btn btn-link" (click)="groupDetail(group.id);"><small>Klik om naar de groepspagina te
         gaan</small></button>
   </div>
 </div>
