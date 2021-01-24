@@ -46,14 +46,14 @@ export class FeedInviteComponent implements OnInit {
     if (!confirm('Weet je zeker dat je een invite wilt versturen?')) {
       return;
     }
-    console.log(this.groupId);
+
     if (this.groupId) {
       this.groupService.sendGeneratedGroupInviteToFeed(this.groupId, value.userId).then(({ token }) => {
         this.alert = {
           type: 'success',
           message: `Uitnodigingslink gegenereerd: http://localhost:4200/group/${this.groupId}?inviteToken=${token}`,
         };
-      }).then(r => console.log(r));
+      });
     }
   }
 

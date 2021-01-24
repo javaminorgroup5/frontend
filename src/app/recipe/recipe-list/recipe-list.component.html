@@ -1,13 +1,15 @@
 <div class="recipes container-md p-0">
-  <button type="button" class="btn btn-primary mb-4" (click)="handleEditing()">
+  <button type="button" class="btn btn-primary btn-lg btn-block mb-4" (click)="handleEditing()">
     Recept toevoegen
   </button>
   <form id="queryForm" [formGroup]="queryForm" enctype="multipart/form-data" (ngSubmit)="onSubmit(queryForm.value)">
-      <div class="input-box spacing-bottom">
-        <label for="query">Zoek op receptnaam</label>
+    <div class="input-box spacing-bottom">
+      <label for="query">Zoek op receptnaam</label>
+      <div class="searchBar">
         <input class="form-control" id="query" name="query" type="text" formControlName="query">
         <button class="btn btn-primary" type="submit">Zoek</button>
       </div>
+    </div>
   </form>
   <div *ngFor="let recipe of recipes" class="recipe-list">
     <mat-card class="mat-elevation-z2 mb-4">
