@@ -9,9 +9,10 @@ import { ProfileService } from '../service/profile.service';
 export class MeComponent implements OnInit {
   profile: any;
   editing = false;
+  isAdmin = false;
 
   constructor(
-    private profileService: ProfileService,
+    private profileService: ProfileService
   ) { }
 
   ngOnInit(): void {
@@ -21,6 +22,9 @@ export class MeComponent implements OnInit {
         const imageByte = value.image.picByte;
         this.profile = value;
         this.profile.image.picByte = 'data:image/jpeg;base64,' + imageByte;
+        if (value.userRole === 'ADMIN') {
+          this.isAdmin = true;
+        }
       });
     }
   }

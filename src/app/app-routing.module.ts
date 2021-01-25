@@ -11,6 +11,7 @@ import { GroupListComponent } from './group/group-list/group-list.component';
 import { GroupDetailComponent } from './group/group-detail/group-detail.component';
 import { RecipeViewComponent } from './recipe/recipe-view/recipe-view.component';
 import { HomeComponent } from './home/home.component';
+import {AdminViewComponent} from './admin/admin-view/admin-view.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -24,6 +25,7 @@ const routes: Routes = [
   { path: 'recipe/list', component: RecipeListComponent },
   { path: 'update', component: UpdateProfileComponent },
   { path: 'recipe/:recipeId', component: RecipeViewComponent },
+  { path: 'admin', component: AdminViewComponent },
   { path: 'recipe/:recipeId/share', component: RecipeViewComponent }
 ];
 

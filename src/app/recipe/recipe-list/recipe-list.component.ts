@@ -35,7 +35,6 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      // TODO hierdoor komen recepten twee keer in de lijst
       this.recipes = [];
       this.loadUserRecipes(this.queryForm?.value.query);
       this.loadRecipesByGroup(this.queryForm?.value.query);
