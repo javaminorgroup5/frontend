@@ -38,9 +38,4 @@ export class GroupListComponent implements OnInit {
     alert("Ingeschreven!")
   }
 
-  alreadyEnrolled(i: number) { 
-
-   console.log(i);
-    
-  }
 }
