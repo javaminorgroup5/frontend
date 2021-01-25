@@ -18,7 +18,7 @@
       <p>{{ group.description }}</p>
     </mat-card-content>
     <mat-card-actions class="actions">
-      <button mat-button color="primary" (click)="groupDetail(group.id)">Bekijk groep</button>
+      <button mat-button color="primary" *ngIf="group.profiles?.includes(userId) || group.groupPrivacy === 'OPEN'" (click)="groupDetail(group.id)">Bekijk groep</button>
       <button mat-button type="button" *ngIf="!group.profiles?.includes(userId)" color="primary"
         (click)="enrollInGroup(group.id)">Inschrijven</button>
     </mat-card-actions>
