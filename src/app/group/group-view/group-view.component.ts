@@ -3,7 +3,7 @@ import { GroupService} from '../../service/group.service';
 import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonService } from '../../service/common.service';
-import { Group } from '../group-list/group-list.component';
+import { Group } from '../../model/group';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { GroupCategory, GroupPrivacy } from '../../model/group';
 import { CategoryService } from 'src/app/service/category.service';
@@ -70,9 +70,13 @@ export class GroupComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categoryService.getCategories().then((result) => {
-      this.categories = result;
-    })
+    this.categoryService.getCategories().then((categories) => {
+      categories.forEach( (category: GroupCategory) => {
+        if (category.active) {
+          this.categories.push(category);
+        }
+      });
+    });
     this.userId = sessionStorage.getItem('userId') || '';
     if (this.group && this.userId && this.groupId > 0) {
       this.loadGroup(this.groupId);

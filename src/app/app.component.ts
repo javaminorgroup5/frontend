@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import { Router } from '@angular/router';
+import {ProfileService} from './service/profile.service';
 
 @Component({
   selector: 'app-root',
@@ -9,15 +10,25 @@ import { Router } from '@angular/router';
 export class AppComponent implements OnInit {
   title = 'cookclub-frontend';
 
-  constructor(private router: Router) {
+  constructor(private router: Router,
+              private profileService: ProfileService) {
 
   }
 
   loggedIn = false;
+  isAdmin = false;
 
   ngOnInit(): void {
     if (sessionStorage.getItem('userId') && sessionStorage.getItem('userId') !== ''){
       this.loggedIn = true;
+    }
+    const userId = sessionStorage.getItem('userId');
+    if (userId) {
+      this.profileService.getProfile(parseInt(userId, 0)).then((value) => {
+        if (value.userRole === 'ADMIN') {
+          this.isAdmin = true;
+        }
+      });
     }
   }
 

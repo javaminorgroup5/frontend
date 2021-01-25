@@ -1,0 +1,33 @@
+<div class="modal-header">
+    <h2 class="modal-title" id="modal-basic-title">Categorie</h2>
+    <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<div id="group">
+    <div class="jumbotron">
+        <h1 *ngIf="!editMode" class="display-4">Categorie aanmaken</h1>
+        <h1 *ngIf="editMode" class="display-4">Categorie aanpassen</h1>
+        <form id="categoryCreate-form" [formGroup]="categoryForm" (ngSubmit)="createCategory(categoryForm.value)" enctype="multipart/form-data">
+            <div class="mb-4">
+                <label *ngIf="!editMode" for="name">Benoem je categorie</label>
+                <label *ngIf="!editMode" for="name">Hernoem je categorie</label>
+                <input class="form-control" id="name" name="name" type="text" formControlName="name" />
+                <div *ngIf="categoryNameAlert" class="alert alert-danger">
+                    Naam is verplicht.
+                </div>
+            </div>
+            <div class="mb-4">
+                <label for="active">Actief</label>
+                <select class="custom-select" id="active" name="active" formControlName="active">
+                    <option [ngValue]="null" selected>Choose...</option>
+                    <option [ngValue]="1">Actief</option>
+                    <option [ngValue]="2">Uitgeschakeld</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" type="submit">Opslaan</button>
+            </div>
+        </form>
+    </div>
+</div>
