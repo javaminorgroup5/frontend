@@ -7,7 +7,7 @@ import { Injectable } from '@angular/core';
 export class BaseService {
 
     // the base url.
-    base_url: String = "http://localhost:8080";
+    baseUrl = 'http://localhost:8080';
 
     email = sessionStorage.getItem('email');
     password = sessionStorage.getItem('password');
@@ -19,7 +19,7 @@ export class BaseService {
     async getApiCall(endpoint: string): Promise<any> {
         try {
             return await this.http
-                .get(this.base_url + endpoint, {
+                .get(this.baseUrl + endpoint, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: this.authorization,
@@ -35,7 +35,7 @@ export class BaseService {
     async deleteApiCall(endpoint: string): Promise<any> {
         try {
             return await this.http
-                .delete(this.base_url + endpoint, {
+                .delete(this.baseUrl + endpoint, {
                     headers: {
                         'Content-Type': 'application/json',
                         Authorization: this.authorization,
@@ -51,7 +51,7 @@ export class BaseService {
     async postApiCall(endpoint: string, body: any): Promise<any> {
         try {
             return await this.http.post(
-                this.base_url + endpoint,
+                this.baseUrl + endpoint,
                 body,
                 {
                     headers: {
@@ -68,7 +68,7 @@ export class BaseService {
     async putApiCall(endpoint: string, body: any): Promise<any> {
         try {
             return await this.http.put<any>(
-                this.base_url + endpoint,
+                this.baseUrl + endpoint,
                 body,
                 {
                     headers: {
