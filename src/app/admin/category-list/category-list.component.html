@@ -1,0 +1,18 @@
+<div class="list-group">
+    <div class="my-4">
+        <h1><b>Categorien</b></h1>
+        <a class="btn btn-primary btn-lg btn-block" (click)="openNewCategoryWindow()">Aanmaken Categorie</a>
+    </div>
+    <mat-card class="mat-elevation-z2 mb-4" *ngFor="let category of categories">
+        <mat-card-header>
+            <mat-card-title class="title">{{ category.categoryName }}</mat-card-title>
+            <div>
+                <span class="badge badge-info mb-4 mr-2" *ngIf="category.active === true">Actief</span>
+                <span class="badge badge-info mb-4 mr-2" *ngIf="category.active === false">Uitgeschakeld</span>
+            </div>
+        </mat-card-header>
+        <mat-card-actions class="actions">
+            <button mat-button color="primary" (click)="openNewCategoryWindow(category.id)">Bekijk categorie</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
