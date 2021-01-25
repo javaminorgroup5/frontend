@@ -7,8 +7,9 @@ export enum GroupPrivacy {
 }
 
 export interface GroupCategory {
-    id: number;
+    id?: number;
     categoryName: string;
+    active?: boolean;
 }
 
 export interface Group {

@@ -11,6 +11,7 @@
     <li class="right"><a href="#" (click)="logout()" *ngIf="loggedIn" >Uitloggen</a></li>
     <li class="right" *ngIf="loggedIn"><a href="/group-list">Groepen</a></li>
     <li class="right" *ngIf="loggedIn"><a href="/me">Profiel</a></li>
+    <li class="right" *ngIf="loggedIn && isAdmin"><a href="/admin">Admin</a></li>
 </ul>
 
 <router-outlet></router-outlet>
