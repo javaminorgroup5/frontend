@@ -2,3 +2,8 @@
   padding: 0;
   padding-bottom: 1rem;
 }
+
+.searchBar {
+  display: flex;
+  margin-bottom: 1rem;
+}

@@ -1,19 +1,17 @@
-<div class="list-group container-md p-0">
-  <div class="m-4">
-    <h4>Groepen</h4>
-    <a class="btn btn-primary" href="/group/create" role="button">Aanmaken Groep</a>
+<div class="list-group">
+  <div class="my-4">
+    <h1><b>Mijn recepten</b></h1>
+    <a class="btn btn-primary btn-lg btn-block" href="/group/create" role="button">Aanmaken Groep</a>
   </div>
-  <div class="list-group-item list-group-item-action" *ngFor="let group of groups">
-    <div class="d-flex w-100 justify-content-between">
 
-      <h5 class="mb-1">{{ group.groupName }}</h5>
-
+  <mat-card class="mat-elevation-z2 mb-4" *ngFor="let group of groups">
+    <mat-card-header>
+      <mat-card-title class="title">{{ group.groupName }}</mat-card-title>
       <div>
-        <h5 class="mb-1">{{ group.groupName }}</h5>
         <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'OPEN'">Open</span>
-        <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'INVITE'">Op
-          uitnodiging</span>
+        <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'INVITE'">Op uitnodiging</span>
         <span class="badge badge-info mb-4 mr-2" *ngIf="group.groupPrivacy === 'PRIVATE'">Gesloten</span>
+        <span class="badge badge-info mb-4 mr-2" *ngIf="group.profiles?.includes(userId)">Lid</span>
       </div>
 
       <div *ngIf="isEnrolled; else alreadyEnrolledMessage">
@@ -33,9 +31,20 @@
       <div *ngIf="group.profiles?.includes(userId)">
         <span class="badge badge-pill badge-info">Lid</span>
       </div>
-    </div>
+    <div>
     <p class="mb-1">{{ group.description }}</p>
     <button class="btn btn-link" (click)="groupDetail(group.id);"><small>Klik om naar de groepspagina te
         gaan</small></button>
-  </div>
-</div>
+    </div>
+<!-- </div>
+    </mat-card-header>
+    <mat-card-content class="content">
+      <p>{{ group.description }}</p>
+    </mat-card-content>
+    <mat-card-actions class="actions">
+      <button mat-button color="primary" (click)="groupDetail(group.id)">Bekijk groep</button>
+      <button mat-button type="button" *ngIf="!group.profiles?.includes(userId)" color="primary"
+        (click)="enrollInGroup(group.id)">Inschrijven</button>
+    </mat-card-actions>
+  </mat-card>
+</div> -->
