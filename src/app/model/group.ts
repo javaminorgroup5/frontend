@@ -21,4 +21,5 @@ export interface Group {
     description: string;
     profiles: any[];
     image: Image;
+    isEnrolled: boolean;
 }

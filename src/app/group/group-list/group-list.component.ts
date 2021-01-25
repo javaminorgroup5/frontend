@@ -12,10 +12,13 @@ export {Group} from '../../model/group';
 export class GroupListComponent implements OnInit {
   groups: Group[] = [];
   userId: string;
+  group: Group | undefined
+  isEnrolled: Boolean[] = [];
 
   constructor(private groupService: GroupService,
               private router: Router) {
     this.userId = '';
+    
   }
 
   ngOnInit(): void {
@@ -31,5 +34,7 @@ export class GroupListComponent implements OnInit {
 
   enrollInGroup(id: number): void {
     this.groupService.enrollInGroup(id);
+    alert("Ingeschreven!")
   }
+
 }

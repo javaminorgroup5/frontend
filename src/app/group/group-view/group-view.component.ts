@@ -65,6 +65,7 @@ export class GroupComponent implements OnInit {
         type: '',
         picByte: ''
       },
+      isEnrolled: true
     };
 
   }
@@ -95,6 +96,7 @@ export class GroupComponent implements OnInit {
         profiles: result.profiles,
         userId: result.userId,
         image: result.image,
+        isEnrolled: true
       };
       this.group = group;
     }

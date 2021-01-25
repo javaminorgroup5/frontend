@@ -7,7 +7,7 @@ import { GroupService } from '../service/group.service';
   styleUrls: ['./group-enrollment.component.css']
 })
 export class GroupEnrollmentComponent implements OnInit {
-  group = '';
+  groups: [] = [];
 
   constructor(
     private groupService: GroupService,
@@ -18,7 +18,7 @@ export class GroupEnrollmentComponent implements OnInit {
     const userId = sessionStorage.getItem('userId');
     if (userId) {
       this.groupService.getEnrolledGroupsForUser(parseInt(userId, 0)).then((value) => {
-        this.group = value;
+        this.groups = value;
       });
     }
   }

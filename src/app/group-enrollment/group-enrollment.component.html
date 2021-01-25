@@ -1,1 +1,4 @@
-<p>{{group}}</p>
+<div>
+    <h2>U bent lid van de volgende groepen:</h2>
+    <span *ngFor="let group of groups; let isLast=last">{{group}}{{isLast ? '' : ', '}}<br></span>
+    </div>

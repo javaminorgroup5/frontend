@@ -48,7 +48,9 @@ export class GroupDetailComponent implements OnInit {
             type: value.image.type,
             name: value.image.name,
             picByte: 'data:image/jpeg;base64,' + value.image?.picByte
-          }
+          },
+          isEnrolled: true
+
         };
         this.route.queryParamMap.subscribe(queryParams => {
           const inviteToken = queryParams.get('inviteToken');
