@@ -20,6 +20,7 @@ export class RecipeListComponent implements OnInit {
 
     recipes: Recipe[] = [];
     recipeId = -1;
+    groupId = -1;
     queryForm: FormGroup;
 
   constructor(
@@ -35,7 +36,6 @@ export class RecipeListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-      // TODO hierdoor komen recepten twee keer in de lijst
       this.recipes = [];
       this.loadUserRecipes(this.queryForm?.value.query);
       this.loadRecipesByGroup(this.queryForm?.value.query);
@@ -53,28 +53,28 @@ export class RecipeListComponent implements OnInit {
   }
 
   async loadRecipesByGroup(query = ''): Promise<any>  {
-      // TODO check wie hier meer bezig is
-    const groupId = '1';
-    const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(parseInt(groupId, 0), query);
+      if (this.groupId > 0) {
+          const result: Recipe[] = await this.recipeService.getAllRecipesByGroupId(this.groupId, query);
 
-    if (result) {
-      for (const r of result) {
-        const recipe =
-            {
-              id: r.id,
-              recipe: r.recipe,
-              description: r.description,
-              title: r.title,
-              image:
-                  {
-                    type: r.image?.type,
-                    name: r.image?.name,
-                    picByte: 'data:image/jpeg;base64,' + r.image?.picByte
-                  }
-            };
-        this.recipes.push(recipe);
+          if (result) {
+              for (const r of result) {
+                  const recipe =
+                      {
+                          id: r.id,
+                          recipe: r.recipe,
+                          description: r.description,
+                          title: r.title,
+                          image:
+                              {
+                                  type: r.image?.type,
+                                  name: r.image?.name,
+                                  picByte: 'data:image/jpeg;base64,' + r.image?.picByte
+                              }
+                      };
+                  this.recipes.push(recipe);
+              }
+          }
       }
-    }
   }
 
   async loadUserRecipes(query = ''): Promise<any>  {

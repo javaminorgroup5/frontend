@@ -1,23 +1,16 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {BaseService} from "./base.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private baseService: BaseService) { }
 
   async getAllUsers(): Promise<any> {
-    const email = sessionStorage.getItem('email');
-    const password = sessionStorage.getItem('password');
-
-    return await this.http
-        .get<[]>(`http://localhost:8080/users`, {
-          headers: {
-            'Content-Type': 'application/json',
-            Authorization: 'Basic ' + btoa(`${email}:${password}`),
-          },
-        }).toPromise();
+    const endpoint = `/users`;
+    return this.baseService.getApiCall(endpoint);
   }
 }
