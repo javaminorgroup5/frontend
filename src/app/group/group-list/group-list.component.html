@@ -4,7 +4,7 @@
     <a class="btn btn-primary btn-lg btn-block" href="/group/create" role="button">Aanmaken Groep</a>
   </div>
 
-  <mat-card class="mat-elevation-z2 mb-4" *ngFor="let group of groups">
+  <mat-card class="mat-elevation-z2 mb-4" *ngFor="let group of groups; let i = index">
     <mat-card-header>
       <mat-card-title class="title">{{ group.groupName }}</mat-card-title>
       <div>
@@ -14,12 +14,13 @@
         <span class="badge badge-info mb-4 mr-2" *ngIf="group.profiles?.includes(userId)">Lid</span>
       </div>
 
-      <div *ngIf="isEnrolled; else alreadyEnrolledMessage">
+      <div *ngIf="isEnrolled; else alreadyEnrolledMessage;" [hidden]="isEnrolled[i]">
         <button
         *ngIf="!group.profiles?.includes(userId);"
         type="button"
         class="btn btn-primary"
-        (click)="enrollInGroup(group.id);">
+        (click)="enrollInGroup(group.id); isEnrolled[i] = !isEnrolled[i]"
+        >
         Inschrijven
       </button>
       </div>
