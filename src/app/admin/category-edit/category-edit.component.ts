@@ -62,10 +62,12 @@ export class CategoryEditComponent implements OnInit {
       this.categoryService.editCategory( { categoryName: value.name, active: this.active } , this.categoryId).then(r => {
        console.log(r);
      });
+      window.location.reload();
       return;
     }
     this.categoryService.addCategory({categoryName: value.name}).then(r => {
       console.log(r);
     });
+    window.location.reload();
   }
 }
