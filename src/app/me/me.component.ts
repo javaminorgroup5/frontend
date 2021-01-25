@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProfileService } from '../profile.service';
+import { ProfileService } from '../service/profile.service';
 
 @Component({
   selector: 'app-me',
@@ -8,24 +8,28 @@ import { ProfileService } from '../profile.service';
 })
 export class MeComponent implements OnInit {
   profile: any;
-  editting = false;
+  editing = false;
+  isAdmin = false;
 
   constructor(
-      private profileService: ProfileService,
-  ) {}
+    private profileService: ProfileService
+  ) { }
 
   ngOnInit(): void {
     const userId = sessionStorage.getItem('userId');
     if (userId) {
       this.profileService.getProfile(parseInt(userId, 0)).then((value) => {
-        const imageByte = value.profileImage.picByte;
+        const imageByte = value.image.picByte;
         this.profile = value;
-        this.profile.profileImage.picByte = 'data:image/jpeg;base64,' + imageByte;
+        this.profile.image.picByte = 'data:image/jpeg;base64,' + imageByte;
+        if (value.userRole === 'ADMIN') {
+          this.isAdmin = true;
+        }
       });
     }
   }
 
-  enableEditting(): void {
-    this.editting = true;
+  enableEditing(): void {
+    this.editing = true;
   }
 }

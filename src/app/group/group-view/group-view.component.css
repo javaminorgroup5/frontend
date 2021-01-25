@@ -1,0 +1,33 @@
+#login {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #0652DD;
+}
+
+#login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-box {
+  display: flex;
+  flex-direction: column;
+}
+
+.spacing-bottom {
+  margin-bottom: 1rem;
+}
+
+.preview {
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  padding: 5px;
+  margin-top: 20px;
+  max-height: 400px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+

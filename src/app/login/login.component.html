@@ -7,12 +7,24 @@
       <div class="input-box spacing-bottom">
         <label for="email">Email</label>
         <input class="form-control" id="email" name="email" type="email" formControlName="email" />
+        <div *ngIf="emailAlert" class="alert alert-danger">
+          Email is verplicht.
+        </div>
+        <div *ngIf="invalidEmail" class="alert alert-danger">
+          Onjuiste indeling e-mailadres.
+        </div>
       </div>
       <div class="input-box spacing-bottom">
         <label for="password">Password</label>
         <input class="form-control" id="password" name="password" type="password" formControlName="password" />
+        <div *ngIf="passwordAlert" class="alert alert-danger">
+          Password is verplicht.
+        </div>
       </div>
       <button class="btn btn-primary" type="submit">Login</button>
+      <div *ngIf="error" class="alert alert-danger">
+        {{error}}
+      </div>
       <button type="button" class="btn btn-link mt-2"><a href="/register">of klik hier om te registreren</a></button>
     </form>
   </div>

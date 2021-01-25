@@ -1,26 +1,9 @@
 .recipes {
+  padding: 0;
+  padding-bottom: 1rem;
+}
+
+.searchBar {
   display: flex;
-  flex-direction: column;
-}
-
-.recipe-list {
-  display: flex;
-}
-
-.content { 
-    padding: 16px; 
-}
-  
-.content > mat-card { 
-  width: 100px;
-}
-
-.recipeCard {
-  max-width: 300px;
-}
-  
-.image {
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
+  margin-bottom: 1rem;
 }

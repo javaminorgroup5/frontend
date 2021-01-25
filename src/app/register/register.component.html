@@ -7,14 +7,26 @@
       <div class="input-box spacing-bottom">
         <label for="email">Email</label>
         <input class="form-control" id="email" name="email" type="email" formControlName="email" />
+        <div *ngIf="emailAlert" class="alert alert-danger">
+          Email is verplicht.
+        </div>
+        <div *ngIf="invalidEmail" class="alert alert-danger">
+          Onjuiste indeling e-mailadres.
+        </div>
       </div>
       <div class="input-box spacing-bottom">
         <label for="password">Password</label>
         <input class="form-control" id="password" name="password" type="password" formControlName="password" />
+        <div *ngIf="passwordAlert" class="alert alert-danger">
+          Password is verplicht.
+        </div>
       </div>
       <div class="input-box spacing-bottom">
-        <label for="profileName">Profile name</label>
+        <label for="profileName">Profiel naam</label>
         <input class="form-control" id="profileName" name="profileName" type="text" formControlName="profileName" />
+        <div *ngIf="profileNameAlert" class="alert alert-danger">
+          Profiel naam is verplicht.
+        </div>
       </div>
       <div class="custom-file">
         <div class="container row">
@@ -26,9 +38,12 @@
       </div>
       <button class="btn btn-primary" type="submit">Registreren</button>
       <button type="button" class="btn btn-link mt-2"><a href="/login">of klik hier om in te loggen</a></button>
+      <div *ngIf="imageAlert" class="alert alert-danger">
+        Afbeelding is verplicht.
+      </div>
       <!-- Image Preview -->
       <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
-        <img [src]="imageURL" [alt]="">
+        <img [src]="imageURL" class="preview" [alt]="">
       </div>
     </form>
   </div>

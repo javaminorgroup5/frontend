@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
-import { RecipeService } from '../service/recipe.service';
-import { Recipe } from '../model/recipe';
+import { RecipeService } from '../../service/recipe.service';
+import { Recipe } from '../../model/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CommonService } from 'src/app/common.service';
+import { CommonService } from 'src/app/service/common.service';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
 interface FormData {
   recipe: string;
   description: string;
   title: string;
+  groupId: string;
 }
 
 @Component({
@@ -21,26 +23,40 @@ export class RecipeDetailsComponent implements OnInit {
   imageURL = '';
   selectedFile: any;
   recipeForm;
-  recieiId = -1;
+  recipeId = -1;
   recipe: Recipe;
+  recipeAlert = false;
+  titleAlert = false;
+  descriptionAlert = false;
+  imageAlert = false;
+  groupIdAlert = false;
+  disableSelect = false;
+
+  typeFieldGroupId = 'number';
+
+  groupId = -1;
 
   constructor(
-    private recipeService: RecipeService,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private commonService: CommonService
+      private recipeService: RecipeService,
+      private formBuilder: FormBuilder,
+      private router: Router,
+      private activatedRoute: ActivatedRoute,
+      private commonService: CommonService,
+      public activeModal: NgbActiveModal,
   ) {
+    this.recipe = {
+      recipe: '',
+      description: '',
+      title: '',
+      groupId: '',
+    };
     this.recipeForm = this.formBuilder.group({
       recipe: '',
       description: '',
-      title: ''
+      title: '',
+      groupId: ''
     });
-    this.recipe = {
-        recipe: '',
-        description: '',
-        title: ''
-     };
+    this.activeModal = activeModal;
   }
 
   public onFileChanged(event: any): void {
@@ -54,17 +70,25 @@ export class RecipeDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const id = this.activatedRoute.snapshot.paramMap.get('id');
-    const userId = sessionStorage.getItem('userId');
-    if (id && userId) {
-      this.recieiId = this.commonService.NumberConverter(id);
-      this.loadRecipe(this.recieiId);
-      console.log(this.recipe);
+    if (this.recipeId > 0) {
+      this.loadRecipe(this.recipeId);
     }
+
+    if (this.groupId && this.groupId !== -1) {
+      this.recipeForm = this.formBuilder.group({
+        recipe: '',
+        description: '',
+        title: '',
+        groupId: this.groupId,
+      });
+      this.disableSelect = true;
+
+      this.typeFieldGroupId = 'hidden';
+    }
+
   }
 
-
-  async loadRecipe(recipeiId: number, ): Promise<any>  {
+  async loadRecipe(recipeiId: number): Promise<any> {
     const userId = sessionStorage.getItem('userId');
     if (!userId) {
       console.log('user id not found');
@@ -72,48 +96,80 @@ export class RecipeDetailsComponent implements OnInit {
     }
     const result: Recipe = await this.recipeService.getRecipe(recipeiId, this.commonService.NumberConverter(userId));
     if (result) {
-        const recipe =
-        {
-          id: result.id,
-          recipe: result.recipe,
-          description: result.description,
-          title: result.title,
-          recipeImage:
-          {
-            type: result.recipeImage?.type,
-            name: result.recipeImage?.name,
-            picByte: 'data:image/jpeg;base64,' + result.recipeImage?.picByte
-          }
-        };
-        this.recipe = recipe;
+      this.recipeForm = this.formBuilder.group({
+        recipe: result.recipe,
+        description: result.description,
+        title: result.title,
+        groupId: result.groupId,
+      });
+      if (result.groupId !== '') {
+        this.disableSelect = true;
+        this.typeFieldGroupId = 'hidden';
       }
     }
+  }
+
+  checkRecipeValues(formData: FormData): boolean {
+    this.titleAlert = false;
+    this.descriptionAlert = false;
+    this.recipeAlert = false;
+    this.imageAlert = false;
+    this.groupIdAlert = false;
+
+    if (!formData.groupId) {
+      this.groupIdAlert = true;
+      return false;
+    }
+    if (!formData.title) {
+      this.titleAlert = true;
+      return false;
+    }
+    if (!formData.description) {
+      this.descriptionAlert = true;
+      return false;
+    }
+    if (!formData.recipe) {
+      this.recipeAlert = true;
+      return false;
+    }
+    if (!this.selectedFile) {
+      this.imageAlert = true;
+      return false;
+    }
+    return true;
+  }
 
   async onSubmit(formData: FormData): Promise<void> {
+
+    if (this.recipeId < 0 && !this.checkRecipeValues(formData)) {
+      return;
+    }
+
     try {
       const recipe: Recipe = {
         recipe: formData.recipe,
         description: formData.description,
-        title: formData.title
+        title: formData.title,
+        groupId: formData.groupId,
       };
-      console.log(recipe);
       const uploadImageData = new FormData();
-      uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
+      if (this.selectedFile) {
+        uploadImageData.append('file', this.selectedFile, this.selectedFile.name);
+      }
       const recipeObjectString = JSON.stringify(recipe);
-      const recipeBlob = new Blob([recipeObjectString], { type: 'application/json'});
+      const recipeBlob = new Blob([recipeObjectString], {type: 'application/json'});
       uploadImageData.append('recipe', recipeBlob);
       const userId = sessionStorage.getItem('userId');
       if (userId) {
-        let result = '';
+        let result: string;
         const id = parseInt(userId, 0);
-        if (this.recieiId >= 0) {
-          result = await this.recipeService.updateRecipe(this.recieiId, id, uploadImageData);
+        if (this.recipeId >= 0) {
+          result = await this.recipeService.updateRecipe(this.recipeId, id, uploadImageData);
         } else {
-          console.log('test');
           result = await this.recipeService.addRecipe(id, uploadImageData);
         }
         if (result) {
-          this.router.navigate(['recipe/list']);
+          location.reload();
         }
       }
     } catch (error) {

@@ -1,0 +1,19 @@
+.recipe-view {
+    background-color: #e9ecef;
+    padding: 0;
+}
+
+.image {
+    max-width: 100%;
+    height: auto;
+}
+
+.description {
+    margin-top: 20px;
+    text-align: justify;
+}
+
+.recipe {
+    margin-top: 20px;
+    text-align: justify;
+}

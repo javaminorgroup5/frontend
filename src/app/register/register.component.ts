@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth.service';
-import { User } from '../recipe/model/user';
+import { AuthService } from '../service/auth.service';
+import { User } from '../model/user';
+import {CommonService} from '../service/common.service';
 
 
 interface FormData {
@@ -20,11 +21,17 @@ export class RegisterComponent implements OnInit {
   selectedFile: any;
   registerForm;
   imageURL = '';
+  emailAlert = false;
+  passwordAlert = false;
+  profileNameAlert = false;
+  imageAlert = false;
+  invalidEmail = false;
 
   constructor(
     private authService: AuthService,
     private formBuilder: FormBuilder,
-    private router: Router
+    private router: Router,
+    private commonservice: CommonService
   ) {
     this.registerForm = this.formBuilder.group({
       email: '',
@@ -35,10 +42,46 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  checkUserValues(formData: FormData): boolean {
+    this.emailAlert = false;
+    this.passwordAlert = false;
+    this.profileNameAlert = false;
+    this.imageAlert = false;
+    this.invalidEmail = false;
+
+    if (!formData.email) {
+      this.emailAlert = true;
+      return false;
+    }
+
+    if (!this.commonservice.isValidaEmail(formData.email)) {
+      this.invalidEmail = true;
+      return false;
+    }
+
+    if (!formData.password) {
+      this.passwordAlert = true;
+      return false;
+    }
+    if (!formData.profileName) {
+      this.profileNameAlert = true;
+      return false;
+    }
+    if (!this.selectedFile) {
+      this.imageAlert = true;
+      return false;
+    }
+    return true;
+  }
+
   async onSubmit(formData: FormData): Promise<void> {
 
+    if (!this.checkUserValues(formData)) {
+      return;
+    }
+
     const user: User = {
-      username : formData.email,
+      email : formData.email,
       password : formData.password,
       role: 'COMMUNITY_MANAGER',
       profile: {
@@ -53,7 +96,8 @@ export class RegisterComponent implements OnInit {
     uploadImageData.append('user', userBlob);
     try {
       await this.authService.register(uploadImageData);
-      this.router.navigate(['login']);
+      alert(`U heeft zich geregistreerd, u kunt nu inloggen`);
+      await this.router.navigate(['login']);
     } catch (error) {
       console.error(error);
       }

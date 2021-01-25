@@ -1,0 +1,11 @@
+
+.image {
+  max-width: 50%;
+  margin-bottom: 1rem;
+}
+
+.feed {
+  /*margin-top: 100px;*/
+  display: inline;
+  margin: auto;
+}

@@ -1,18 +1,33 @@
 <div id="update-profile">
-    <div class="jumbotron col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-3 float-md-centercol-lg-6">
-        <h5 class="">Bewerk je profiel!</h5>
-        <hr class="my-4">
+    <div>
+        <hr class="mb-4">
+        <h3><b>Profiel bewerken</b></h3>
         <form id="update-profile-form" [formGroup]="updateProfileForm" (ngSubmit)="onSubmit(updateProfileForm.value)">
-            <div class="input-box spacing-bottom col-lg-4 ">
-                <label for="profileName">Profielnaam</label>
-                <input class="form-control" id="profileName" name="profileName" type="profileName" formControlName="profileName">
+            <div class="input-box spacing-bottom">
+                <div class="input-box spacing-bottom">
+                    <label for="profileName">Profielnaam</label>
+                    <input class="form-control" id="profileName" name="profileName" type="text"
+                        formControlName="profileName">
+                </div>
             </div>
-            <div class="input-box spacing-bottom col-lg-4 mt-4">
-                <label for="profilePicture">Profielfoto</label>
-                <input class="form-control" id="profilePicture" name="profilePicture" type="profilePicture" formControlName="profilePicture">
+            <div class="custom-file">
+                <label for="custom-file" class="mt-2">Profielafbeelding</label>
+                <div class="container row">
+                    <div class="custom-file">
+                        <input type="file" (change)="onFileChanged($event)" class="custom-file-input"
+                            id="customFileLangHTML">
+                        <label class="custom-file-label" for="customFileLangHTML" data-browse="Bestand kiezen">Voeg een
+                            afbeelding toe</label>
+                    </div>
+                </div>
             </div>
-            <div class="p-2">
-            <button class="btn btn-primary spacing-bottom ml-1 mt-4" type="submit">Update</button>
+            <div class="actions">
+                <button class="btn btn-link spacing-bottom ml-1 mt-4" type="button" (click)="cancelUpdate()">Annuleren</button>
+                <button class="btn btn-primary spacing-bottom ml-1 mt-4" type="submit">Update</button>
+            </div>
+            <!-- Image Preview -->
+            <div class="imagePreview" *ngIf="imageURL && imageURL !== ''">
+                <img [src]="imageURL" class="preview" [alt]="">
             </div>
         </form>
     </div>
