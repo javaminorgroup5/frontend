@@ -92,4 +92,4 @@ export class GroupService {
     })
     .toPromise();
   }
-
+}
