@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import { GroupService } from '../../service/group.service';
 import {Group} from '../../model/group';
 import {Router} from '@angular/router';
-import { Button } from 'protractor';
 export {Group} from '../../model/group';
 
 @Component({
@@ -38,9 +37,4 @@ export class GroupListComponent implements OnInit {
     alert("Ingeschreven!")
   }
 
-  alreadyEnrolled(i: number) { 
-
-   console.log(i);
-    
-  }
 }

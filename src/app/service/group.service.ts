@@ -79,4 +79,17 @@ export class GroupService {
     return this.baseService.getApiCall(endpoint);
   }
 
-}
+
+  async getEnrolledUsersForGroup(groupId: number): Promise<any> {
+    const email = sessionStorage.getItem('email');
+    const password = sessionStorage.getItem('password');
+    return await this.http
+    .get<any>(`http://localhost:8080/group/${groupId}/enrolled`, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Basic ' +btoa(`${email}:${password}`),
+      },
+    })
+    .toPromise();
+  }
+

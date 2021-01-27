@@ -25,9 +25,11 @@ import { GroupEnrollmentComponent } from './group-enrollment/group-enrollment.co
 import {RecipeListGroupComponent} from './recipe/recipe-list-group/recipe-list-group.component';
 import {FeedProfileComponent} from './feed-profile/feed-profile.component';
 import { FeedInviteComponent } from './group/feed-invite/feed-invite.component';
+import { EnrolledUsersForGroupComponent } from './enrolled-users-for-group/enrolled-users-for-group.component';
 import { AdminViewComponent } from './admin/admin-view/admin-view.component';
 import { CategoryListComponent } from './admin/category-list/category-list.component';
 import { CategoryEditComponent } from './admin/category-edit/category-edit.component';
+
 
 @NgModule({
   declarations: [AppComponent,
@@ -47,6 +49,7 @@ import { CategoryEditComponent } from './admin/category-edit/category-edit.compo
     GroupEnrollmentComponent,
     FeedProfileComponent,
     FeedInviteComponent,
+    EnrolledUsersForGroupComponent,
     AdminViewComponent,
     CategoryListComponent,
     CategoryEditComponent

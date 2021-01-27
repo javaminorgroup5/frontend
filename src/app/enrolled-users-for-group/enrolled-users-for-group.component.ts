@@ -23,7 +23,7 @@ export class EnrolledUsersForGroupComponent implements OnInit {
     this.groupService.getEnrolledUsersForGroup(parseInt(params.get('groupId') || '', undefined))
     .then((value) => {
       this.enrolled_users = value;
-      console.log(value);
+      
     })
   })
   
