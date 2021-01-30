@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { GroupService } from '../../service/group.service';
 import {Group} from '../../model/group';
 import {Router} from '@angular/router';
+import {CommonService} from '../../service/common.service';
 export {Group} from '../../model/group';
 
 @Component({
@@ -11,20 +12,29 @@ export {Group} from '../../model/group';
 })
 export class GroupListComponent implements OnInit {
   groups: Group[] = [];
-  userId: string;
-  group: Group | undefined
-  isEnrolled: Boolean[] = [];
+  userId: number;
+  group: Group | undefined;
+  isEnrolled: boolean[] = [];
 
   constructor(private groupService: GroupService,
-              private router: Router) {
-    this.userId = '';
-    
+              private router: Router,
+              private commonService: CommonService) {
+    this.userId = -1;
   }
 
   ngOnInit(): void {
-    this.userId = sessionStorage.getItem('userId') || '';
-    this.groupService.getGroups().then((value) => {
-      this.groups = value;
+    this.userId = this.commonService.NumberConverter(sessionStorage.getItem('userId'));
+    this.groupService.getGroups().then((groups) => {
+       for (const g of groups) {
+         this.groupService.getEnrolledUsersForGroup(g.id).then( (users) => {
+           if (users) {
+              for (const user of users) {
+                g.isEnrolled = user.id === this.userId;
+              }
+           }
+         });
+         this.groups.push(g);
+       }
     });
   }
 
@@ -33,8 +43,11 @@ export class GroupListComponent implements OnInit {
   }
 
   enrollInGroup(id: number): void {
+    if (!confirm('Weet je zeker dat je in deze groep wilt?')) {
+      return;
+    }
     this.groupService.enrollInGroup(id);
-    alert("Ingeschreven!")
+    window.location.reload();
   }
 
 }

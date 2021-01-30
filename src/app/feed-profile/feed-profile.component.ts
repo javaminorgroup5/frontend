@@ -37,4 +37,7 @@ export class FeedProfileComponent implements OnInit {
     return this.feedService.getFeedByUser(userId);
   }
 
+  recheckFeed(): any {
+    this.router.navigate([this.router.url]);
+  }
 }

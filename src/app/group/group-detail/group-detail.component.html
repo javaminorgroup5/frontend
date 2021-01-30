@@ -1,6 +1,11 @@
 <div class="container">
   <div class="row">
-    <div class="col">
+
+    <div class="col-3">
+      <app-enrolled-users-for-group></app-enrolled-users-for-group>
+    </div>
+
+    <div class="col-6">
       <div class="list-group container-md p-0">
         <div class="jumbotron" *ngIf="group && userId">
           <img class="image" mat-card-image [src]="group.image?.picByte" alt="" />
@@ -28,9 +33,10 @@
       </div>
       <app-recipe-list-group></app-recipe-list-group>
     </div>
-    <div class="col">
-      <app-enrolled-users-for-group></app-enrolled-users-for-group>
+
+    <div class="col-3">
       <app-feed></app-feed>
     </div>
+
   </div>
   </div>
