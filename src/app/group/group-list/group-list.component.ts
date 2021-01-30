@@ -43,7 +43,7 @@ export class GroupListComponent implements OnInit {
   }
 
   enrollInGroup(id: number): void {
-    if (!confirm('Weet je zeker dat je in deze groep wilt?')) {
+    if (!confirm('Weet je zeker dat je deze groep wilt betreden?')) {
       return;
     }
     this.groupService.enrollInGroup(id);
