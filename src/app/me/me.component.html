@@ -1,7 +1,11 @@
 <div class="container">
   <div class="row">
 
-    <div class="col">
+    <div class="col-3">
+      <app-group-enrollment></app-group-enrollment>
+    </div>
+
+    <div class="col-6">
       <div class="list-group container-md p-0">
         <div *ngIf="profile" class="card">
           <div class="card-body">
@@ -22,17 +26,15 @@
           </div>
         </div>
       </div>
-
       <div class="list-group container-md p-0 recipe-list">
         <h3><b>Mijn recepten</b></h3>
         <app-recipe-list></app-recipe-list>
       </div>
-
     </div>
 
-    <div class="col">
-      <app-group-enrollment></app-group-enrollment>
+    <div class="col-3">
       <app-feed-profile></app-feed-profile>
     </div>
+
   </div>
 </div>

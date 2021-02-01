@@ -1,4 +1,12 @@
-<div>
-<h2>Leden van deze groep:</h2>
-<span *ngFor="let enrolled_user of enrolled_users; let isLast=last">{{enrolled_user}}{{isLast ? '' : ', '}}<br></span>
+<div class="group-list">
+    <div class="card text-black-50 mb-1">
+        <div class="card-body">
+            <h5 class="card-title">Leden van deze groep</h5>
+        </div>
+    </div>
+    <div class="card mb-1" *ngFor="let enrolledUser of enrolledUsers">
+        <div class="card-body">
+            <h5 class="text">{{enrolledUser.profile.profileName}}</h5>
+        </div>
+    </div>
 </div>

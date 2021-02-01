@@ -11,13 +11,13 @@
         <form id="categoryCreate-form" [formGroup]="categoryForm" (ngSubmit)="createCategory(categoryForm.value)" enctype="multipart/form-data">
             <div class="mb-4">
                 <label *ngIf="!editMode" for="name">Benoem je categorie</label>
-                <label *ngIf="!editMode" for="name">Hernoem je categorie</label>
+                <label *ngIf="editMode" for="name">Hernoem je categorie</label>
                 <input class="form-control" id="name" name="name" type="text" formControlName="name" />
                 <div *ngIf="categoryNameAlert" class="alert alert-danger">
                     Naam is verplicht.
                 </div>
             </div>
-            <div class="mb-4">
+            <div *ngIf="editMode" class="mb-4">
                 <label for="active">Actief</label>
                 <select class="custom-select" id="active" name="active" formControlName="active">
                     <option [ngValue]="null" selected>Choose...</option>

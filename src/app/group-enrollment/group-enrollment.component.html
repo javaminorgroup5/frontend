@@ -1,4 +1,12 @@
-<div>
-    <h2>U bent lid van de volgende groepen:</h2>
-    <span *ngFor="let group of groups; let isLast=last">{{group}}{{isLast ? '' : ', '}}<br></span>
+<div class="group-list">
+    <div class="card text-black-50 mb-1">
+        <div class="card-body">
+            <h5 class="card-title">U bent lid van de volgende groepen:</h5>
+        </div>
     </div>
+    <div class="card mb-1" *ngFor="let group of groups">
+        <div class="card-body">
+            <h5 class="text">{{group}}</h5>
+        </div>
+    </div>
+</div>

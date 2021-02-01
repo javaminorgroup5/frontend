@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { GroupService } from '../service/group.service';
+import {User} from '../model/user';
 
 @Component({
   selector: 'app-enrolled-users-for-group',
@@ -10,7 +11,7 @@ import { GroupService } from '../service/group.service';
 export class EnrolledUsersForGroupComponent implements OnInit {
   userId?: number;
   groupId = -1;
-  enrolled_users: [] = [];
+  enrolledUsers: User[] = [];
 
   constructor(
     private groupService: GroupService,
@@ -18,15 +19,11 @@ export class EnrolledUsersForGroupComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    
+
     this.route.paramMap.subscribe( params => {
     this.groupService.getEnrolledUsersForGroup(parseInt(params.get('groupId') || '', undefined))
     .then((value) => {
-      this.enrolled_users = value;
-      
-    })
-  })
-  
-  }
-
-}
+      this.enrolledUsers = value;
+    });
+    });
+  }}

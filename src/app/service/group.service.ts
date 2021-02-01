@@ -1,13 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Group } from '../model/group';
-import {BaseService} from "./base.service";
+import {BaseService} from './base.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class GroupService {
-  constructor(private http: HttpClient, private baseService: BaseService) { }
+  constructor(private http: HttpClient, private baseService: BaseService) {
+  }
 
   async getGroups(): Promise<any> {
     const endpoint = `/group`;
@@ -27,7 +28,7 @@ export class GroupService {
     const endpoint = `/group/${groupId}/generate_invite`;
 
     return this.baseService.postApiCall(endpoint, {
-        userId
+      userId
     });
   }
 
@@ -36,7 +37,7 @@ export class GroupService {
     const endpoint = `/group/${groupId}/generate_feed_invite/${invitedUserId}`;
 
     return this.baseService.postApiCall(endpoint, {
-        userId
+      userId
     });
   }
 
@@ -84,12 +85,13 @@ export class GroupService {
     const email = sessionStorage.getItem('email');
     const password = sessionStorage.getItem('password');
     return await this.http
-    .get<any>(`http://localhost:8080/group/${groupId}/enrolled`, {
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: 'Basic ' +btoa(`${email}:${password}`),
-      },
-    })
-    .toPromise();
+        .get<any>(`http://localhost:8080/group/${groupId}/enrolled`, {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: 'Basic ' + btoa(`${email}:${password}`),
+          },
+        })
+        .toPromise();
   }
 }
+
