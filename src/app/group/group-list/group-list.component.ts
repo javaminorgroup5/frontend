@@ -29,13 +29,17 @@ export class GroupListComponent implements OnInit {
          this.groupService.getEnrolledUsersForGroup(g.id).then( (users) => {
            if (users) {
               for (const user of users) {
-                g.isEnrolled = user.id === this.userId;
+                if (user.id === this.userId) {
+                  g.isEnrolled = true;
+                  break;
+                }
               }
            }
          });
          this.groups.push(g);
        }
     });
+    console.log('groups', this.groups);
   }
 
   async groupDetail(id: number): Promise<void> {
